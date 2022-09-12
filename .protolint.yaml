@@ -1,0 +1,36 @@
+# Lint directives.  Documentation:
+# https://github.com/yoheimuta/protolint/blob/master/_example/config/.protolint.yaml
+lint:
+  # Linter directories to walk.
+  directories:
+    exclude:
+      - codegen
+      - doc
+      - tests
+
+  rules:
+    # Use default rules
+    all_default: true
+ 
+    # - Proto files are not fully documented.
+    # - Many repeated messages are not properly pluralized
+    # - Enum fields are not properly prefixed with the enum name
+    # - Enum fields with 0 value are not suffixed UNSPECIFIED
+    # - Prepositions should be exluded from message and field names
+    remove:
+      - MESSAGES_HAVE_COMMENT
+      - SERVICES_HAVE_COMMENT
+      - RPCS_HAVE_COMMENT
+      - FIELDS_HAVE_COMMENT
+      - ENUMS_HAVE_COMMENT
+      - ENUM_FIELDS_HAVE_COMMENT
+      - REPEATED_FIELD_NAMES_PLURALIZED
+      - ENUM_FIELD_NAMES_PREFIX
+      - ENUM_FIELD_NAMES_ZERO_VALUE_END_WITH
+      - MESSAGE_NAMES_EXCLUDE_PREPOSITIONS
+      - FIELD_NAMES_EXCLUDE_PREPOSITIONS
+
+  # Linter rules option.
+  rules_option:
+    max_line_length:
+      max_chars: 120
