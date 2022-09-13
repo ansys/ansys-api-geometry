@@ -19,7 +19,7 @@ jobs:
       - name: Append date to version tags
         run: |
           PACKAGE_DATE=$(date +'%Y%m%d')
-          sed -i "1s/$/-$PACKAGE_DATE/" ansys/api/geometry/VERSION
+          sed -i "1s/.$/$PACKAGE_DATE/" ansys/api/geometry/VERSION
 
       - name: Set up Python
         uses: actions/setup-python@v4
