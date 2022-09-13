@@ -1,7 +1,7 @@
 ### ansys-api-geometry gRPC Interface Package
 
 This repository provides the auto-generated gRPC Python interface files and NuGet
-packages for Discovery/SpaceClaim.
+packages for the Ansys Geometry Service.
 
 
 #### Installation
