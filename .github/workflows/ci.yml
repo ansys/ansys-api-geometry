@@ -24,10 +24,12 @@ jobs:
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
 
-      - name: Run protolint
-        uses: plexsystems/protolint-action@v0.7.0
-        with:
-          configDirectory: .
+      # Uncomment once the proto files are stable enough on their side
+
+      # - name: Run protolint
+      #   uses: plexsystems/protolint-action@v0.7.0
+      #   with:
+      #     configDirectory: .
 
       - name: Install build requirements
         run: |
@@ -44,7 +46,7 @@ jobs:
         run: |
           mkdir tmp
           cd tmp
-          python -c "import ansys.api.geometry.v1; print('Successfully imported ansys.api.geometry.v1')"
+          python -c "import ansys.api.geometry.v0; print('Successfully imported ansys.api.geometry.v0')"
           python -c "from ansys.api.geometry import __version__; print(__version__)"
 
       - name: Upload packages
@@ -54,7 +56,8 @@ jobs:
           path: dist/
           retention-days: 7
 
-  Release:
+  release:
+    name: Release package
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
     needs: [build]
     runs-on: ubuntu-latest
