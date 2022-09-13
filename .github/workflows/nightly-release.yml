@@ -12,7 +12,6 @@ jobs:
   nightly-release:
     name: Nightly release package
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
-    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
