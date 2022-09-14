@@ -1,0 +1,28 @@
+// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.geometry.v0;
+option csharp_namespace = "Ansys.Api.Geometry.V0";
+
+import "ansys/api/geometry/v0/models.proto";
+service NamedSelections{
+    rpc GetNamedSelection(NamedSelectionIdentifier) returns(NamedSelection);
+
+    rpc CreateNamedSelection(CreateNamedSelectionRequest) returns(NamedSelection);
+
+    rpc GetAllNamedSelections(Empty) returns(GetAllNamedSelectionsResponse);
+    
+    rpc Delete(NamedSelectionIdentifier) returns(Empty);
+}
+
+message NamedSelectionIdentifier{
+    string id = 1;
+}
+
+message CreateNamedSelectionRequest{
+	repeated string members=1;
+	string name=2;
+}
+
+message GetAllNamedSelectionsResponse{
+    repeated NamedSelection named_selections = 1;
+}

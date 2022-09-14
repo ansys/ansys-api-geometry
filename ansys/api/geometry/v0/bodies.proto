@@ -1,0 +1,93 @@
+// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.geometry.v0;
+option csharp_namespace = "Ansys.Api.Geometry.V0";
+
+import "ansys/api/geometry/v0/models.proto";
+
+service Bodies
+{
+    rpc GetAllBodies(Empty) returns(GetAllBodiesResponse) ;
+
+    rpc GetBody(BodyIdentifier) returns(Body);
+
+    rpc GetAssignedMaterial(BodyIdentifier) returns(Material);
+
+    rpc SetAssignedMaterial(SetAssignedMaterialRequest) returns(SetAssignedMaterialResponse);
+
+    rpc Translate(TranslateRequest) returns(Empty);
+
+    rpc GetFaces(BodyIdentifier) returns (GetFacesResponse);
+    
+    rpc CreateBodyFromFace(CreateBodyFromFaceRequest) returns (Body);
+    
+    rpc CreateExtrudedBodyFromFaceProfile(CreateExtrudedBodyFromFaceProfileRequest) returns (Body);
+    
+    rpc Delete(BodyIdentifier) returns (Empty);
+
+    rpc CreatePlanarBody(CreatePlanarBodyRequest) returns (Body);
+      
+    rpc CreateExtrudedBody(CreateExtrudedBodyRequest) returns (Body);
+
+    rpc GetVolume(BodyIdentifier) returns(GetVolumeResponse);
+}
+
+message BodyIdentifier{
+    string id = 1;
+}
+
+message GetAllBodiesResponse{
+    repeated Body bodies = 1;
+}
+
+message SetAssignedMaterialRequest{
+    string id=1;
+    string material=2;
+}
+
+message SetAssignedMaterialResponse{
+    Material material=1;
+}
+
+message TranslateRequest{
+	string id=1;
+	Direction direction=2;
+	float distance=3;
+}
+
+message GetFacesResponse {
+	repeated Face faces=1;
+}
+
+message CreateBodyFromFaceRequest {
+	string name=1;
+	string parent=2;
+	string face=3;
+}
+
+message CreateExtrudedBodyFromFaceProfileRequest {
+	string name=1;
+	string parent=2;
+	string face=3;
+	double distance=4;
+}
+
+message CreatePlanarBodyRequest {
+	string name=1;
+	string parent=2;
+	Plane plane=3;
+	Geometries geometries=4;
+}
+
+message CreateExtrudedBodyRequest {
+	string name=1;
+	string parent=2;
+	Plane plane=3;
+	Geometries geometries=4;
+	double distance=5;
+}
+
+message GetVolumeResponse {
+	double volume=1;
+}
+
