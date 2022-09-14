@@ -1,0 +1,38 @@
+// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.geometry.v0;
+option csharp_namespace = "Ansys.Api.Geometry.V0";
+
+import "ansys/api/geometry/v0/models.proto";
+
+service Edges{
+    rpc GetEdge(EdgeIdentifier) returns(Edge);
+
+    rpc GetAllEdges(Empty) returns(GetAllEdgesResponse);
+
+    rpc GetEdgeFaces(EdgeIdentifier) returns(GetEdgeFacesResponse);
+
+    rpc IsEdgeDeleted(EdgeIdentifier) returns(IsEdgeDeletedResponse);
+
+    rpc GetEdgeLength(EdgeIdentifier) returns(GetEdgeLengthResponse);
+}
+
+message EdgeIdentifier{
+    string id = 1;
+}
+
+message GetAllEdgesResponse{
+    repeated Edge edges = 1;
+}
+
+message GetEdgeFacesResponse{
+    repeated Face faces=1;
+}
+
+message IsEdgeDeletedResponse{
+    bool deleted=1;
+}
+
+message GetEdgeLengthResponse{
+    double length=1;
+}

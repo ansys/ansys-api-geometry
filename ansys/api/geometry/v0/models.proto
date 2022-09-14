@@ -1,0 +1,152 @@
+// Copyright 2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.geometry.v0;
+option csharp_namespace = "Ansys.Api.Geometry.V0";
+
+
+message Body{
+  string id = 1;
+  string display_name = 2;
+}
+
+message Component{
+  string id = 1;
+  string display_name = 2 ;
+}
+
+message NamedSelection {
+  string id = 1;
+  string display_name = 2;
+}
+
+message CoordinateSystem{
+  string id = 1;
+  string display_name = 2;
+  Frame frame = 3;
+}
+
+message Face{
+  string id = 1;
+  SurfaceType surface_type = 2;
+}
+
+message Edge{
+  string id = 1;
+  CurveType curve_type = 2 ;
+}
+
+message Material{
+	string name=1;
+	repeated MaterialProperty materialProperties=2;
+}
+
+message MaterialProperty {
+	string id=1;
+	string displayName=2;
+	double value=3;
+	string units=4;
+}
+
+message Point {
+	double x = 1;
+	double y = 2;
+	double z = 3;
+}
+
+
+message Direction {
+	double x = 1;
+	double y = 2;
+	double z = 3;
+}
+
+
+message Frame {
+	Point origin = 1;
+	Direction dir_x = 2;
+	Direction dir_y = 3;
+}
+
+message Plane {
+	Frame frame = 1;
+}
+
+message Box {
+	Point min = 1;
+	Point max = 2;
+}
+
+message Line {
+	Point start=1;
+	Point end=2;
+}
+
+message Circle {
+	Point center=1;
+	double radius=2;
+}
+
+message Arc {
+	Point center=1;
+	Point start=2;
+	Point end=3;
+	Direction axis=4;
+}
+
+message Ellipse {
+	Point center=1;
+	double majorradius=2;
+	double minorradius=3;
+}
+
+message Polygon {
+	Point center=1;
+	double radius=2;
+	int32 numberofsides=3;
+}
+
+message Geometries {
+	repeated Point points = 1;
+	repeated Line lines = 2;
+	repeated Arc arcs = 3;
+	repeated Circle circles = 4;
+	repeated Ellipse ellipses = 5;
+	repeated Polygon polygons = 6;
+}
+
+enum CurveType {
+  CURVETYPE_UNKNOWN = 0;
+  CURVETYPE_LINE = 1;
+  CURVETYPE_CIRCLE = 2;
+  CURVETYPE_ELLIPSE = 3;
+  CURVETYPE_NURBS = 4;
+  CURVETYPE_PROCEDURAL = 5;
+}
+
+enum SurfaceType {
+  SURFACETYPE_UNKNOWN = 0;
+  SURFACETYPE_PLANE = 1;
+  SURFACETYPE_CYLINDER = 2;
+  SURFACETYPE_CONE = 3;
+  SURFACETYPE_TORUS = 4;
+  SURFACETYPE_SPHERE = 5;
+  SURFACETYPE_NURBS = 6;
+  SURFACETYPE_PROCEDURAL = 7;
+}
+
+message Loop {
+	string type=1;
+	double length=2;
+	Box boundingBox=3;
+	repeated string edges=4;
+}
+
+message Empty {
+}
+
+enum ShareType {
+	SHARETYPE_NONE=0;
+	SHARETYPE_SHARE=1;
+	SHARETYPE_MERGE=2;
+	SHARETYPE_GROUPS=3;
+}

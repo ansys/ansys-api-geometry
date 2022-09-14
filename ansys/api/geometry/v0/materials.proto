@@ -1,0 +1,26 @@
+// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.geometry.v0;
+option csharp_namespace = "Ansys.Api.Geometry.V0";
+
+import "ansys/api/geometry/v0/models.proto";
+
+service Materials{
+
+    rpc GetAllMaterialsNames(Empty) returns(GetAllMaterialsNamesResponse);
+
+    rpc AddMaterialToDocument(AddMaterialToDocumentRequest) returns (AddMaterialToDocumentResponse);
+}
+
+message AddMaterialToDocumentRequest {
+	Material material=1;
+}
+
+message AddMaterialToDocumentResponse {
+	string success=1;
+}
+
+message GetAllMaterialsNamesResponse{
+    repeated string materials=1;
+}
+

@@ -2,46 +2,45 @@
 syntax = "proto3";
 package ansys.api.geometry.v0;
 option csharp_namespace = "Ansys.Api.Geometry.V0";
-
+/*
 
 service Board{
   // Adds a material to the current document
-  rpc AddMaterialToDocument(AddMaterialToDocumentRequest) returns (AddMaterialToDocumentResponse);
-  rpc GetMaterialNames(Empty) returns (GetMaterialNamesResponse);
-  rpc GetAllComponents(Empty) returns (GetAllComponentsResponse);
-  rpc GetComponentBodies(GetComponentBodiesRequest) returns (GetComponentBodiesResponse);
-  rpc GetComponentName(GetComponentNameRequest) returns (GetComponentNameResponse);
-  rpc CreateNamedSelection(CreateNamedSelectionRequest) returns (Empty);
-  rpc SetBodyMaterialByName(SetBodyMaterialByNameRequest) returns (Empty);
-  rpc TranslateBody(TranslateBodyRequest) returns (Empty);
-  rpc GetRootComponent(Empty) returns (GetRootComponentResponse);
-  rpc GetBodyFaces(GetBodyFacesRequest) returns (GetBodyFacesResponse);
-  rpc GetFaceEdges(GetFaceEdgesRequest) returns (GetFaceEdgesResponse);
-  rpc GetFaceArea(GetFaceAreaRequest) returns (GetFaceAreaResponse);
-  rpc GetEdgeFaces(GetEdgeFacesRequest) returns (GetEdgeFacesResponse);
-  rpc GetEdgeLength(GetEdgeLengthRequest) returns (GetEdgeLengthResponse);
-  rpc GetFaceLoops(GetFaceLoopsRequest) returns (GetFaceLoopsResponse);
-  rpc GetFaceNormal(GetFaceNormalRequest) returns (GetFaceNormalResponse);
-  rpc EvaluateFace(EvaluateFaceRequest) returns (EvaluateFaceResponse);
-  rpc FaceHasInnerLoop(FaceHasInnerLoopRequest) returns (FaceHasInnerLoopResponse);
-  rpc CreateSurfaceDesignBodyFromFace(CreateSurfaceDesignBodyFromFaceRequest) returns (CreateSurfaceDesignBodyFromFaceResponse);
-  rpc CreateExtrudedDesignBodyFromFaceProfile(CreateExtrudedDesignBodyFromFaceProfileRequest) returns (CreateExtrudedDesignBodyFromFaceProfileResponse);
-  rpc DeleteDesignBody(DeleteDesignBodyRequest) returns (Empty);
-  rpc DeleteNamedSelectionByName(DeleteNamedSelectionByNameRequest) returns (Empty);
-  rpc DeleteComponent(DeleteComponentRequest) returns (Empty);
-  rpc ProjectCurves(ProjectCurvesRequest) returns (ProjectCurvesResponse);
-  rpc ImprintCurves(ImprintCurvesRequest) returns (ImprintCurvesResponse);
-  rpc CreateExtrudedDesignBody(CreateExtrudedDesignBodyRequest) returns (CreateExtrudedDesignBodyResponse);
-  rpc SetComponentSharedTopology(SetComponentSharedTopologyRequest) returns (Empty);
-  rpc CreateCoordinateSystem(CreateCoordinateSystemRequest) returns (CreateCoordinateSystemResponse);
-  rpc PowerSelectFacesByAreaRange(PowerSelectFacesByAreaRangeRequest) returns (PowerSelectFacesByAreaRangeResponse);
-  rpc CreatePlanarDesignBody(CreatePlanarDesignBodyRequest) returns (CreatePlanarDesignBodyResponse);
-  rpc New(Empty) returns(NewDocumentResponse);
-  rpc SaveAs(SaveAsDocumentRequest) returns(SaveAsDocumentResponse);
-  rpc CreateComponent(CreateComponentRequest) returns(CreateComponentResponse);
-  rpc CreateBeamCircularProfile(CreateBeamCircularProfileRequest) returns(CreateBeamCircularProfileResponse);
-  rpc CreateBeamBodyLine(CreateBeamBodyLineRequest) returns (CreateBeamBodyLineResponse);
-  rpc FillFaces(FillFacesRequest) returns (Empty);
+  //rpc AddMaterialToDocument(AddMaterialToDocumentRequest) returns (AddMaterialToDocumentResponse);
+  //rpc GetMaterialNames(Empty) returns (GetMaterialNamesResponse);
+  //rpc GetAllComponents(Empty) returns (GetAllComponentsResponse);
+  //rpc GetComponentBodies(GetComponentBodiesRequest) returns (GetComponentBodiesResponse);
+  //rpc GetComponentName(GetComponentNameRequest) returns (GetComponentNameResponse);
+  //rpc CreateNamedSelection(CreateNamedSelectionRequest) returns (Empty);
+  //rpc SetBodyMaterialByName(SetBodyMaterialByNameRequest) returns (Empty);
+  //rpc TranslateBody(TranslateBodyRequest) returns (Empty);
+  //rpc GetRootComponent(Empty) returns (GetRootComponentResponse);
+  //rpc GetBodyFaces(GetBodyFacesRequest) returns (GetBodyFacesResponse);
+  //rpc GetFaceEdges(GetFaceEdgesRequest) returns (GetFaceEdgesResponse);
+  //rpc GetFaceArea(GetFaceAreaRequest) returns (GetFaceAreaResponse);
+  //rpc GetEdgeFaces(GetEdgeFacesRequest) returns (GetEdgeFacesResponse);
+  //rpc GetEdgeLength(GetEdgeLengthRequest) returns (GetEdgeLengthResponse);
+  //rpc GetFaceLoops(GetFaceLoopsRequest) returns (GetFaceLoopsResponse);
+  //rpc GetFaceNormal(GetFaceNormalRequest) returns (GetFaceNormalResponse);
+  //rpc EvaluateFace(EvaluateFaceRequest) returns (EvaluateFaceResponse);
+  //rpc FaceHasInnerLoop(FaceHasInnerLoopRequest) returns (FaceHasInnerLoopResponse);
+  //rpc CreateSurfaceDesignBodyFromFace(CreateSurfaceDesignBodyFromFaceRequest) returns (CreateSurfaceDesignBodyFromFaceResponse);
+  //rpc CreateExtrudedDesignBodyFromFaceProfile(CreateExtrudedDesignBodyFromFaceProfileRequest) returns (CreateExtrudedDesignBodyFromFaceProfileResponse);
+  //rpc DeleteDesignBody(DeleteDesignBodyRequest) returns (Empty);
+  //rpc DeleteNamedSelectionByName(DeleteNamedSelectionByNameRequest) returns (Empty);
+  //rpc DeleteComponent(DeleteComponentRequest) returns (Empty);
+  //rpc ProjectCurves(ProjectCurvesRequest) returns (ProjectCurvesResponse);
+  //rpc ImprintCurves(ImprintCurvesRequest) returns (ImprintCurvesResponse);
+  //rpc CreateExtrudedDesignBody(CreateExtrudedDesignBodyRequest) returns (CreateExtrudedDesignBodyResponse);
+  //rpc SetComponentSharedTopology(SetComponentSharedTopologyRequest) returns (Empty);
+  //rpc CreateCoordinateSystem(CreateCoordinateSystemRequest) returns (CreateCoordinateSystemResponse);
+  //rpc PowerSelectFacesByAreaRange(PowerSelectFacesByAreaRangeRequest) returns (PowerSelectFacesByAreaRangeResponse);
+  //rpc CreatePlanarDesignBody(CreatePlanarDesignBodyRequest) returns (CreatePlanarDesignBodyResponse);
+  //rpc New(Empty) returns(NewDocumentResponse);
+  //rpc SaveAs(SaveAsDocumentRequest) returns(SaveAsDocumentResponse);
+  //rpc CreateComponent(CreateComponentRequest) returns(CreateComponentResponse);
+  //rpc CreateBeamCircularProfile(CreateBeamCircularProfileRequest) returns(CreateBeamCircularProfileResponse);
+  //rpc CreateBeamBodyLine(CreateBeamBodyLineRequest) returns (CreateBeamBodyLineResponse);
 }
 
 message AddMaterialToDocumentRequest {
@@ -71,27 +70,27 @@ message GetMaterialNamesResponse {
 }
 
 message GetRootPartResponse {
-	string moniker=1;
+	string id=1;
 }
 
 message GetAllComponentsRequest {
-	string moniker=1;
+	string id=1;
 }
 
 message GetAllComponentsResponse {
-	repeated string monikers=1;
+	repeated string ids=1;
 }
 
 message GetComponentBodiesRequest {
-	string moniker=1;
+	string id=1;
 }
 
 message GetComponentBodiesResponse {
-	repeated string monikers=1;
+	repeated string ids=1;
 }
 
 message GetComponentNameRequest {
-	string moniker=1;
+	string id=1;
 }
 
 message GetComponentNameResponse {
@@ -115,7 +114,7 @@ message TranslateBodyRequest {
 }
 
 message GetRootComponentResponse {
-	string moniker=1;
+	string id=1;
 }
 
 message GetBodyFacesRequest {
@@ -123,7 +122,7 @@ message GetBodyFacesRequest {
 }
 
 message GetBodyFacesResponse {
-	repeated string monikers=1;
+	repeated string ids=1;
 }
 
 message GetFaceEdgesRequest {
@@ -131,7 +130,7 @@ message GetFaceEdgesRequest {
 }
 
 message GetFaceEdgesResponse {
-	repeated string monikers=1;
+	repeated string ids=1;
 }
 
 message GetFaceAreaRequest {
@@ -147,7 +146,7 @@ message GetEdgeFacesRequest {
 }
 
 message GetEdgeFacesResponse {
-	repeated string monikers=1;
+	repeated string ids=1;
 }
 
 message GetEdgeLengthRequest {
@@ -208,7 +207,7 @@ message CreateSurfaceDesignBodyFromFaceRequest {
 }
 
 message CreateSurfaceDesignBodyFromFaceResponse {
-	string moniker=1;
+	string id=1;
 }
 
 message CreateExtrudedDesignBodyFromFaceProfileRequest {
@@ -219,7 +218,7 @@ message CreateExtrudedDesignBodyFromFaceProfileRequest {
 }
 
 message CreateExtrudedDesignBodyFromFaceProfileResponse {
-	string moniker=1;
+	string id=1;
 }
 
 message DeleteDesignBodyRequest {
@@ -264,7 +263,7 @@ message CreateExtrudedDesignBodyRequest {
 }
 
 message CreateExtrudedDesignBodyResponse {
-	string moniker=1;
+	string id=1;
 }
 
 message SetComponentSharedTopologyRequest {
@@ -286,7 +285,7 @@ message CreateCoordinateSystemRequest {
 }
 
 message CreateCoordinateSystemResponse {
-	string moniker=1;
+	string id=1;
 }
 
 message PowerSelectFacesByAreaRangeRequest {
@@ -307,11 +306,11 @@ message CreatePlanarDesignBodyRequest {
 }
 
 message CreatePlanarDesignBodyResponse {
-	string moniker=1;
+	string id=1;
 }
 
 message NewDocumentResponse{
-	string moniker = 1;
+	string id = 1;
 }
 
 message SaveAsDocumentRequest{
@@ -319,7 +318,7 @@ message SaveAsDocumentRequest{
 }
 
 message SaveAsDocumentResponse{
-	string moniker = 1;
+	string id = 1;
 }
 
 message CreateComponentRequest {
@@ -411,7 +410,7 @@ message CreateBeamCircularProfileRequest {
 }
 
 message CreateBeamCircularProfileResponse {
-	string moniker=1;
+	string id=1;
 }
 
 message CreateBeamBodyLineRequest {
@@ -420,9 +419,5 @@ message CreateBeamBodyLineRequest {
 }
 
 message CreateBeamBodyLineResponse {
-	string moniker=1;
-}
-
-message FillFacesRequest {
-	repeated string faces=1;
-}
+	string id=1;
+}*/
