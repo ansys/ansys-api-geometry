@@ -150,3 +150,17 @@ enum ShareType {
 	SHARETYPE_MERGE=2;
 	SHARETYPE_GROUPS=3;
 }
+
+enum MidSurfaceOffsetType {
+	MIDSURFACEOFFSETTYPE_MIDDLE=0;
+	MIDSURFACEOFFSETTYPE_TOP=1;
+	MIDSURFACEOFFSETTYPE_BOTTOM=2;
+	MIDSURFACEOFFSETTYPE_VARIABLE=3;
+	MIDSURFACEOFFSETTYPE_CUSTOM=4;
+}
+
+message Tessellation {
+	repeated double vertices = 1;
+	repeated int32 faces = 2;
+	int32 facecolor = 3;
+}
