@@ -21,6 +21,16 @@ service Commands{
   rpc FillFaces(FillFacesRequest) returns (Empty);
 
   rpc CreateDesignPoint(CreateDesignPointRequest) returns (CreateDesignPointResponse);
+
+  rpc CreateDesignCurvesFromProfile(CreateDesignCurvesFromProfileRequest) returns (CreateDesignCurvesFromProfileResponse);
+
+  rpc AssignMidSurfaceThickness(AssignMidSurfaceThicknessRequest) returns (Empty);
+
+  rpc AssignMidSurfaceOffsetType(AssignMidSurfaceOffsetTypeRequest) returns (Empty);
+
+  rpc DownloadFile(Empty) returns (DownloadFileResponse);
+
+  rpc DownloadFileStream(Empty) returns (stream DownloadFileStreamResponse);
 }
 
 message ProjectCurvesRequest {
@@ -42,6 +52,7 @@ message ImprintCurvesRequest {
 
 message ImprintCurvesResponse {
 	repeated Edge edges=1;
+	repeated Face faces=2;
 }
 
 message PowerSelectFacesByAreaRangeRequest {
@@ -89,4 +100,32 @@ message CreateDesignPointRequest {
 
 message CreateDesignPointResponse {
 	string id=1;
+}
+
+message CreateDesignCurvesFromProfileRequest {
+	Geometries geometries=1;
+	string parent=2;
+	Plane plane=3;
+}
+
+message CreateDesignCurvesFromProfileResponse {
+	repeated string designCurves=1;
+}
+
+message AssignMidSurfaceThicknessRequest {
+	repeated string bodiesOrFaces=1;
+	double thickness=2;
+}
+
+message AssignMidSurfaceOffsetTypeRequest {
+	repeated string bodiesOrFaces=1;
+	MidSurfaceOffsetType offsetType=2;
+}
+
+message DownloadFileResponse {
+	bytes data=1;
+}
+
+message DownloadFileStreamResponse {
+	bytes chunk=1;
 }

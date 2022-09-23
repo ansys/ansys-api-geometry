@@ -15,7 +15,7 @@ service NamedSelections{
 }
 
 message NamedSelectionIdentifier{
-    string id = 1;
+    string name = 1;
 }
 
 message CreateNamedSelectionRequest{
