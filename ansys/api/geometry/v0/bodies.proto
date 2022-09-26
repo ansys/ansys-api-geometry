@@ -18,7 +18,11 @@ service Bodies
     rpc Translate(TranslateRequest) returns(Empty);
 
     rpc GetFaces(BodyIdentifier) returns (GetFacesResponse);
-    
+
+    rpc GetEdges(BodyIdentifier) returns (GetEdgesResponse);
+
+	rpc GetName(BodyIdentifier) returns (GetNameResponse);
+
     rpc CreateBodyFromFace(CreateBodyFromFaceRequest) returns (Body);
     
     rpc CreateExtrudedBodyFromFaceProfile(CreateExtrudedBodyFromFaceProfileRequest) returns (Body);
@@ -30,6 +34,8 @@ service Bodies
     rpc CreateExtrudedBody(CreateExtrudedBodyRequest) returns (Body);
 
     rpc GetVolume(BodyIdentifier) returns(GetVolumeResponse);
+
+    rpc GetBodyTessellation(BodyIdentifier) returns(GetBodyTessellationResponse);
 }
 
 message BodyIdentifier{
@@ -50,7 +56,7 @@ message SetAssignedMaterialResponse{
 }
 
 message TranslateRequest{
-	string id=1;
+	repeated string bodies=1;
 	Direction direction=2;
 	float distance=3;
 }
@@ -91,3 +97,14 @@ message GetVolumeResponse {
 	double volume=1;
 }
 
+message GetBodyTessellationResponse{
+	map<string,Tessellation> face_tessellation=1;
+}
+
+message GetEdgesResponse {
+	repeated Edge edges=1;
+}
+
+message GetNameResponse {
+	string name=1;
+}
