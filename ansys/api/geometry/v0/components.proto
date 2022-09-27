@@ -8,6 +8,8 @@ import "ansys/api/geometry/v0/models.proto";
 service Components{
     rpc GetComponent(ComponentIdentifier) returns(Component);
 
+	rpc GetName(ComponentIdentifier) returns (GetComponentNameResponse);
+
     rpc GetAllComponents(Empty) returns (GetAllComponentsResponse);
 
     rpc GetComponentBodies(ComponentIdentifier) returns (GetComponentBodiesResponse);
@@ -45,4 +47,8 @@ message CreateComponentResponse {
 message SetComponentSharedTopologyRequest {
 	string component=1;
 	ShareType shareType=2;
+}
+
+message GetComponentNameResponse {
+	string display_name = 1;
 }
