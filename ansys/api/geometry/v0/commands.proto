@@ -15,12 +15,16 @@ service Commands{
   rpc CreateBeamCircularProfile(CreateBeamCircularProfileRequest) returns(CreateBeamCircularProfileResponse);
 
   rpc CreateBeamBodyLine(CreateBeamBodyLineRequest) returns (CreateBeamBodyLineResponse);
+  
+  rpc CreateBeamBodyLines(CreateBeamBodyLinesRequest) returns (CreateBeamBodyLinesResponse);
 
   rpc GetRootComponent(Empty) returns (GetRootComponentResponse);
 
   rpc FillFaces(FillFacesRequest) returns (Empty);
 
   rpc CreateDesignPoint(CreateDesignPointRequest) returns (CreateDesignPointResponse);
+
+  rpc CreateDesignPoints(CreateDesignPointsRequest) returns (CreateDesignPointsResponse);
 
   rpc CreateDesignCurvesFromProfile(CreateDesignCurvesFromProfileRequest) returns (CreateDesignCurvesFromProfileResponse);
 
@@ -85,6 +89,15 @@ message CreateBeamBodyLineResponse {
 	string id=1;
 }
 
+message CreateBeamBodyLinesRequest {
+	string profile=1;
+	repeated Line lines=2;
+}
+
+message CreateBeamBodyLinesResponse {
+	repeated string ids=1;
+}
+
 message GetRootComponentResponse{
     string id=1;
 }
@@ -100,6 +113,15 @@ message CreateDesignPointRequest {
 
 message CreateDesignPointResponse {
 	string id=1;
+}
+
+message CreateDesignPointsRequest {
+	repeated Point points = 1;
+	string parent=2;
+}
+
+message CreateDesignPointsResponse {
+	repeated string ids =1;
 }
 
 message CreateDesignCurvesFromProfileRequest {
