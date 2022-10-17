@@ -164,3 +164,8 @@ message Tessellation {
 	repeated int32 faces = 2;
 	int32 facecolor = 3;
 }
+
+enum PartExportFormat {
+	PARTEXPORTFORMAT_PARASOLID_TEXT=0;
+	PARTEXPORTFORMAT_PARASOLID_BINARY=1;
+}
