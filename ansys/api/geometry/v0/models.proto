@@ -97,12 +97,14 @@ message Ellipse {
 	Point center=1;
 	double majorradius=2;
 	double minorradius=3;
+	double angle=4;
 }
 
 message Polygon {
 	Point center=1;
 	double radius=2;
 	int32 numberofsides=3;
+	double angle=4;
 }
 
 message Geometries {
