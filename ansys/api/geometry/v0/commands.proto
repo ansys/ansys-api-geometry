@@ -35,6 +35,10 @@ service Commands{
   rpc DownloadFile(Empty) returns (DownloadFileResponse);
 
   rpc DownloadFileStream(Empty) returns (stream DownloadFileStreamResponse);
+
+  rpc CreateSphere(CreateSphereRequest) returns (CreateSphereResponse);
+
+  rpc CreateTorus(CreateTorusRequest) returns (CreateTorusResponse);
 }
 
 message ProjectCurvesRequest {
@@ -152,4 +156,27 @@ message DownloadFileResponse {
 
 message DownloadFileStreamResponse {
 	bytes chunk=1;
+}
+
+message CreateSphereRequest {
+	string name=1;
+	string parent=2;
+	Point point=3;
+	double radius=4;
+}
+
+message CreateSphereResponse {
+	string id=1;
+}
+
+message CreateTorusRequest {
+	string name=1;
+	string parent=2;
+	double major_radius=3;
+	double minor_radius=4;
+	Frame frame=5;
+}
+
+message CreateTorusResponse {
+	string id=1;
 }
