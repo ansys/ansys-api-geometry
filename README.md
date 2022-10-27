@@ -1,7 +1,7 @@
 ### ansys-api-geometry gRPC Interface Package
 
-This repository provides the auto-generated gRPC Python interface files and NuGet
-packages for the Ansys Geometry Service.
+This repository provides the auto-generated gRPC Python interface files for
+the Ansys Geometry Service.
 
 
 #### Installation
@@ -12,9 +12,6 @@ installed with:
 ```
 pip install ansys-api-geometry
 ```
-
-Otherwise, see the
-
 
 #### Build
 
@@ -29,12 +26,6 @@ This will create both the source distribution containing just the protofiles
 along with the wheel containing the protofiles and build Python interface
 files.
 
-Note that the interface files are identical regardless of the version of Python
-used to generate them, but the last pre-built wheel for ``grpcio~=1.47`` was
-Python 3.7, so to improve your build time, use Python 3.7 when building the
-wheel.
-
-
 #### Manual Deployment
 
 After building the packages, manually deploy them with:
@@ -45,7 +36,6 @@ twine upload dist/*
 ```
 
 Note that this is automatically done through CI/CD.
-
 
 #### Automatic Deployment
 
