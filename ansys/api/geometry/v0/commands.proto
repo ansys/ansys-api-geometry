@@ -39,6 +39,14 @@ service Commands{
   rpc CreateSphere(CreateSphereRequest) returns (CreateSphereResponse);
 
   rpc CreateTorus(CreateTorusRequest) returns (CreateTorusResponse);
+
+  rpc DeleteBeam(EntityIdentifier) returns (Empty);
+
+  rpc DeleteBeamProfile(EntityIdentifier) returns (Empty);
+}
+
+message EntityIdentifier {
+	string id = 1;
 }
 
 message ProjectCurvesRequest {
