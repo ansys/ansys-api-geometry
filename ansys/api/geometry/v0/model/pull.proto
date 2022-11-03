@@ -1,0 +1,78 @@
+// Copyright 2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.model;
+option csharp_namespace = "Ansys.Api.Discovery.V0.Model";
+
+import "ansys/api/discovery/v0/model/scope.proto";
+import "ansys/api/discovery/v0/model/occurrence_scope.proto";
+import "ansys/api/discovery/v0/model/objects.proto";
+
+
+message ProgressRequest {
+    // Flag to interrupt the operation or not.
+    bool interrupt = 1;
+}
+
+message ProgressResponse {
+    // The integer value within [0,100] indicating the current progress state.
+    int32 state = 1;
+
+    // Message associated with the progress.
+    string message=2;
+}
+
+//
+
+//
+// The request data sent for initializing a 'Pull' operation.
+//
+message InitializeRequest {
+    // The ID of the model to be used.
+    int64 model_id = 1;
+}
+
+message ScopeRequest {
+    ScopeQuery scope = 1;
+}
+message ScopeSummaryRequest {
+    ScopeQuery scope = 1;
+}
+message ObjectsRequest {
+    Scope scope = 1;
+}
+message OccurrenceScopeRequest {
+    ScopeQuery scope = 1;
+}
+message OccurrenceScopeSummaryRequest {
+    ScopeQuery scope = 1;
+}
+message FinalizeRequest {
+}
+
+message Request{
+    ProgressRequest progress=1;
+    oneof sub_step {
+            InitializeRequest initialize=2;
+            ScopeRequest scope=3;
+            ScopeSummaryRequest scope_summary=4;
+            OccurrenceScopeRequest occurrence_scope=5;
+            OccurrenceScopeSummaryRequest occurrence_scope_summary=6;
+            ObjectsRequest objects=7;
+            FinalizeRequest finalize=8;
+    }
+}
+message Result {
+    bool ok=1;
+    int64 status_code=2;
+    string message =3;
+}
+message Response{
+    Result result = 1;
+    oneof sub_step {
+        Scope scope=3;
+        ScopeSummary scope_summary=4;
+        OccurrenceScope occurrence_scope=5;
+        OccurrenceScopeSummary occurrence_scope_summary=6;
+        Objects objects=7;
+    }
+}

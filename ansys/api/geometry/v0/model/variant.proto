@@ -1,0 +1,31 @@
+// Copyright 2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.model;
+option csharp_namespace = "Ansys.Api.Discovery.V0.Model";
+
+import "ansys/api/discovery/v0/model/color.proto";
+
+//
+// The variant data.
+//
+message Variant {
+
+    // The variant data.
+    oneof data {
+
+        // The integer data
+        sint64 integer_data = 1;
+
+        // The floating point data
+        double floating_point_data = 2;
+
+        // The string data
+        string string_data = 3;
+
+        // The color data
+        Color color_data = 4;
+    }
+
+    // The units of the variant value(s).
+    string units = 5;
+}

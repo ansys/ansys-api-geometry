@@ -1,0 +1,13 @@
+// Copyright 2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.model;
+option csharp_namespace = "Ansys.Api.Discovery.V0.Model";
+
+//
+// The color data.
+//
+message Color {
+
+    // The RGBA color channels;
+    repeated uint32 values = 1 [packed=true];
+}

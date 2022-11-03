@@ -1,0 +1,18 @@
+// Copyright 2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.model;
+option csharp_namespace = "Ansys.Api.Discovery.V0.Model";
+
+import "ansys/api/discovery/v0/model/key.proto";
+import "ansys/api/discovery/v0/model/key_array.proto";
+
+// Sourced on Udo's FieldMesher and Prime protobufs. 
+
+message CartesianPoint {
+    // The key of the object.
+    Key key=1;
+    // The keys of the attributes associated to the entity.
+    KeyArray attribute_keys = 2;
+    // The 3-D coordinates of the point.
+    repeated double coords =3;
+}

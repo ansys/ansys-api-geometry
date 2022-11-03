@@ -1,0 +1,72 @@
+// Copyright 2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.model;
+option csharp_namespace = "Ansys.Api.Discovery.V0.Model";
+
+import "ansys/api/discovery/v0/model/types.proto";
+import "ansys/api/discovery/v0/model/key_array.proto";
+
+// Sourced on Udo's FieldMesher and Prime protobufs. 
+
+//
+// The data defining which scope to query.
+//
+message ScopeQuery {
+
+    // The list of object types to be queried.
+    repeated ObjectType object_types = 1 [packed=true];
+
+    // The list of entity types to be queried.
+    repeated EntityType entity_types = 2 [packed=true];
+
+    // The list of surface types to be queried.
+    repeated SurfaceType surface_types = 3 [packed=true];
+
+    // The list of curve types to be queried.
+    repeated CurveType curve_types = 4 [packed=true];
+
+    // The list of point types to be queried.
+    repeated PointType point_types = 5 [packed=true];
+}
+
+//
+// The data defining a scope summary.
+//
+message ScopeSummary {
+
+    // The keys per object type.
+    map<int32, int64> object_type_to_n_keys = 1;
+
+    // The keys per entity type.
+    map<int32, int64> entity_type_to_n_keys = 2;
+
+    // The keys per surface type.
+    map<int32, int64> surface_type_to_n_keys = 3;
+
+    // The keys per curve type.
+    map<int32, int64> curve_type_to_n_keys = 4;
+
+    // The keys per point type.
+    map<int32, int64> point_type_to_n_keys = 5;
+}
+
+//
+// The data defining a scope.
+//
+message Scope {
+
+    // The keys per object type.
+    map<int32,KeyArray> object_type_to_keys = 1;
+
+    // The keys per entity type.
+    map<int32, KeyArray> entity_type_to_keys = 2;
+
+    // The keys per surface type.
+    map<int32, KeyArray> surface_type_to_keys = 3;
+
+    // The keys per curve type.
+    map<int32, KeyArray> curve_type_to_keys = 4;
+
+    // The keys per point type.
+    map<int32, KeyArray> point_type_to_keys = 5;
+}

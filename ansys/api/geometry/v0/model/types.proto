@@ -1,0 +1,191 @@
+// Copyright 2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.model;
+option csharp_namespace = "Ansys.Api.Discovery.V0.Model";
+
+// Sourced on Udo's FieldMesher and Prime protobufs. 
+
+// The list of object types.
+enum ObjectType {
+    OT_UNDEFINED = 0;
+    OT_ENTITY = 1;
+    OT_ATTRIBUTE = 2;
+    OT_TRANSFORM = 3;
+}
+
+// The list of entity types.
+enum EntityType {
+    ET_UNDEFINED = 0;
+    // B-Rep
+    ET_POINT = 1;
+    ET_CURVE = 2;
+    ET_SURFACE = 3;
+    ET_VERTEX = 4;
+    ET_EDGE = 5;
+    ET_COEDGE = 6;
+    ET_LOOP = 7;
+    ET_FACE = 8;
+    ET_WIRE = 9;
+    ET_SHELL = 10;
+    ET_LUMP = 11;
+    ET_BODY = 12;
+    // Blocking
+    ET_BLOCK_VERTEX = 13;
+    ET_BLOCK_EDGE = 14;
+    ET_BLOCK_FACE = 15;
+    ET_BLOCK = 16;
+    // Mesh
+    ET_MESH_ZONE = 17;
+    ET_MESH_REGION = 18;
+    ET_MESH_OBJECT = 19;
+    // Assembly hierarchy
+    ET_COMPONENT = 20;
+    ET_ASSEMBLY_NODE = 21;
+    // Grouping
+    ET_GROUP = 22;
+}
+
+// The list of surface types.
+enum SurfaceType {
+    ST_UNDEFINED = 0;
+    ST_FACETED_SURFACE = 1;
+    ST_NURBS_SURFACE = 2;
+    ST_CONE_SURFACE = 3;
+    ST_PLANE_SURFACE = 4;
+    ST_SPHERE_SURFACE = 5;
+    ST_TORUS_SURFACE = 6;
+}
+
+// The list of curve types.
+enum CurveType {
+    CT_UNDEFINED = 0;
+    CT_FACETED_CURVE = 1;
+    CT_NURBS_CURVE = 2;
+    CT_ELLIPSE_CURVE = 3;
+    CT_LINE_CURVE = 4;
+}
+
+// The list of point types.
+enum PointType {
+    PT_UNDEFINED = 0;
+    PT_CARTESIAN_POINT = 1;
+}
+
+// The list of mesh entity shapes.
+enum MeshEntityShape {
+    MES_UNDEFINED = 0;
+    // MESH NODE
+    MES_NODE = 1;
+    // MESH ELEMENTS
+    MES_POINT = 2;
+    MES_LINE = 3;
+    MES_TRIANGLE = 4;
+    MES_QUADRILATERAL = 5;
+    MES_TETRAHEDRON = 6;
+    MES_PYRAMID = 7;
+    MES_PRISM = 8;
+    MES_HEXAHEDRON = 9;
+    // POLYGON
+    MES_POLYGON = 10;
+    // POLYHEDRON
+    MES_POLYHEDRON = 11;
+}
+
+// The list of mesh entity types.
+enum MeshEntityType {
+    MET_UNDEFINED = 0;
+    // mesh nodes
+    MET_NODE1D = 1;
+    MET_NODE2D = 2;
+    MET_NODE3D = 3;
+    MET_NODE4D = 4;
+    // mesh elements
+    MET_POINT1 = 5;
+    MET_LINE2 = 6;
+    MET_LINE3 = 7;
+    MET_TRIANGLE3 = 8;
+    MET_TRIANGLE6 = 9;
+    MET_QUADRILATERAL4 = 10;
+    MET_QUADRILATERAL8 = 11;
+    MET_TETRAHEDRON4 = 12;
+    MET_TETRAHEDRON10 = 13;
+    MET_PYRAMID5 = 14;
+    MET_PYRAMID13 = 15;
+    MET_PRISM6 = 16;
+    MET_PRISM15 = 17;
+    MET_HEXAHEDRON8 = 18;
+    MET_HEXAHEDRON20 = 19;
+    // polygons
+    MET_POLYGON3 = 20;
+    MET_POLYGON4 = 21;
+    MET_POLYGON5 = 22;
+    MET_POLYGON8 = 23;
+    MET_POLYGON16 = 24;
+    MET_POLYGON32 = 25;
+    MET_POLYGON64 = 26;
+    MET_POLYGON128 = 27;
+    MET_POLYGON256 = 28;
+    // polyhedra
+    MET_POLYHEDRON4 = 29;
+    MET_POLYHEDRON5 = 30;
+    MET_POLYHEDRON6 = 31;
+    MET_POLYHEDRON8 = 32;
+    MET_POLYHEDRON16 = 33;
+    MET_POLYHEDRON32 = 34;
+    MET_POLYHEDRON64 = 35;
+    MET_POLYHEDRON128 = 36;
+    MET_POLYHEDRON256 = 37;
+    MET_POLYHEDRON512 = 38;
+    MET_POLYHEDRON1024 = 39;
+}
+
+// The list of face categories.
+enum FaceCategory {
+    FC_UNDEFINED = 0;
+    FC_BOUNDARY = 1; // boundary face of a body
+    FC_BAFFLE = 2; // internal face with both sides inside the body
+    FC_SHEET = 3; // external face with both sides outside the body
+}
+
+// The list of loop categories.
+enum LoopCategory {
+    LC_UNDEFINED = 0;
+    LC_OUTER = 1; // outer loop of a face
+    LC_INNER = 2; // inner loop of a face enclosing a hole
+    LC_U_SPLIT = 3; // loop splitting a periodic surface (periodic in v) in the u-direction
+    LC_V_SPLIT = 4; // loop splitting a periodic surface (periodic in u) in the v-direction
+    LC_UV_SPLIT = 5; // loop splitting a periodic surface (periodic in u and v) in the u- and v-direction
+}
+
+// The list of relative orientations.
+enum RelativeOrientation {
+    RO_UNDEFINED = 0;
+    RO_SAME = 1;
+    RO_OPPOSITE = 2;
+};
+
+// The list of shape closeness types.
+enum ShapeClosenessType {
+    SCT_UNDEFINED = 0;
+    SCT_OPEN = 1;
+    SCT_CLOSED = 2;
+    SCT_PERIODIC = 3;
+};
+
+// The list of object granularity types.
+enum ObjectGranularityType {
+    OGT_UNDEFINED = 0;
+    OGT_MESH_OBJECT = 1;
+    OGT_MODEL = 2;
+    OGT_ASSEMBLY = 3;
+    OGT_PART = 4;
+    OGT_BODY = 5;
+};
+
+// The list of zone separation types.
+enum ZoneSeparationType {
+    ZST_UNDEFINED = 0;
+    ZST_BY_ENTITY = 0X01;
+    ZST_BY_PARENT = 0X02;
+    ZST_BY_GROUP = 0X04;
+};

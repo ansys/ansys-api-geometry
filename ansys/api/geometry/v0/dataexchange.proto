@@ -1,0 +1,16 @@
+// Copyright 2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0;
+option csharp_namespace = "Ansys.Api.Discovery.V0";
+
+// Pulling in Udo's protobufs.
+import "ansys/api/discovery/v0/model/pull.proto";
+
+//
+// DataInterop Service : This is an experimental endpoint
+//
+service DataExchange {
+
+    // DataInterop
+    rpc DataPull( stream model.Request) returns (stream model.Response);
+}

@@ -1,0 +1,31 @@
+// Copyright 2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.model;
+option csharp_namespace = "Ansys.Api.Discovery.V0.Model";
+
+import "ansys/api/discovery/v0/model/types.proto";
+import "ansys/api/discovery/v0/model/key.proto";
+import "ansys/api/discovery/v0/model/key_array.proto";
+import "ansys/api/discovery/v0/model/parameter_range.proto";
+
+// Sourced on Udo's FieldMesher and Prime protobufs. 
+message NURBSCurve{
+    // The key of the object.
+    Key key=1;
+    // The keys of the attributes associated to the entity.
+    KeyArray attribute_keys = 2;
+    // The parameter range.
+    ParameterRange range_u=3;
+    // The closeness type of the curve.
+   ShapeClosenessType shape_closeness_type=4;
+    // The degree of the spline curve.
+    int32 degree=5;
+    // The flag wether the NURBS curve is rational (i.e. has weights) or not.
+    bool is_rational = 6;
+    // The number of control points.
+     int32 n_control_points=7;
+    // The (weighted) control points (3-D points if not rational, otherwise 4-D points).
+    repeated double control_points = 8 [packed=true];
+    // The knot vector.
+    repeated double knots = 9 [packed=true];
+}

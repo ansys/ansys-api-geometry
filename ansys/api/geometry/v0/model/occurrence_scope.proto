@@ -1,0 +1,50 @@
+// Copyright 2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.model;
+option csharp_namespace = "Ansys.Api.Discovery.V0.Model";
+
+import "ansys/api/discovery/v0/model/occurrence_array.proto";
+
+// Sourced on Udo's FieldMesher and Prime protobufs. 
+
+//
+// The data defining an occurrence scope summary.
+//
+message OccurrenceScopeSummary {
+
+    // The occurrences per object type.
+    map<int32, int64> object_type_to_n_occurrences = 1;
+
+    // The occurrences per entity type.
+    map<int32, int64> entity_type_to_n_occurrences = 2;
+
+    // The occurrences per surface type.
+    map<int32, int64> surface_type_to_n_occurrences = 3;
+
+    // The occurrences per curve type.
+    map<int32, int64> curve_type_to_n_occurrences = 4;
+
+    // The occurrences per point type.
+    map<int32, int64> point_type_to_n_occurrences = 5;
+}
+
+//
+// The data defining an occurrence scope.
+//
+message OccurrenceScope {
+
+    // The occurrences per object type.
+    map<int32, OccurrenceArray> object_type_to_occurrences = 1;
+
+    // The occurrences per entity type.
+    map<int32, OccurrenceArray> entity_type_to_occurrences = 2;
+
+    // The occurrences per surface type.
+    map<int32, OccurrenceArray> surface_type_to_occurrences = 3;
+
+    // The occurrences per curve type.
+    map<int32, OccurrenceArray> curve_type_to_occurrences = 4;
+
+    // The occurrences per point type.
+    map<int32, OccurrenceArray> point_type_to_occurrences = 5;
+}

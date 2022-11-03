@@ -1,190 +1,226 @@
-// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// Copyright 2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.geometry.v0;
-option csharp_namespace = "Ansys.Api.Geometry.V0";
+package ansys.api.discovery.v0;
+option csharp_namespace = "Ansys.Api.Discovery.V0";
 
-import "ansys/api/geometry/v0/models.proto";
+import "ansys/api/discovery/v0/models.proto";
 
-service Commands{
-  rpc ProjectCurves(ProjectCurvesRequest) returns (ProjectCurvesResponse);
+import "google/protobuf/empty.proto";
 
-  rpc ImprintCurves(ImprintCurvesRequest) returns (ImprintCurvesResponse);
+//
+// Commands Service : This is an experimental endpoint
+//
+service Commands {
+    // Create a planar design body. 
+    rpc CreatePlanarBody(CreatePlanarBodyRequest) returns(CreatePlanarBodyResponse);
 
-  rpc PowerSelectFacesByAreaRange(PowerSelectFacesByAreaRangeRequest) returns (PowerSelectFacesByAreaRangeResponse);
+    // Create a design body from an extruded profile
+    rpc CreateExtrudedBody(CreateExtrudedBodyRequest) returns(CreateExtrudedBodyResponse);
 
-  rpc CreateBeamCircularProfile(CreateBeamCircularProfileRequest) returns(CreateBeamCircularProfileResponse);
+    // Intersect design bodies
+    rpc IntersectBodies(IntersectBodiesRequest) returns(IntersectBodiesResponse);
 
-  rpc CreateBeamBodyLine(CreateBeamBodyLineRequest) returns (CreateBeamBodyLineResponse);
-  
-  rpc CreateBeamBodyLines(CreateBeamBodyLinesRequest) returns (CreateBeamBodyLinesResponse);
+    // Subtract modeler bodies
+    rpc SubtractBodies(SubtractBodiesRequest) returns(SubtractBodiesResponse);
 
-  rpc GetRootComponent(Empty) returns (GetRootComponentResponse);
+    // Unite design bodies
+    rpc UniteBodies(UniteBodiesRequest) returns(UniteBodiesResponse);
 
-  rpc FillFaces(FillFacesRequest) returns (Empty);
+    // Create a component. 
+    rpc CreateComponent(CreateComponentRequest) returns(CreateComponentResponse);
 
-  rpc CreateDesignPoint(CreateDesignPointRequest) returns (CreateDesignPointResponse);
+    // Extrude Faces.
+    rpc ExtrudeFaces(ExtrudeFacesRequest) returns(ExtrudeFacesResponse);
 
-  rpc CreateDesignPoints(CreateDesignPointsRequest) returns (CreateDesignPointsResponse);
+    // Revolve Faces.
+    rpc RevolveFaces(RevolveFacesRequest) returns(RevolveFacesResponse);
 
-  rpc CreateDesignCurvesFromProfile(CreateDesignCurvesFromProfileRequest) returns (CreateDesignCurvesFromProfileResponse);
+    // Create Puck
+    rpc CreatePuck(CreatePuckRequest) returns(CreatePuckResponse);
 
-  rpc AssignMidSurfaceThickness(AssignMidSurfaceThicknessRequest) returns (Empty);
+    // Perf testing
+    rpc CreatePoint( CreatePointRequest ) returns ( Point );
+    rpc PointDistance( PointDistanceRequest ) returns ( PointDistanceResponse );
 
-  rpc AssignMidSurfaceOffsetType(AssignMidSurfaceOffsetTypeRequest) returns (Empty);
-
-  rpc DownloadFile(Empty) returns (DownloadFileResponse);
-
-  rpc DownloadFileStream(Empty) returns (stream DownloadFileStreamResponse);
-
-  rpc CreateSphere(CreateSphereRequest) returns (CreateSphereResponse);
-
-  rpc CreateTorus(CreateTorusRequest) returns (CreateTorusResponse);
-
-  rpc DeleteBeam(EntityIdentifier) returns (Empty);
-
-  rpc DeleteBeamProfile(EntityIdentifier) returns (Empty);
+    rpc GetParameters( GetParametersRequest) returns ( GetParametersResponse );
+    rpc GenerateVariations( GenerateVariationsRequest) returns (GenerateVariationsResponse );
+    rpc Undo( UndoRequest ) returns (google.protobuf.Empty);
+    rpc Redo( RedoRequest ) returns (google.protobuf.Empty);
+}
+message UndoRequest{
+    int32 nsteps=1;
+}
+message RedoRequest{
+    int32 nsteps=1;
+}
+message GetParametersRequest{
+}
+message GetParametersResponse{
+    Parameters parameters=1;
+}
+message Parameters {
+    map<string,double> entries=1;
+}
+message GenerateVariationsRequest{
+    map<string,Parameters> variations=1;
+}
+message GenerateVariationsResponse{
+    map<string,string> urls = 1;
+}
+message CreatePlanarBodyRequest{
+    // Plane to create body.
+     Plane plane = 1;
+     // Collection of geometries that make up a profile
+     Geometries profile = 2;
+     //
+     bool allow_nonmanifold=3;
+     //
+     bool merge_topology=4;
+     //
+     bool remove_inner_regions=5;
+     // Parent part for body
+     string parent=6;
+}
+message CreatePlanarBodyResponse{
+    // Created body.
+    string created_body = 1;
+}
+message CreateComponentRequest{
+    // Display name given to component
+    string display_name = 1;
+    // Parent Part
+    string parent=2;
+    // Template Part (If empty, will be generated)
+    string template=3;
+    }
+message CreateComponentResponse{
+    // Created component.
+    string component = 1;
+    // Template Part
+    string template=2;
+}
+message CreateExtrudedBodyRequest{
+    // Plane 
+     Plane plane = 1;
+     // Profile
+     Geometries profile = 2;
+     // Distance to extrude
+     double distance=3;
+     // Parent part for body
+     string parent=4;
+}
+message CreateExtrudedBodyResponse{
+    // Id of created body.
+    string created_body = 1;
 }
 
-message EntityIdentifier {
-	string id = 1;
+
+enum OffsetMode
+{
+    OFFSETMODE_IGNORE_RELATIONSHIPS= 0;
+    OFFSETMODE_MOVE_FACES_TOGETHER = 1;
+    OFFSETMODE_MOVE_FACES_APART = 2;
+}
+enum ExtrudeType
+{
+    EXTRUDETYPE_NONE = 0;
+    EXTRUDETYPE_ADD = 1;
+    EXTRUDETYPE_CUT = 2;
+    EXTRUDETYPE_FORCE_ADD = 3;
+    EXTRUDETYPE_FORCE_CUT = 4;
+    EXTRUDETYPE_FORCE_INDEPENDENT = 5;
+    EXTRUDETYPE_FORCE_NEW_SURFACE = 6;
+}
+message ExtrudeFaceOptions {
+    //
+    bool pull_symmetric=1;
+    OffsetMode offset_mode = 2;
+    bool copy = 3;
+    bool force_do_as_extrude=4;
+    ExtrudeType extrude_type=5;
 }
 
-message ProjectCurvesRequest {
-	string body=1;
-	Geometries curves=2;
-	Direction direction=3;
-	bool closestFace=4;
+message ExtrudeFacesRequest{
+    // Faces to extrude
+     repeated string design_faces = 1;
+     // Distance to extrude
+     double distance=2;
+     // Options that control the extrusion behavior
+     ExtrudeFaceOptions options=3;
+}
+message ExtrudeFacesResponse{
+    // Created design bodies.
+    repeated string created_design_bodies = 1;
+    // Modified design bodies.
+    repeated string modified_design_bodies = 2 ;
+}
+message RevolveFaceOptions {
+    //
+    bool pull_symmetric=1;
+    bool copy = 3;
+    ExtrudeType extrude_type=5;
 }
 
-message ProjectCurvesResponse {
-	repeated Face faces=1;
+message RevolveFacesRequest{
+    // Faces to revolve
+     repeated string design_faces = 1;
+     // Axis
+     Line axis=2;
+     // Angle 
+     float angle=3;
+     // Options that control the revolve behavior
+     RevolveFaceOptions options=4;
+}
+message RevolveFacesResponse{
+    // Created design bodies.
+    repeated string created_design_bodies = 1;
+    // Modified design bodies.
+    repeated string modified_design_bodies = 2 ;
 }
 
-message ImprintCurvesRequest {
-	string body=1;
-	Geometries curves=2;
-	repeated string faces=3;
+message CreatePuckRequest{
+	// Radius
+	double radius=1;
+}
+message CreatePuckResponse{
+	// Created design body.
+	string design_body = 1;
 }
 
-message ImprintCurvesResponse {
-	repeated Edge edges=1;
-	repeated Face faces=2;
+message IntersectBodiesRequest{
+    // target
+    repeated string target_bodies=1;
+    // tool 
+    repeated string tool_bodies=2;
+}
+message IntersectBodiesResponse{
+}
+message UniteBodiesRequest{
+    // target
+    repeated string target_bodies=1;
+    // tool 
+    repeated string tool_bodies=2;
+}
+message UniteBodiesResponse{
+}
+message SubtractBodiesRequest{
+    // target
+    repeated string target_bodies=1;
+    // tool 
+    repeated string tool_bodies=2;
+}
+message SubtractBodiesResponse{
 }
 
-message PowerSelectFacesByAreaRangeRequest {
-	string body=1;
-	double area1=2;
-	double area2=3;
+message CreatePointRequest{
+    double x=1;
+    double y=2;
+    double z=3;
 }
-
-message PowerSelectFacesByAreaRangeResponse {
-	repeated Face faces=1;
+message PointDistanceRequest{
+    Point p1=1;
+    Point p2=2;
 }
-
-message CreateBeamCircularProfileRequest {
-	Plane plane=1;
-	double radius=2;
-	Point origin=3;
-	string name=4;
-}
-
-message CreateBeamCircularProfileResponse {
-	string id=1;
-}
-
-message CreateBeamBodyLineRequest {
-	string profile=1;
-	Line line=2;
-	string parent=3;
-}
-
-message CreateBeamBodyLineResponse {
-	string id=1;
-}
-
-message CreateBeamBodyLinesRequest {
-	string profile=1;
-	repeated Line lines=2;
-	string parent=3;
-}
-
-message CreateBeamBodyLinesResponse {
-	repeated string ids=1;
-}
-
-message GetRootComponentResponse{
-    string id=1;
-}
-
-message FillFacesRequest {
-	repeated Face faces=1;
-}
-
-message CreateDesignPointRequest {
-	Point point=1;
-	string parent=2;
-}
-
-message CreateDesignPointResponse {
-	string id=1;
-}
-
-message CreateDesignPointsRequest {
-	repeated Point points = 1;
-	string parent=2;
-}
-
-message CreateDesignPointsResponse {
-	repeated string ids =1;
-}
-
-message CreateDesignCurvesFromProfileRequest {
-	Geometries geometries=1;
-	string parent=2;
-	Plane plane=3;
-}
-
-message CreateDesignCurvesFromProfileResponse {
-	repeated string designCurves=1;
-}
-
-message AssignMidSurfaceThicknessRequest {
-	repeated string bodiesOrFaces=1;
-	double thickness=2;
-}
-
-message AssignMidSurfaceOffsetTypeRequest {
-	repeated string bodiesOrFaces=1;
-	MidSurfaceOffsetType offsetType=2;
-}
-
-message DownloadFileResponse {
-	bytes data=1;
-}
-
-message DownloadFileStreamResponse {
-	bytes chunk=1;
-}
-
-message CreateSphereRequest {
-	string name=1;
-	string parent=2;
-	Point point=3;
-	double radius=4;
-}
-
-message CreateSphereResponse {
-	string id=1;
-}
-
-message CreateTorusRequest {
-	string name=1;
-	string parent=2;
-	double major_radius=3;
-	double minor_radius=4;
-	Frame frame=5;
-}
-
-message CreateTorusResponse {
-	string id=1;
+message PointDistanceResponse{
+    double distance=1;
 }

@@ -1,0 +1,19 @@
+// Copyright 2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.model;
+option csharp_namespace = "Ansys.Api.Discovery.V0.Model";
+
+import "ansys/api/discovery/v0/model/key.proto";
+import "ansys/api/discovery/v0/model/key_array.proto";
+
+// Sourced on Udo's FieldMesher and Prime protobufs. 
+message TorusSurface{
+    Key key=1;
+    KeyArray attribute_keys = 2;
+    repeated double center = 3 [packed=true];
+    repeated double normal = 4 [packed=true];
+    repeated double origin_uv_direction = 5 [packed=true];
+    double major_radius = 6;
+    double minor_radius = 7;
+    bool has_reversed_v = 8;
+}

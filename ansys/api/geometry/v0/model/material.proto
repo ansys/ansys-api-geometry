@@ -1,0 +1,12 @@
+// Copyright 2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.model;
+option csharp_namespace = "Ansys.Api.Discovery.V0.Model";
+
+import "ansys/api/discovery/v0/model/key.proto";
+
+// Sourced on Udo's FieldMesher and Prime protobufs. 
+
+message Material{
+    Key key=1;
+}

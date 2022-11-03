@@ -1,0 +1,17 @@
+// Copyright 2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.model;
+option csharp_namespace = "Ansys.Api.Discovery.V0.Model";
+
+import "ansys/api/discovery/v0/model/types.proto";
+import "ansys/api/discovery/v0/model/key.proto";
+import "ansys/api/discovery/v0/model/key_array.proto";
+
+// Sourced on Udo's FieldMesher and Prime protobufs. 
+
+message Loop{
+    Key key=1;
+    KeyArray attribute_keys = 2;
+    KeyArray coedge_keys = 3;
+    LoopCategory category=4;
+}

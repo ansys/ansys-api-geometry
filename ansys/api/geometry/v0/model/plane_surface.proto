@@ -1,0 +1,17 @@
+// Copyright 2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.model;
+option csharp_namespace = "Ansys.Api.Discovery.V0.Model";
+
+import "ansys/api/discovery/v0/model/key.proto";
+import "ansys/api/discovery/v0/model/key_array.proto";
+
+// Sourced on Udo's FieldMesher and Prime protobufs. 
+message PlaneSurface{
+    Key key=1;
+    KeyArray attribute_keys = 2;
+    repeated double root_point = 3 [packed=true];
+    repeated double direction_u = 4 [packed=true];
+    repeated double direction_normal = 5 [packed=true];
+    bool has_reversed_v = 6;
+}

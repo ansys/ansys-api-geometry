@@ -1,0 +1,70 @@
+// Copyright 2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.model;
+option csharp_namespace = "Ansys.Api.Discovery.V0.Model";
+
+import "ansys/api/discovery/v0/model/assembly_node.proto";
+
+import "ansys/api/discovery/v0/model/group.proto";
+import "ansys/api/discovery/v0/model/material.proto";
+import "ansys/api/discovery/v0/model/transform.proto";
+import "ansys/api/discovery/v0/model/attribute.proto";
+
+import "ansys/api/discovery/v0/model/component.proto";
+import "ansys/api/discovery/v0/model/body.proto";
+import "ansys/api/discovery/v0/model/lump.proto";
+import "ansys/api/discovery/v0/model/wire.proto";
+import "ansys/api/discovery/v0/model/shell.proto";
+import "ansys/api/discovery/v0/model/loop.proto";
+import "ansys/api/discovery/v0/model/coedge.proto";
+import "ansys/api/discovery/v0/model/face.proto";
+import "ansys/api/discovery/v0/model/edge.proto";
+import "ansys/api/discovery/v0/model/vertex.proto";
+
+import "ansys/api/discovery/v0/model/plane_surface.proto";
+import "ansys/api/discovery/v0/model/sphere_surface.proto";
+import "ansys/api/discovery/v0/model/cone_surface.proto";
+import "ansys/api/discovery/v0/model/torus_surface.proto";
+import "ansys/api/discovery/v0/model/nurbs_surface.proto";
+
+import "ansys/api/discovery/v0/model/line_curve.proto";
+import "ansys/api/discovery/v0/model/ellipse_curve.proto";
+import "ansys/api/discovery/v0/model/nurbs_curve.proto";
+
+import "ansys/api/discovery/v0/model/cartesian_point.proto";
+
+// Sourced on Udo's FieldMesher and Prime protobufs. 
+// If serialized to JSon, these should look identical, since the message, enum and field type names are not
+// part of of the data, only the field names, and their numbers.
+
+//
+// Container of all the various types of data
+//
+message Objects
+{
+   repeated Attribute      attributes=1;
+   repeated Transform      transforms=2;
+   repeated CartesianPoint cartesian_points=3;
+   repeated NURBSCurve     nurbs_curves=5;
+   repeated EllipseCurve   ellipse_curves=6;
+   repeated LineCurve      line_curves=7;
+   repeated NURBSSurface   nurbs_surfaces=9;
+   repeated ConeSurface    cone_surfaces=10;
+   repeated PlaneSurface   plane_surfaces=11;
+   repeated SphereSurface  sphere_surfaces=12;
+   repeated TorusSurface   torus_surfaces=13;
+   repeated Vertex         vertices=14; // Vertex = modeler vertex
+   repeated Edge           edges=15; // Edge = modeler edge
+   repeated Coedge         coedges=16; // edge use in face
+   repeated Loop           loops=17; // connected edge network (faces)
+   repeated Face           faces=18; // Face = modeler face
+   repeated Wire           wires=19; // connected edge network (body)
+   repeated Shell          shells=20; // connected face network
+   repeated Lump           lumps=21; // Corresponsed disjoint bodies ?
+   repeated Body           bodies=22; // Body = modeler body. 
+
+   repeated Component      components=30; // Component = Part
+   repeated AssemblyNode   assembly_nodes=31;  // AssemblyNode = Component(Instance)
+   repeated Group          group=32;
+}
+

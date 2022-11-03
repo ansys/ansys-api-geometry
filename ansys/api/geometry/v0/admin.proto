@@ -1,0 +1,32 @@
+// Copyright 2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0;
+option csharp_namespace = "Ansys.Api.Discovery.V0";
+
+
+service Admin{
+  // Gets the health of the service.
+  rpc Health(HealthRequest) returns(HealthResponse);
+  // Shuts down the underlying gRPC server.
+  rpc Shutdown(ShutdownRequest) returns(ShutdownResponse);
+   // Gets basic status information.
+  rpc StatusInfo(StatusInfoRequest) returns(StatusInfoResponse);
+}
+message HealthRequest{
+}
+message HealthResponse{
+  string message = 1;
+}
+message ShutdownRequest{
+}
+message ShutdownResponse{
+}
+message StatusRequest{
+}
+message StatusInfoRequest{
+}
+message StatusInfoResponse{
+  string touch_time = 1;
+  string application_version = 2;
+  string embedded_api_version = 3;
+}

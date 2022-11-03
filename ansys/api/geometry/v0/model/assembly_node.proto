@@ -1,0 +1,35 @@
+// Copyright 2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.model;
+option csharp_namespace = "Ansys.Api.Discovery.V0.Model";
+
+import "ansys/api/discovery/v0/model/key.proto";
+import "ansys/api/discovery/v0/model/key_array.proto";
+
+// Sourced on Udo's FieldMesher and Prime protobufs. 
+//
+// The data defining an assembly node entity.
+//
+message AssemblyNode{   // Equivalent to sc.Component
+
+    // The key of the object.
+    Key key=1;
+
+    // The keys of the attributes associated to the entity.
+    KeyArray attribute_keys = 2;
+
+    // The name of the assembly node.
+    string name = 3;
+
+    // The key of the parent assembly node associated to this assembly node.
+    Key parent_assembly_node_key=4;
+
+    // The keys of the sub-assembly nodes contained in this assembly node.
+    KeyArray sub_assembly_node_keys=5;
+
+    // The key of the component associated to this assembly node
+    Key component_key=6;
+
+     // The key of the transform associated to this assembly node.
+    Key transform_key=7;
+}

@@ -1,0 +1,21 @@
+// Copyright 2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.discovery.v0.model;
+option csharp_namespace = "Ansys.Api.Discovery.V0.Model";
+
+import "ansys/api/discovery/v0/model/key_array.proto";
+import "ansys/api/discovery/v0/model/key.proto";
+
+// Sourced on Udo's FieldMesher and Prime protobufs. 
+message ConeSurface{
+    Key key=1;
+    KeyArray attribute_keys = 2;
+    repeated double base_ellipse_center = 3 [packed=true];
+    repeated double base_ellipse_semi_major_axis = 4 [packed=true];
+    repeated double base_ellipse_normal = 5 [packed=true];
+    double base_ellipse_ratio = 6;
+    double cosine_half_angle = 7;
+    double sine_half_angle = 8;
+    double scale_factor_u = 9;
+    bool has_reversed_u = 10;
+}
