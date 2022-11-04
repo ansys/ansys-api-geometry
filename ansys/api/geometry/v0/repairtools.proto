@@ -1,0 +1,174 @@
+﻿// ©2022, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.geometry.v0;
+option csharp_namespace = "Ansys.Api.Geometry.V0.RepairTools";
+option go_package = "ansys/api/geometry/v0";
+
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/struct.proto";
+import "ansys/api/geometry/v0/models.proto";
+
+service RepairTools{
+
+	rpc SolidifyStitch(SolidifyStitchRequest) returns (SolidifyStitchResponse);
+
+	rpc SolidifyGaps(SolidifyGapsRequest) returns (SolidifyGapsResponse);
+
+	rpc SolidifyMissingFaces(SolidifyMissingFacesRequest) returns (SolidifyMissingFacesResponse);
+
+	rpc FixSplitEdges(FixSplitEdgesRequest) returns (FixSplitEdgesResponse);
+
+	rpc FixExtraEdges(FixExtraEdgesRequest) returns (FixExtraEdgesResponse);
+
+	rpc FixDuplicateFaces(FixDuplicateFacesRequest) returns (FixDuplicateFacesResponse);
+
+	rpc FixCurvesGaps(FixCurvesGapsRequest) returns (FixCurvesGapsResponse);
+
+	rpc FixCurvesDuplicate(FixCurvesDuplicateRequest) returns (FixCurvesDuplicateResponse);
+
+	rpc AdjustMergeFaces(AdjustMergeFacesRequest) returns (AdjustMergeFacesResponse);
+
+	rpc AdjustSmallFaces(AdjustSmallFacesRequest) returns (AdjustSmallFacesResponse);
+
+	rpc AdjustSimplify(AdjustSimplifyRequest) returns (AdjustSimplifyResponse);
+
+	rpc AdjustInexactEdges(AdjustInexactEdgesRequest) returns (AdjustInexactEdgesResponse);
+}
+
+
+message SolidifyStitchRequest{
+	repeated ansys.api.geometry.v0.Face selection = 1;
+	google.protobuf.DoubleValue maximum_distance =2; // default: 0.0001
+	google.protobuf.BoolValue check_for_coincidence=3; // default: false
+	google.protobuf.BoolValue allow_multiple_bodies =4; // default: false
+	google.protobuf.BoolValue maintain_components=5; // default: false
+}
+
+message SolidifyStitchResponse{
+	bool result = 1;
+}
+
+enum SolidifyFixMethodType{
+	FILL = 0;
+	PATCH_BLEND = 1;
+	TRY_BOTH = 2;
+}
+
+message SolidifyGapsRequest{
+	repeated ansys.api.geometry.v0.Face selection = 1;
+	google.protobuf.DoubleValue angle=2;
+	google.protobuf.DoubleValue distance = 3;
+	oneof method
+	{
+		google.protobuf.NullValue null = 4;
+		SolidifyFixMethodType  data =5;
+	}
+	google.protobuf.BoolValue allow_multi_patch = 6;
+}
+
+message SolidifyGapsResponse{
+	bool result = 1;
+}
+
+message SolidifyMissingFacesRequest{
+	repeated ansys.api.geometry.v0.Face selection = 1;
+	google.protobuf.DoubleValue angle=2;
+	google.protobuf.DoubleValue distance = 3;
+	oneof method
+	{
+		google.protobuf.NullValue null = 4;
+		SolidifyFixMethodType  data =5;
+	}	
+	google.protobuf.BoolValue allow_multi_patch =6;
+}
+
+message SolidifyMissingFacesResponse{
+	bool result = 1;
+}
+
+
+message FixSplitEdgesRequest{
+	repeated ansys.api.geometry.v0.Edge selection = 1;
+	google.protobuf.DoubleValue max_edge_length = 2;
+	google.protobuf.DoubleValue min_edge_angle = 3;
+}
+
+message FixSplitEdgesResponse{
+	bool result = 1;
+}
+
+
+message FixExtraEdgesRequest{
+	repeated ansys.api.geometry.v0.Edge selection = 1;
+}
+
+message FixExtraEdgesResponse{
+	bool result = 1;
+}
+
+
+message	FixDuplicateFacesRequest{
+	repeated ansys.api.geometry.v0.Face selection = 1;
+	google.protobuf.DoubleValue max_gap = 2;
+}
+
+message FixDuplicateFacesResponse{
+	bool result = 1;
+}
+
+message FixCurvesGapsRequest{
+	google.protobuf.DoubleValue distance = 1;
+}
+
+message FixCurvesGapsResponse{
+	bool result = 1;
+}
+
+message FixCurvesDuplicateRequest{
+	google.protobuf.DoubleValue distance = 1;
+}
+
+message FixCurvesDuplicateResponse{
+	bool result = 1;
+}
+
+message AdjustMergeFacesRequest{
+	repeated ansys.api.geometry.v0.Face selection = 1;
+	repeated ansys.api.geometry.v0.Face tangent_faces = 2;
+	google.protobuf.BoolValue allow_multi_patch = 3;
+	google.protobuf.BoolValue fail_if_can_fill = 4;
+	google.protobuf.BoolValue enforce_closed_loop_check = 5;
+}
+
+message AdjustMergeFacesResponse{
+	bool result = 1;
+}
+
+
+message AdjustSmallFacesRequest{
+	repeated ansys.api.geometry.v0.Face selection = 1;
+	google.protobuf.DoubleValue area = 2;
+	google.protobuf.DoubleValue width = 3;
+}
+
+message AdjustSmallFacesResponse{
+	bool result = 1;
+}
+
+
+message AdjustSimplifyRequest{
+	repeated ansys.api.geometry.v0.Face selection = 1;
+}
+
+message AdjustSimplifyResponse{
+	bool result = 1;
+}
+
+
+message AdjustInexactEdgesRequest{
+	repeated ansys.api.geometry.v0.Edge selection = 1;
+}
+
+message AdjustInexactEdgesResponse{
+	bool result = 1;
+}
