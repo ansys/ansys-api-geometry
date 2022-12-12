@@ -71,11 +71,11 @@ message GetEdgesResponse{
 }
 
 message GetExternalEdgesResponse{
-    repeated Face faces=1;
+    repeated Edge edges=1;
 }
 
 message GetInternalEdgesResponse{
-    repeated Face faces=1;
+    repeated Edge edges=1;
 }
 
 message GetLoopsResponse {

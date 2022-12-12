@@ -35,11 +35,19 @@ service Commands{
 
 	rpc AssignMidSurfaceOffsetType(AssignMidSurfaceOffsetTypeRequest) returns (Empty);
 	
-	rpc DownloadFile(Empty) returns (DownloadFileResponse);
+	rpc DownloadFile(Empty) returns (DownloadFileResponse);	
+
+	rpc CreateSphere(CreateSphereRequest) returns (CreateSphereResponse);
+
+	rpc CreateTorus(CreateTorusRequest) returns (CreateTorusResponse);
+
+	rpc DeleteBeam(EntityIdentifier) returns (Empty);
+
+	rpc DeleteBeamProfile(EntityIdentifier) returns (Empty);
 }
 
 message RenameManyRequest{
-	map<string, SingleRenamedObject>	monikers_updates = 1;
+	map<string, SingleRenamedObject>	ids_updates = 1;
 }
 
 message RenameManyResponse{
@@ -52,7 +60,7 @@ message SingleRenamedObject{
 }
 
 message RenameRequest{
-	string	moniker = 1;
+	string	id = 1;
 	EntityType type = 2;
 	string	new_name = 3;
 }
@@ -171,7 +179,29 @@ message AssignMidSurfaceOffsetTypeRequest {
 	MidSurfaceOffsetType offsetType=2;
 }
 
-
 message DownloadFileResponse {
 	bytes data=1;
+}
+
+message CreateSphereRequest {
+	string name=1;
+	string parent=2;
+	Point point=3;
+	double radius=4;
+}
+
+message CreateSphereResponse {
+	string id=1;
+}
+
+message CreateTorusRequest {
+	string name=1;
+	string parent=2;
+	double major_radius=3;
+	double minor_radius=4;
+	Frame frame=5;
+}
+
+message CreateTorusResponse {
+	string id=1;
 }
