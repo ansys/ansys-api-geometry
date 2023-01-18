@@ -1,39 +1,398 @@
-// Copyright 2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.geometry.v0;
 option csharp_namespace = "Ansys.Api.Geometry.V0";
 
+import "google/protobuf/struct.proto";
 
+//
+// The type of curve.
+enum CurveType {
+  CURVETYPE_UNKNOWN = 0;
+  CURVETYPE_LINE = 1;
+  CURVETYPE_CIRCLE = 2;
+  CURVETYPE_ELLIPSE = 3;
+  CURVETYPE_NURBS = 4;
+  CURVETYPE_PROCEDURAL = 5;
+}
+
+//
+// The type of surface.
+enum SurfaceType {
+  SURFACETYPE_UNKNOWN = 0;
+  SURFACETYPE_PLANE = 1;
+  SURFACETYPE_CYLINDER = 2;
+  SURFACETYPE_CONE = 3;
+  SURFACETYPE_TORUS = 4;
+  SURFACETYPE_SPHERE = 5;
+  SURFACETYPE_NURBS = 6;
+  SURFACETYPE_PROCEDURAL = 7;
+}
+
+//
+// The type of dimension.
+enum DimensionType {
+  DIMENSIONTYPE_UNKNOWN = 0;
+  DIMENSIONTYPE_LINEAR = 1;
+  DIMENSIONTYPE_DIAMETRIC = 2;
+  DIMENSIONTYPE_RADIAL = 3;
+  DIMENSIONTYPE_ARC = 4;
+  DIMENSIONTYPE_AREA = 5;
+  DIMENSIONTYPE_VOLUME = 6;
+  DIMENSIONTYPE_MASS = 7;
+  DIMENSIONTYPE_ANGULAR = 8;
+  DIMENSIONTYPE_COUNT = 9;
+  DIMENSIONTYPE_UNITLESS = 10;
+}
+
+//
+// A design curve.
+message Curve{
+  string id = 1;
+  string owner_name = 2;
+  double length = 3;
+  repeated Point points = 4;
+}
+
+//
+// A edge.
+message Edge{
+  string id = 1;
+  CurveType curve_type = 10;
+  string owner_name = 11;
+  string export_id = 12;
+  double length = 13;
+  string owner_id = 14;
+}
+
+//
+// A face.
+message Face{
+  string id = 1;
+  SurfaceType surface_type = 10;
+  string owner_name = 11;
+  string export_id = 12;
+  double area = 13;
+}
+//
+// A mesh.
+message Mesh{
+  string id = 1;
+  string name=2;
+}
+
+//
+// A design document.
+message Design{
+  string id = 1;
+  bool is_complete=2 ;                 
+  bool is_locked=3  ;                  
+  bool is_modified=4;                  
+  bool is_removed = 5;                 
+  Part main_part=6;                    
+  bool main_part_displays_file_name=7; 
+  string path = 10;
+  string name=11;
+}
+
+//
+// A body.
 message Body{
   string id = 1;
-  string display_name = 2;
+  string name = 2;
+  bool can_suppress = 3;
+  bool is_deleted = 4;
+  bool is_suppressed = 5;
+  Matrix transform_to_master = 6;
+  BodyMasterNullable master = 7;
 }
 
+//
+// A nullable body master.
+message BodyMasterNullable{
+  oneof kind {
+    google.protobuf.NullValue null = 1;
+    BodyMaster props = 2;
+  }
+}
+
+//
+// A body master.
+message BodyMaster {
+  string update_state = 6;
+  map< string, string > text_attributes = 7;
+  map< string, double > number_attributes = 8;
+  Material material = 9;
+  Material surface_material = 10;
+  Shape shape = 11;
+}
+
+//
+// The shape.
+message Shape {
+    bool is_surface_body = 1;
+    double surface_area = 2;
+    double volume = 3;
+    Direction bounding_box_size = 4;
+}
+
+//
+// A component.
 message Component{
   string id = 1;
-  string display_name = 2 ;
+  string name = 2;
+  Part part_occurrence = 3;
+  Matrix placement =4;
 }
 
+//
+// A part.
+message Part{
+  string id = 1;
+  string name = 2;
+}
+
+//
+// A named selection.
 message NamedSelection {
   string id = 1;
-  string display_name = 2;
+  string name = 2;
 }
 
-message CoordinateSystem{
+//
+// A driving dimension.
+message DrivingDimension {
   string id = 1;
-  string display_name = 2;
+  string name = 2;
+  DimensionType dimension_type = 3;
+  double dimension_value = 4;
+}
+
+//
+// A 3D coordinate system.
+message CoordinateSystem{
+  string id=1;
+  string name=2;
   Frame frame = 3;
 }
 
-message Face{
-  string id = 1;
-  SurfaceType surface_type = 2;
+//
+// A 3D point.
+message Point {
+  double x = 1;
+  double y = 2;
+  double z = 3;
 }
 
-message Edge{
-  string id = 1;
-  CurveType curve_type = 2 ;
+//
+// A 3D direction.
+message Direction {
+  double x = 1;
+  double y = 2;
+  double z = 3;
 }
+
+
+//
+// A 3D box.
+message Box {
+    Point min = 1;
+    Point max = 2;
+}
+
+//
+// A homogeneous 3D transformation matrix.
+// The matrix is a pre-multiplication transformation. 
+// The rotation is in m00->m22 and contains no scaling in its leading diagonal.
+// The translation is m03/m33, m13/m33, m23/m33.
+// The uniform scale is 1/m33.
+message Matrix{
+    double m00 = 1;
+    double m01 = 2;
+    double m02 = 3;
+    double m03 = 4;
+    double m10 = 5;
+    double m11 = 6;
+    double m12 = 7;
+    double m13 = 8;
+    double m20 = 9;
+    double m21 = 10;
+    double m22 = 11;
+    double m23 = 12;
+    double m30 = 13;
+    double m31 = 14;
+    double m32 = 15;
+    double m33 = 16;
+}
+//
+// An history track parameter
+message HistoryTrackParameter {
+  string id = 1;
+  string name=2;
+  DimensionType dimension_type=3;
+  double dimension_value=4;
+}
+
+//
+// An input parameter
+message InputParameter {
+  string id = 1;
+  string parent_id=2;
+  string name=3;
+  QuantityType quantity_type=4;
+  double quantity_value=5;
+  int32 unit=6;
+  string unit_abbreviation=7;
+}
+
+//
+// An output parameter
+message OutputParameter {
+  string id = 1;
+  string parent_id = 2;
+  string name = 3;
+  QuantityType quantity_type = 4;
+  double quantity_value = 5;
+  int32 unit = 6;
+  string unit_abbreviation = 7;
+}
+
+//
+// A script parameter
+message ScriptParameter {
+  string id = 1;
+  string name = 2;
+  DimensionType dimension_type = 3;
+  double dimension_value = 4;
+}
+
+//
+// ShrinkWrapOptions is used to specify ShrinkWrap method in the Facet Tools. 
+message ShrinkWrapOptions {
+	double size =2;
+	bool keep_original_bodies =3;
+	bool preserve_features =4;
+	double angle_tolerance =5;
+	bool secondary_size_enabled =6;
+	double secondary_size = 7;
+	bool max_size_enabled =8;
+	double max_size = 9;
+	double curvature_angle =10;
+}
+
+//
+// A Variation (represents a row into the variation table)
+message Variation {
+  string id = 1;
+  string name = 2;
+  bool starred = 3;
+  repeated InputParameter inputs = 4;
+  repeated OutputParameter outputs = 5;
+}
+
+//
+// An input column (represents the same input parameter across all the variations )
+message InputColumn {
+  string id = 1;
+  string name = 2;
+  string range = 3;
+  repeated InputParameter parameter_variations= 4;
+}
+
+//
+// An output column (represents the same output parameter across all the variations )
+message OutputColumn {
+  string id = 1;
+  string name = 2;
+  string range = 3;
+  repeated OutputParameter parameter_variations= 4;
+}
+
+//
+// Represents the quantity type for a physics parameter.
+enum QuantityType {
+    QUANTITY_TYPE_ACCELERATION=0;
+    QUANTITY_TYPE_ANGLE=1;
+    QUANTITY_TYPE_AREA=2;
+    QUANTITY_TYPE_AREA_DENSITY=3;
+    QUANTITY_TYPE_AREA_MOMENT_OF_INERTIA=4;
+    QUANTITY_TYPE_CAPACITANCE=5;
+    QUANTITY_TYPE_COEFFICIENT_OF_THERMAL_EXPANSION=6;
+    QUANTITY_TYPE_DENSITY=7;
+    QUANTITY_TYPE_DYNAMIC_VISCOSITY=8;
+    QUANTITY_TYPE_ELECTRIC_ADMITTANCE=9;
+    QUANTITY_TYPE_ELECTRIC_CHARGE=10;
+    QUANTITY_TYPE_ELECTRIC_CHARGE_DENSITY=11;
+    QUANTITY_TYPE_ELECTRIC_CONDUCTANCE=12;
+    QUANTITY_TYPE_ELECTRIC_CONDUCTIVITY=13;
+    QUANTITY_TYPE_ELECTRIC_CURRENT=14;
+    QUANTITY_TYPE_ELECTRIC_CURRENT_DENSITY=15;
+    QUANTITY_TYPE_ELECTRIC_CURRENT_GRADIENT=16;
+    QUANTITY_TYPE_ELECTRIC_FIELD=17;
+    QUANTITY_TYPE_ELECTRIC_INDUCTANCE=18;
+    QUANTITY_TYPE_ELECTRIC_POTENTIAL=19;
+    QUANTITY_TYPE_ELECTRIC_POTENTIAL_AC=20;
+    QUANTITY_TYPE_ELECTRIC_POTENTIAL_CHANGE_RATE=21;
+    QUANTITY_TYPE_ELECTRIC_POTENTIAL_DC=22;
+    QUANTITY_TYPE_ELECTRIC_RESISTANCE=23;
+    QUANTITY_TYPE_ELECTRIC_RESISTIVITY=24;
+    QUANTITY_TYPE_ELECTRIC_SURFACE_CHARGE_DENSITY=25;
+    QUANTITY_TYPE_ENERGY=26;
+    QUANTITY_TYPE_ENTROPY=27;
+    QUANTITY_TYPE_FORCE=28;
+    QUANTITY_TYPE_FORCE_CHANGE_RATE=29;
+    QUANTITY_TYPE_FORCE_PER_LENGTH=30;
+    QUANTITY_TYPE_FREQUENCY=31;
+    QUANTITY_TYPE_HEAT_FLUX=32;
+    QUANTITY_TYPE_HEAT_TRANSFER_COEFFICIENT=33;
+    QUANTITY_TYPE_INVERSE_AREA=34;
+    QUANTITY_TYPE_INVERSE_LENGTH=35;
+    QUANTITY_TYPE_KINEMATIC_VISCOSITY=36;
+    QUANTITY_TYPE_LENGTH=37;
+    QUANTITY_TYPE_MAGNETIC_FIELD=38;
+    QUANTITY_TYPE_MASS=39;
+    QUANTITY_TYPE_MASS_CONCENTRATION=40;
+    QUANTITY_TYPE_MASS_FLOW=41;
+    QUANTITY_TYPE_MASS_FLUX=42;
+    QUANTITY_TYPE_MASS_FRACTION=43;
+    QUANTITY_TYPE_MASS_MOMENT_OF_INERTIA=44;
+    QUANTITY_TYPE_MOLARITY=45;
+    QUANTITY_TYPE_MOLAR_MASS=46;
+    QUANTITY_TYPE_PERMEABILITY=47;
+    QUANTITY_TYPE_PERMITTIVITY=48;
+    QUANTITY_TYPE_POWER=49;
+    QUANTITY_TYPE_POWER_DENSITY=50;
+    QUANTITY_TYPE_POWER_RATIO=51;
+    QUANTITY_TYPE_PRESSURE=52;
+    QUANTITY_TYPE_RATIO=53;
+    QUANTITY_TYPE_RATIO_CHANGE_RATE=54;
+    QUANTITY_TYPE_REACTIVE_ENERGY=55;
+    QUANTITY_TYPE_REACTIVE_POWER=56;
+    QUANTITY_TYPE_ROTATIONAL_ACCELERATION=57;
+    QUANTITY_TYPE_ROTATIONAL_SPEED=58;
+    QUANTITY_TYPE_ROTATIONAL_STIFFNESS=59;
+    QUANTITY_TYPE_ROTATIONAL_STIFFNESS_PER_LENGTH=60;
+    QUANTITY_TYPE_SOLID_ANGLE=61;
+    QUANTITY_TYPE_SPECIFIC_ENERGY=62;
+    QUANTITY_TYPE_SPECIFIC_ENTROPY=63;
+    QUANTITY_TYPE_SPECIFIC_VOLUME=64;
+    QUANTITY_TYPE_SPECIFIC_WEIGHT=65;
+    QUANTITY_TYPE_SPEED=66;
+    QUANTITY_TYPE_TEMPERATURE=67;
+    QUANTITY_TYPE_TEMPERATURE_CHANGE_RATE=68;
+    QUANTITY_TYPE_TEMPERATURE_DELTA=69;
+    QUANTITY_TYPE_THERMAL_CONDUCTIVITY=70;
+    QUANTITY_TYPE_THERMAL_RESISTANCE=71;
+    QUANTITY_TYPE_TIME=72;
+    QUANTITY_TYPE_TORQUE=73;
+    QUANTITY_TYPE_TORQUE_PER_LENGTH=74;
+    QUANTITY_TYPE_VOLUME=75;
+    QUANTITY_TYPE_VOLUME_CONCENTRATION=76;
+    QUANTITY_TYPE_VOLUME_FLOW=77;
+    QUANTITY_TYPE_VOLUME_PER_LENGTH=78;
+    QUANTITY_TYPE_WARPING_MOMENT_OF_INERTIA=79;
+}
+
 
 message Material{
 	string name=1;
@@ -47,33 +406,16 @@ message MaterialProperty {
 	string units=4;
 }
 
-message Point {
-	double x = 1;
-	double y = 2;
-	double z = 3;
-}
-
-
-message Direction {
-	double x = 1;
-	double y = 2;
-	double z = 3;
-}
-
 
 message Frame {
 	Point origin = 1;
 	Direction dir_x = 2;
 	Direction dir_y = 3;
+	Direction dir_z = 4;
 }
 
 message Plane {
 	Frame frame = 1;
-}
-
-message Box {
-	Point min = 1;
-	Point max = 2;
 }
 
 message Line {
@@ -97,7 +439,7 @@ message Ellipse {
 	Point center=1;
 	double majorradius=2;
 	double minorradius=3;
-	double angle=4;
+    double angle=4;
 }
 
 message Polygon {
@@ -114,26 +456,6 @@ message Geometries {
 	repeated Circle circles = 4;
 	repeated Ellipse ellipses = 5;
 	repeated Polygon polygons = 6;
-}
-
-enum CurveType {
-  CURVETYPE_UNKNOWN = 0;
-  CURVETYPE_LINE = 1;
-  CURVETYPE_CIRCLE = 2;
-  CURVETYPE_ELLIPSE = 3;
-  CURVETYPE_NURBS = 4;
-  CURVETYPE_PROCEDURAL = 5;
-}
-
-enum SurfaceType {
-  SURFACETYPE_UNKNOWN = 0;
-  SURFACETYPE_PLANE = 1;
-  SURFACETYPE_CYLINDER = 2;
-  SURFACETYPE_CONE = 3;
-  SURFACETYPE_TORUS = 4;
-  SURFACETYPE_SPHERE = 5;
-  SURFACETYPE_NURBS = 6;
-  SURFACETYPE_PROCEDURAL = 7;
 }
 
 message Loop {
@@ -161,13 +483,43 @@ enum MidSurfaceOffsetType {
 	MIDSURFACEOFFSETTYPE_CUSTOM=4;
 }
 
+message EntityIdentifier{
+    string id=1;
+}
+//
+// Object type descriptor
+enum EntityType{
+	PART = 0;
+	COMPONENT = 1;
+	BODY = 2;
+	NAMED_SELECTION = 3;
+}
+
+message EntitiesCollection{
+    repeated Curve curves=1;
+    repeated Edge edges=2;
+    repeated Face faces=3;
+    repeated Body bodies=4;
+}
+
 message Tessellation {
 	repeated double vertices = 1;
 	repeated int32 faces = 2;
 	int32 facecolor = 3;
 }
 
+//
+// The type of segment.
+enum SegmentType {
+  SURFACETYPE_LINE = 0;
+  SURFACETYPE_ARC = 1;
+  SURFACETYPE_CIRCLE = 2;
+}
+
 enum PartExportFormat {
-	PARTEXPORTFORMAT_PARASOLID_TEXT=0;
-	PARTEXPORTFORMAT_PARASOLID_BINARY=1;
+    PARTEXPORTFORMAT_ACIS_TEXT = 0;
+    PARTEXPORTFORMAT_ACIS_BINARY = 1;
+    PARTEXPORTFORMAT_PARASOLID_TEXT = 2;
+    PARTEXPORTFORMAT_PARASOLID_BINARY = 3;
+    PARTEXPORTFORMAT_STEP = 4;
 }

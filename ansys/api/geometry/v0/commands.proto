@@ -1,52 +1,72 @@
-// �2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+﻿// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.geometry.v0;
-option csharp_namespace = "Ansys.Api.Geometry.V0";
+package ansys.api.geometry.v0.Commands;
+option csharp_namespace = "Ansys.Api.Geometry.V0.Commands";
 
 import "ansys/api/geometry/v0/models.proto";
 
 service Commands{
-  rpc ProjectCurves(ProjectCurvesRequest) returns (ProjectCurvesResponse);
 
-  rpc ImprintCurves(ImprintCurvesRequest) returns (ImprintCurvesResponse);
+	rpc RenameMany(RenameManyRequest) returns (RenameManyResponse);
 
-  rpc PowerSelectFacesByAreaRange(PowerSelectFacesByAreaRangeRequest) returns (PowerSelectFacesByAreaRangeResponse);
+	rpc Rename(RenameRequest) returns (RenameResponse);
 
-  rpc CreateBeamCircularProfile(CreateBeamCircularProfileRequest) returns(CreateBeamCircularProfileResponse);
+	rpc ProjectCurves(ProjectCurvesRequest) returns (ProjectCurvesResponse);
 
-  rpc CreateBeamBodyLine(CreateBeamBodyLineRequest) returns (CreateBeamBodyLineResponse);
-  
-  rpc CreateBeamBodyLines(CreateBeamBodyLinesRequest) returns (CreateBeamBodyLinesResponse);
+	rpc ImprintCurves(ImprintCurvesRequest) returns (EntitiesCollection);
 
-  rpc GetRootComponent(Empty) returns (GetRootComponentResponse);
+	rpc PowerSelectFacesByAreaRange(PowerSelectFacesByAreaRangeRequest) returns (PowerSelectFacesByAreaRangeResponse);
 
-  rpc FillFaces(FillFacesRequest) returns (Empty);
+	rpc CreateBeamCircularProfile(CreateBeamCircularProfileRequest) returns(CreateBeamCircularProfileResponse);
 
-  rpc CreateDesignPoint(CreateDesignPointRequest) returns (CreateDesignPointResponse);
+	rpc CreateBeamSegment(CreateBeamSegmentRequest) returns (CreateBeamSegmentResponse);
+	  
+	rpc CreateBeamSegments(CreateBeamSegmentsRequest) returns (CreateBeamSegmentsResponse);
 
-  rpc CreateDesignPoints(CreateDesignPointsRequest) returns (CreateDesignPointsResponse);
+	rpc FillFaces(FillFacesRequest) returns (Empty);
 
-  rpc CreateDesignCurvesFromProfile(CreateDesignCurvesFromProfileRequest) returns (CreateDesignCurvesFromProfileResponse);
+	rpc CreateDesignPoint(CreateDesignPointRequest) returns (CreateDesignPointResponse);
 
-  rpc AssignMidSurfaceThickness(AssignMidSurfaceThicknessRequest) returns (Empty);
+	rpc CreateDesignPoints(CreateDesignPointsRequest) returns (CreateDesignPointsResponse);
 
-  rpc AssignMidSurfaceOffsetType(AssignMidSurfaceOffsetTypeRequest) returns (Empty);
+	rpc CreateDesignCurvesFromProfile(CreateDesignCurvesFromProfileRequest) returns (CreateDesignCurvesFromProfileResponse);
 
-  rpc DownloadFile(Empty) returns (DownloadFileResponse);
+	rpc AssignMidSurfaceThickness(AssignMidSurfaceThicknessRequest) returns (Empty);
 
-  rpc DownloadFileStream(Empty) returns (stream DownloadFileStreamResponse);
+	rpc AssignMidSurfaceOffsetType(AssignMidSurfaceOffsetTypeRequest) returns (Empty);
+	
+	rpc DownloadFile(Empty) returns (DownloadFileResponse);	
 
-  rpc CreateSphere(CreateSphereRequest) returns (CreateSphereResponse);
+	rpc CreateSphere(CreateSphereRequest) returns (CreateSphereResponse);
 
-  rpc CreateTorus(CreateTorusRequest) returns (CreateTorusResponse);
+	rpc CreateTorus(CreateTorusRequest) returns (CreateTorusResponse);
 
-  rpc DeleteBeam(EntityIdentifier) returns (Empty);
+	rpc DeleteBeam(EntityIdentifier) returns (Empty);
 
-  rpc DeleteBeamProfile(EntityIdentifier) returns (Empty);
+	rpc DeleteBeamProfile(EntityIdentifier) returns (Empty);
 }
 
-message EntityIdentifier {
-	string id = 1;
+message RenameManyRequest{
+	map<string, SingleRenamedObject>	ids_updates = 1;
+}
+
+message RenameManyResponse{
+	map<string,string> results = 1;
+}
+
+message SingleRenamedObject{
+	string new_name = 1;
+	EntityType type = 2;
+}
+
+message RenameRequest{
+	string	id = 1;
+	EntityType type = 2;
+	string	new_name = 3;
+}
+
+message RenameResponse{
+	string result = 1;
 }
 
 message ProjectCurvesRequest {
@@ -64,11 +84,6 @@ message ImprintCurvesRequest {
 	string body=1;
 	Geometries curves=2;
 	repeated string faces=3;
-}
-
-message ImprintCurvesResponse {
-	repeated Edge edges=1;
-	repeated Face faces=2;
 }
 
 message PowerSelectFacesByAreaRangeRequest {
@@ -92,28 +107,34 @@ message CreateBeamCircularProfileResponse {
 	string id=1;
 }
 
-message CreateBeamBodyLineRequest {
+message CreateBeamSegmentRequest {
 	string profile=1;
-	Line line=2;
-	string parent=3;
+	oneof segment{
+		Line line=2;
+		Arc arc=3;
+		Circle circle=4;
+	}
+	Plane plane= 5;
+	string parent=6;
 }
 
-message CreateBeamBodyLineResponse {
+message CreateBeamSegmentResponse {
 	string id=1;
 }
 
-message CreateBeamBodyLinesRequest {
+message CreateBeamSegmentsRequest{
 	string profile=1;
+	
 	repeated Line lines=2;
-	string parent=3;
+	repeated Arc arcs=3;
+	repeated Circle circles=4;
+
+	repeated Plane planes= 5;
+	string parent=7;
 }
 
-message CreateBeamBodyLinesResponse {
+message CreateBeamSegmentsResponse {
 	repeated string ids=1;
-}
-
-message GetRootComponentResponse{
-    string id=1;
 }
 
 message FillFacesRequest {
@@ -160,10 +181,6 @@ message AssignMidSurfaceOffsetTypeRequest {
 
 message DownloadFileResponse {
 	bytes data=1;
-}
-
-message DownloadFileStreamResponse {
-	bytes chunk=1;
 }
 
 message CreateSphereRequest {

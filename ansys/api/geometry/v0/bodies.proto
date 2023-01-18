@@ -1,48 +1,67 @@
 // ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.geometry.v0;
-option csharp_namespace = "Ansys.Api.Geometry.V0";
+package ansys.api.geometry.v0.Bodies;
+option csharp_namespace = "Ansys.Api.Geometry.V0.Bodies";
 
 import "ansys/api/geometry/v0/models.proto";
 
 service Bodies
 {
-    rpc GetAllBodies(Empty) returns(GetAllBodiesResponse) ;
+    rpc Get(GetRequest) returns(Body);
 
-    rpc GetBody(BodyIdentifier) returns(Body);
+    rpc GetMaster(EntityIdentifier) returns(Body); 
 
-    rpc GetAssignedMaterial(BodyIdentifier) returns(Material);
+    rpc GetOriginal(EntityIdentifier) returns(Body);
+
+    rpc GetParent(EntityIdentifier) returns(Part);
+
+    rpc GetAll(GetAllRequest) returns(GetAllResponse) ;
+
+    rpc GetAssignedMaterial(EntityIdentifier) returns(Material);
 
     rpc SetAssignedMaterial(SetAssignedMaterialRequest) returns(SetAssignedMaterialResponse);
 
     rpc Translate(TranslateRequest) returns(Empty);
 
-    rpc GetFaces(BodyIdentifier) returns (GetFacesResponse);
-
-    rpc GetEdges(BodyIdentifier) returns (GetEdgesResponse);
-
-	rpc GetName(BodyIdentifier) returns (GetNameResponse);
-
+    rpc GetFaces(EntityIdentifier) returns (GetFacesResponse);
+    
     rpc CreateBodyFromFace(CreateBodyFromFaceRequest) returns (Body);
     
     rpc CreateExtrudedBodyFromFaceProfile(CreateExtrudedBodyFromFaceProfileRequest) returns (Body);
     
-    rpc Delete(BodyIdentifier) returns (Empty);
+    rpc Delete(EntityIdentifier) returns (Empty);
 
     rpc CreatePlanarBody(CreatePlanarBodyRequest) returns (Body);
       
     rpc CreateExtrudedBody(CreateExtrudedBodyRequest) returns (Body);
 
-    rpc GetVolume(BodyIdentifier) returns(GetVolumeResponse);
+    rpc GetVolume(EntityIdentifier) returns(GetVolumeResponse);
 
-    rpc GetBodyTessellation(BodyIdentifier) returns(GetBodyTessellationResponse);
+    rpc GetTessellation(EntityIdentifier) returns(GetTessellationResponse);
+
+    rpc GetEdges(EntityIdentifier) returns (GetEdgesResponse);
+
+    rpc GetName(EntityIdentifier) returns (GetNameResponse);
+
 }
 
-message BodyIdentifier{
+enum GetType{
+    NONE = 0;
+    MASTER = 1;
+    ORIGINAL = 2;
+    PARENT=3;
+}
+
+message GetRequest{
     string id = 1;
+    GetType body_type = 2;
 }
 
-message GetAllBodiesResponse{
+message GetAllRequest{
+    string parent = 1;
+}
+
+message GetAllResponse{
     repeated Body bodies = 1;
 }
 
@@ -56,7 +75,7 @@ message SetAssignedMaterialResponse{
 }
 
 message TranslateRequest{
-	repeated string bodies=1;
+	repeated string ids=1;
 	Direction direction=2;
 	float distance=3;
 }
@@ -97,8 +116,8 @@ message GetVolumeResponse {
 	double volume=1;
 }
 
-message GetBodyTessellationResponse{
-	map<string,Tessellation> face_tessellation=1;
+message GetTessellationResponse{
+	map<string, Tessellation> face_tessellation=1;
 }
 
 message GetEdgesResponse {
