@@ -1,28 +1,34 @@
 // ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.geometry.v0;
-option csharp_namespace = "Ansys.Api.Geometry.V0";
+package ansys.api.geometry.v0.NamedSelections;
+option csharp_namespace = "Ansys.Api.Geometry.V0.NamedSelections";
 
 import "ansys/api/geometry/v0/models.proto";
+
+// Named Selections
+//
 service NamedSelections{
-    rpc GetNamedSelection(NamedSelectionIdentifier) returns(NamedSelection);
+    rpc Get(EntityIdentifier) returns(NamedSelection);
 
-    rpc CreateNamedSelection(CreateNamedSelectionRequest) returns(NamedSelection);
+    rpc Create(CreateRequest) returns(NamedSelection);
 
-    rpc GetAllNamedSelections(Empty) returns(GetAllNamedSelectionsResponse);
-    
-    rpc Delete(NamedSelectionIdentifier) returns(Empty);
+    rpc GetAll(Empty) returns(GetAllResponse);
+
+    rpc Delete(EntityIdentifier) returns(Empty);
+
+    rpc DeleteByName(DeleteByNameRequest) returns(Empty);
 }
 
-message NamedSelectionIdentifier{
+message CreateRequest{
     string name = 1;
+    repeated string members = 2;
+    string parent = 3;
 }
 
-message CreateNamedSelectionRequest{
-	repeated string members=1;
-	string name=2;
-}
-
-message GetAllNamedSelectionsResponse{
+message GetAllResponse{
     repeated NamedSelection named_selections = 1;
+}
+
+message DeleteByNameRequest{
+    string name = 1;
 }

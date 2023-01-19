@@ -1,38 +1,61 @@
-ï»¿syntax = "proto3";
-package ansys.api.geometry.v0;
-option csharp_namespace = "Ansys.Api.Geometry.V0";
+// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.geometry.v0.Designs;
+option csharp_namespace = "Ansys.Api.Geometry.V0.Designs";
+
 import "ansys/api/geometry/v0/models.proto";
 
+service Designs{
+    rpc Get(EntityIdentifier) returns(Design);
 
-service Designs {
-  rpc New(NewDesignRequest) returns(Design);
-  
-  rpc SaveAs(SaveAsDocumentRequest) returns(SaveAsDocumentResponse);
+    rpc GetAll(Empty) returns(GetAllResponse) ;
+    
+    rpc GetActive(Empty) returns(Design) ;
 
-  rpc ExportDesign(ExportDesignRequest) returns(ExportDesignResponse);
+    rpc PutActive(EntityIdentifier) returns(Empty);
+
+    rpc Open(OpenRequest) returns(EntityIdentifier);
+
+    rpc New(NewRequest) returns(Design) ;
+
+    rpc Close(EntityIdentifier) returns(Empty);
+
+    rpc Save(EntityIdentifier) returns(Empty) ;
+
+    rpc SaveAs(SaveAsRequest) returns(EntityIdentifier);
+
+    rpc Insert(InsertRequest) returns(EntityIdentifier);
+
+    rpc Export(ExportRequest) returns(ExportResponse);
+
 }
 
-message NewDesignRequest {
-  string name = 1;
+message GetAllResponse{
+    repeated Design designs = 1;
 }
 
-message Design {
-  string id = 1;
-  string name = 2;
+message OpenRequest{
+    string filepath = 1;
 }
 
-message SaveAsDocumentRequest{
-	string filepath = 1;
+message NewRequest{
+    string name = 1;
 }
 
-message SaveAsDocumentResponse{
-	string id = 1;
+message SaveAsRequest{
+    string filepath = 1;
 }
 
-message ExportDesignRequest {
-	PartExportFormat format=1;
+message InsertRequest{
+    string filepath = 1;
 }
 
-message ExportDesignResponse {
+message ExportRequest {
+    string id =1;
+	PartExportFormat format=2;
+
+}
+
+message ExportResponse {
 	bytes data=1;
 }
