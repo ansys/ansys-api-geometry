@@ -1,4 +1,4 @@
-// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// Â©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.geometry.v0;
 option csharp_namespace = "Ansys.Api.Geometry.V0";
@@ -522,4 +522,5 @@ enum PartExportFormat {
     PARTEXPORTFORMAT_PARASOLID_TEXT = 2;
     PARTEXPORTFORMAT_PARASOLID_BINARY = 3;
     PARTEXPORTFORMAT_STEP = 4;
+    PARTEXPORTFORMAT_FMD = 5;
 }
