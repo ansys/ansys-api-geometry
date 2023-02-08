@@ -43,6 +43,8 @@ service Bodies
 
     rpc GetName(EntityIdentifier) returns (GetNameResponse);
 
+    rpc Copy(CopyRequest) returns (Body);
+
 }
 
 enum GetType{
@@ -126,4 +128,10 @@ message GetEdgesResponse {
 
 message GetNameResponse {
 	string name=1;
+}
+
+message CopyRequest {
+    string id=1;
+    string parent=2;
+    string name=3;
 }
