@@ -18,7 +18,7 @@ message GetVersionRequest{
 }
 
 message GetVersionResponse{
-    string result = 1;
+    ApiVersion version = 1;
 }
 
 message SetVersionRequest{
