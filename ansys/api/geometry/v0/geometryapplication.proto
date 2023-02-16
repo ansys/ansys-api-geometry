@@ -1,0 +1,25 @@
+// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.geometry.v0.GeometryApplication;
+option csharp_namespace = "Ansys.Api.Geometry.V0.GeometryApplication";
+option go_package = "ansys/api/geometry/v0";
+
+service GeometryApplication {
+
+    // Runs a script based on a file.
+    rpc RunScriptFile(RunScriptFileRequest) returns(RunScriptFileResponse);
+}
+
+message RunScriptFileRequest{
+    // Local path to the script to execute.
+    string script_path = 1;
+    // map of argument names to values.
+    map<string,string> script_args = 2;
+    // The api version to be used to run the script
+    int32 api_version = 3;
+}
+
+message RunScriptFileResponse{
+    // Result of script execution. True means script executed successfully.
+    string run_script_response = 1;
+}

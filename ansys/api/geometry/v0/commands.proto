@@ -37,6 +37,8 @@ service Commands{
 	
 	rpc DownloadFile(Empty) returns (DownloadFileResponse);	
 
+	rpc UploadFile(UploadFileRequest) returns (UploadFileResponse);
+
 	rpc CreateSphere(CreateSphereRequest) returns (CreateSphereResponse);
 
 	rpc CreateTorus(CreateTorusRequest) returns (CreateTorusResponse);
@@ -181,6 +183,15 @@ message AssignMidSurfaceOffsetTypeRequest {
 
 message DownloadFileResponse {
 	bytes data=1;
+}
+
+message UploadFileRequest {
+	bytes data=1;
+	string file_name=2;
+}
+
+message UploadFileResponse {
+	string file_path=1;
 }
 
 message CreateSphereRequest {

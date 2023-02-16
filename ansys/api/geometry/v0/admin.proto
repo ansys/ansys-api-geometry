@@ -5,6 +5,7 @@ option csharp_namespace = "Ansys.Api.Geometry.V0";
 option go_package = "ansys/api/geometry/v0";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/struct.proto";
+import "google/protobuf/empty.proto";
 
 service Admin{
 
@@ -18,6 +19,10 @@ service Admin{
 
     // Gets basic status information.
     rpc StatusInfo(StatusInfoRequest) returns(StatusInfoResponse);
+
+    rpc SetApplicationTitle(SetApplicationTitleRequest) returns(SetApplicationTitleResponse);
+
+    rpc CloseApplication(CloseApplicationRequest) returns(google.protobuf.Empty);
 }
 
 enum LogsTarget{
@@ -77,3 +82,18 @@ message StatusInfoResponse{
     string application_version = 2                            [json_name = "application_version"];
     string embedded_api_version = 3                           [json_name = "embedded_api_version"];
 }
+
+message SetApplicationTitleRequest{
+    string title =1;
+}
+
+message SetApplicationTitleResponse{
+}
+
+message CloseApplicationRequest{
+    string title =1;
+}
+
+message CloseApplicationResponse{
+}
+
