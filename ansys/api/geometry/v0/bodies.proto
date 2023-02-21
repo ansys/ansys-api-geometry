@@ -45,6 +45,7 @@ service Bodies
 
     rpc Copy(CopyRequest) returns (Body);
 
+    rpc GetUpdateState(EntityIdentifier) returns (UpdateState);
 }
 
 enum GetType{

@@ -524,3 +524,7 @@ enum PartExportFormat {
     PARTEXPORTFORMAT_STEP = 4;
     PARTEXPORTFORMAT_FMD = 5;
 }
+
+message UpdateState {
+    int32 state=1;
+}
