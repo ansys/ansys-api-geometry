@@ -28,6 +28,7 @@ service Designs{
 
     rpc Export(ExportRequest) returns(ExportResponse);
 
+    rpc GetAsJson(GetAsJsonRequest) returns(GetAsJsonResponse);
 }
 
 message GetAllResponse{
@@ -58,4 +59,11 @@ message ExportRequest {
 
 message ExportResponse {
 	bytes data=1;
+}
+
+message GetAsJsonRequest {
+    string id=1;
+}
+message GetAsJsonResponse {
+    string json=1;
 }

@@ -21,6 +21,8 @@ service Components{
 	rpc GetRootComponent(Empty) returns (GetRootComponentResponse);
 
 	rpc GetName(EntityIdentifier) returns (GetComponentNameResponse);
+	
+	rpc GetUpdateState(EntityIdentifier) returns (UpdateState);
 }
 
 message GetAllRequest{
