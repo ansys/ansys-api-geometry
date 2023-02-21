@@ -26,6 +26,8 @@ service Faces{
 
 	rpc GetLoops(EntityIdentifier) returns (GetLoopsResponse);
 
+    rpc GetUpdateState(EntityIdentifier) returns (UpdateState);
+
 }
 
 message GetAllRequest{

@@ -15,6 +15,9 @@ service Edges{
     rpc GetLength(EntityIdentifier) returns(GetLengthResponse);
 
     rpc IsDeleted(EntityIdentifier) returns(IsDeletedResponse);
+
+    rpc GetUpdateState(EntityIdentifier) returns (UpdateState);
+
 }
 
 message GetAllRequest{
