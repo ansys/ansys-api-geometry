@@ -91,7 +91,6 @@ message SetApplicationTitleResponse{
 }
 
 message CloseApplicationRequest{
-    string title =1;
 }
 
 message CloseApplicationResponse{
