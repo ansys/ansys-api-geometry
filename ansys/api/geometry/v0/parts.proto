@@ -1,28 +1,29 @@
-// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.geometry.v0;
-option csharp_namespace = "Ansys.Api.Geometry.V0.Parts";
+package ansys.api.geometry.v0.Parts;
 
 import "ansys/api/geometry/v0/models.proto";
 import "ansys/api/geometry/v0/streaming.proto";
 
+option csharp_namespace = "Ansys.Api.Geometry.V0.Parts";
+
 service Parts{
-    rpc Get(EntityIdentifier) returns(Part);
+  rpc Get(EntityIdentifier) returns(Part);
 
-    rpc GetAll(GetAllRequest) returns(GetAllResponse) ;
+  rpc GetAll(GetAllRequest) returns(GetAllResponse) ;
 
-    rpc Export(ExportRequest) returns(stream StreamPackage);
+  rpc Export(ExportRequest) returns(stream ansys.api.geometry.v0.StreamPackage);
 }
 
 message GetAllRequest{
-    string parent = 1;
+  string parent = 1;
 }
 
 message GetAllResponse{
-    repeated Part parts = 1;
+  repeated Part parts = 1;
 }
 
 message ExportRequest{
-    string id = 1;
-    PartExportFormat format = 2;
+  string id = 1;
+  PartExportFormat format = 2;
 }

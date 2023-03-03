@@ -1,41 +1,42 @@
-// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.geometry.v0.Edges;
-option csharp_namespace = "Ansys.Api.Geometry.V0.Edges";
 
 import "ansys/api/geometry/v0/models.proto";
 
+option csharp_namespace = "Ansys.Api.Geometry.V0.Edges";
+
 service Edges{
-    rpc Get(EntityIdentifier) returns(Edge);
+  rpc Get(EntityIdentifier) returns(Edge);
 
-    rpc GetAll(GetAllRequest) returns(GetAllResponse);
+  rpc GetAll(GetAllRequest) returns(GetAllResponse);
 
-    rpc GetFaces(EntityIdentifier) returns(GetFacesResponse);
+  rpc GetFaces(EntityIdentifier) returns(GetFacesResponse);
 
-    rpc GetLength(EntityIdentifier) returns(GetLengthResponse);
+  rpc GetLength(EntityIdentifier) returns(GetLengthResponse);
 
-    rpc IsDeleted(EntityIdentifier) returns(IsDeletedResponse);
+  rpc IsDeleted(EntityIdentifier) returns(IsDeletedResponse);
 
-    rpc GetUpdateState(EntityIdentifier) returns (UpdateState);
+  rpc GetUpdateState(EntityIdentifier) returns (UpdateState);
 
 }
 
 message GetAllRequest{
-    string parent = 1;
+  string parent = 1;
 }
 
 message GetAllResponse{
-    repeated Edge edges = 1;
+  repeated Edge edges = 1;
 }
 
 message GetFacesResponse{
-    repeated Face faces=1;
+  repeated Face faces=1;
 }
 
 message IsDeletedResponse{
-    bool deleted=1;
+  bool deleted=1;
 }
 
 message GetLengthResponse{
-    double length=1;
+  double length=1;
 }

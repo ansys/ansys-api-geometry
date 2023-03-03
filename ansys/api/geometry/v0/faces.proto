@@ -1,85 +1,86 @@
-// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.geometry.v0.Faces;
-option csharp_namespace = "Ansys.Api.Geometry.V0.Faces";
 
 import "ansys/api/geometry/v0/models.proto";
 
+option csharp_namespace = "Ansys.Api.Geometry.V0.Faces";
+
 service Faces{
-    rpc Get(EntityIdentifier) returns(Face);
+  rpc Get(EntityIdentifier) returns(Face);
 
-    rpc GetAll(GetAllRequest) returns(GetAllResponse);
-        
-    rpc GetNormal(GetNormalRequest) returns(GetNormalResponse);
+  rpc GetAll(GetAllRequest) returns(GetAllResponse);
+   
+  rpc GetNormal(GetNormalRequest) returns(GetNormalResponse);
 
-    rpc GetArea(EntityIdentifier) returns(GetAreaResponse);
+  rpc GetArea(EntityIdentifier) returns(GetAreaResponse);
 
-    rpc Evaluate(EvaluateRequest) returns(EvaluateResponse);
+  rpc Evaluate(EvaluateRequest) returns(EvaluateResponse);
 
-    rpc GetEdges(EntityIdentifier) returns(GetEdgesResponse);
+  rpc GetEdges(EntityIdentifier) returns(GetEdgesResponse);
 
-    rpc IsDeleted(EntityIdentifier) returns(IsDeletedResponse);
+  rpc IsDeleted(EntityIdentifier) returns(IsDeletedResponse);
 
-    rpc GetExternalEdges(EntityIdentifier) returns(GetExternalEdgesResponse);
+  rpc GetExternalEdges(EntityIdentifier) returns(GetExternalEdgesResponse);
 
-    rpc GetInternalEdges(EntityIdentifier) returns(GetInternalEdgesResponse);
+  rpc GetInternalEdges(EntityIdentifier) returns(GetInternalEdgesResponse);
 
-	rpc GetLoops(EntityIdentifier) returns (GetLoopsResponse);
+  rpc GetLoops(EntityIdentifier) returns (GetLoopsResponse);
 
-    rpc GetUpdateState(EntityIdentifier) returns (UpdateState);
+  rpc GetUpdateState(EntityIdentifier) returns (UpdateState);
 
 }
 
 message GetAllRequest{
-    // The parent, which can be empty or "designbodies/{moniker}" or "parts/{moniker}".
-    string parent = 1;
+  // The parent, which can be empty or "designbodies/{moniker}" or "parts/{moniker}".
+  string parent = 1;
 }
 
 message GetAllResponse{
-    // The faces on this page.
-    repeated Face faces = 1;
+  // The faces on this page.
+  repeated Face faces = 1;
 }
 
 message GetNormalRequest {
-	string id=1;
-	double u=2;
-	double v=3;
+  string id=1;
+  double u=2;
+  double v=3;
 }
 
 message GetNormalResponse {
-	Direction direction=1;
+  Direction direction=1;
 }
 
 message EvaluateRequest {
-	string id=1;
-	double u=2;
-	double v=3;
+  string id=1;
+  double u=2;
+  double v=3;
 }
 
 message EvaluateResponse {
-	Point point=1;
+  Point point=1;
 }
 
 message GetAreaResponse {
-	double area=1;
+  double area=1;
 }
 
 message IsDeletedResponse{
-    bool deleted=1;
+  bool deleted=1;
 }
 
 message GetEdgesResponse{
-    repeated Edge edges=1;
+  repeated Edge edges=1;
 }
 
 message GetExternalEdgesResponse{
-    repeated Edge edges=1;
+  repeated Edge edges=1;
 }
 
 message GetInternalEdgesResponse{
-    repeated Edge edges=1;
+  repeated Edge edges=1;
 }
 
 message GetLoopsResponse {
-	repeated Loop loops=1;
+  repeated Loop loops=1;
 }

@@ -1,28 +1,29 @@
-// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.geometry.v0.Components;
-option csharp_namespace = "Ansys.Api.Geometry.V0.Components";
 
 import "ansys/api/geometry/v0/models.proto";
 
+option csharp_namespace = "Ansys.Api.Geometry.V0.Components";
+
 service Components{
-    rpc Get(EntityIdentifier) returns(Component);
+  rpc Get(EntityIdentifier) returns(Component);
 
-    rpc GetAll(GetAllRequest) returns(GetAllResponse) ;
-    
-    rpc GetBodies(EntityIdentifier) returns (GetBodiesResponse);
+  rpc GetAll(GetAllRequest) returns(GetAllResponse) ;
+  
+  rpc GetBodies(EntityIdentifier) returns (GetBodiesResponse);
 
-    rpc Delete(EntityIdentifier) returns(Empty);
+  rpc Delete(EntityIdentifier) returns(Empty);
 
-    rpc Create(CreateRequest) returns(CreateResponse);
+  rpc Create(CreateRequest) returns(CreateResponse);
 
-	rpc SetSharedTopology(SetSharedTopologyRequest) returns (Empty);
-	
-	rpc GetRootComponent(Empty) returns (GetRootComponentResponse);
+  rpc SetSharedTopology(SetSharedTopologyRequest) returns (Empty);
+  
+  rpc GetRootComponent(Empty) returns (GetRootComponentResponse);
 
-	rpc GetName(EntityIdentifier) returns (GetComponentNameResponse);
-	
-	rpc GetUpdateState(EntityIdentifier) returns (UpdateState);
+  rpc GetName(EntityIdentifier) returns (GetComponentNameResponse);
+  
+  rpc GetUpdateState(EntityIdentifier) returns (UpdateState);
 }
 
 message GetAllRequest{
@@ -34,29 +35,29 @@ message GetAllResponse{
 }
 
 message GetBodiesResponse {
-	repeated Body bodies=1;
+  repeated Body bodies=1;
 }
 
 message CreateRequest {
-	string name = 1;
-	string parent = 2;
-	string template = 3;
+  string name = 1;
+  string parent = 2;
+  string template = 3;
 }
 
 message CreateResponse {
-	Component component = 1;
-	string template=2;
+  Component component = 1;
+  string template=2;
 }
 
 message SetSharedTopologyRequest {
-	string id=1;
-	ShareType shareType=2;
+  string id=1;
+  ShareType share_type=2;
 }
 
 message GetRootComponentResponse{
-    string id=1;
+  string id=1;
 }
 
 message GetComponentNameResponse {
-	string name = 1;
+  string name = 1;
 }
