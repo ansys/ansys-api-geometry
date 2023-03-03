@@ -1,69 +1,70 @@
-// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.geometry.v0.Designs;
-option csharp_namespace = "Ansys.Api.Geometry.V0.Designs";
 
 import "ansys/api/geometry/v0/models.proto";
 
+option csharp_namespace = "Ansys.Api.Geometry.V0.Designs";
+
 service Designs{
-    rpc Get(EntityIdentifier) returns(Design);
+  rpc Get(EntityIdentifier) returns(Design);
 
-    rpc GetAll(Empty) returns(GetAllResponse) ;
-    
-    rpc GetActive(Empty) returns(Design) ;
+  rpc GetAll(Empty) returns(GetAllResponse) ;
+  
+  rpc GetActive(Empty) returns(Design) ;
 
-    rpc PutActive(EntityIdentifier) returns(Empty);
+  rpc PutActive(EntityIdentifier) returns(Empty);
 
-    rpc Open(OpenRequest) returns(EntityIdentifier);
+  rpc Open(OpenRequest) returns(EntityIdentifier);
 
-    rpc New(NewRequest) returns(Design) ;
+  rpc New(NewRequest) returns(Design) ;
 
-    rpc Close(EntityIdentifier) returns(Empty);
+  rpc Close(EntityIdentifier) returns(Empty);
 
-    rpc Save(EntityIdentifier) returns(Empty) ;
+  rpc Save(EntityIdentifier) returns(Empty) ;
 
-    rpc SaveAs(SaveAsRequest) returns(EntityIdentifier);
+  rpc SaveAs(SaveAsRequest) returns(EntityIdentifier);
 
-    rpc Insert(InsertRequest) returns(EntityIdentifier);
+  rpc Insert(InsertRequest) returns(EntityIdentifier);
 
-    rpc Export(ExportRequest) returns(ExportResponse);
+  rpc Export(ExportRequest) returns(ExportResponse);
 
-    rpc GetAsJson(GetAsJsonRequest) returns(GetAsJsonResponse);
+  rpc GetAsJson(GetAsJsonRequest) returns(GetAsJsonResponse);
 }
 
 message GetAllResponse{
-    repeated Design designs = 1;
+  repeated Design designs = 1;
 }
 
 message OpenRequest{
-    string filepath = 1;
+  string filepath = 1;
 }
 
 message NewRequest{
-    string name = 1;
+  string name = 1;
 }
 
 message SaveAsRequest{
-    string filepath = 1;
+  string filepath = 1;
 }
 
 message InsertRequest{
-    string filepath = 1;
+  string filepath = 1;
 }
 
 message ExportRequest {
-    string id =1;
-	PartExportFormat format=2;
+  string id =1;
+  PartExportFormat format=2;
 
 }
 
 message ExportResponse {
-	bytes data=1;
+  bytes data=1;
 }
 
 message GetAsJsonRequest {
-    string id=1;
+  string id=1;
 }
 message GetAsJsonResponse {
-    string json=1;
+  string json=1;
 }
