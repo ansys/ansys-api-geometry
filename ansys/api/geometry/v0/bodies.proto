@@ -47,6 +47,18 @@ service Bodies
   rpc Copy(CopyRequest) returns (Body);
 
   rpc GetUpdateState(EntityIdentifier) returns (UpdateState);
+
+  rpc Boolean(BooleanRequest) returns (BooleanResponse);
+}
+
+message BooleanRequest {
+  string body1 = 1;
+  string body2 = 2;
+  string method = 3;
+}
+
+message BooleanResponse {
+  int32 empty_result = 1;
 }
 
 enum GetType{
