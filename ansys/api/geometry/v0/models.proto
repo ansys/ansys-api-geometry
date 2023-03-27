@@ -106,6 +106,7 @@ message Body{
   bool is_suppressed = 5;
   Matrix transform_to_master = 6;
   BodyMasterNullable master = 7;
+  string master_id = 8;
 }
 
 //
