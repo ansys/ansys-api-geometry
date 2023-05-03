@@ -1,4 +1,4 @@
-// ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// Â©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.geometry.v0;
 
@@ -107,6 +107,7 @@ message Body{
   Matrix transform_to_master = 6;
   BodyMasterNullable master = 7;
   string master_id = 8;
+  string parent_id = 9;
 }
 
 //
@@ -146,6 +147,9 @@ message Component{
   string name = 2;
   Part part_occurrence = 3;
   Matrix placement =4;
+  string master_id=5;
+  string parent_id=6;
+  Part part_master=7;
 }
 
 //

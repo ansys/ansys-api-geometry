@@ -1,4 +1,4 @@
-// ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// Â©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.geometry.v0.Designs;
 
@@ -30,6 +30,8 @@ service Designs{
   rpc Export(ExportRequest) returns(ExportResponse);
 
   rpc GetAsJson(GetAsJsonRequest) returns(GetAsJsonResponse);
+
+  rpc GetAssembly(EntityIdentifier) returns (GetAssemblyResponse);
 }
 
 message GetAllResponse{
@@ -65,6 +67,22 @@ message ExportResponse {
 message GetAsJsonRequest {
   string id=1;
 }
+
 message GetAsJsonResponse {
   string json=1;
+}
+
+message CoordinateSystemList {
+  repeated CoordinateSystem coordinate_systems=1;
+}
+
+message GetAssemblyResponse {
+  repeated Part parts=1;
+  repeated Component transformed_parts=2;
+  repeated Component components=3;
+  repeated Body bodies=4;
+  repeated Material materials=5;
+  repeated NamedSelection named_selections=6;
+  map <string, CoordinateSystemList> component_coord_systems=7;
+  map <string, int32> component_shared_topologies=8;
 }
