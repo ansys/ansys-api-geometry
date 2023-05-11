@@ -28,11 +28,13 @@ if __name__ == "__main__":
         name=package_name,
         version=version,
         author="ANSYS, Inc.",
-        author_email='support@ansys.com',
+        author_email='pyansys.core@ansys.com',
+        maintainer="ANSYS, Inc.",
+        maintainer_email='pyansys.core@ansys.com',
         description=description,
         long_description=long_description,
         long_description_content_type='text/markdown',
-        url=f"https://github.com/ansys/{package_name}",
+        url=f"https://github.com/pyansys/{package_name}",
         license="MIT",
         python_requires=">=3.7",
         install_requires=["grpcio~=1.47", "protobuf~=3.19"],
@@ -45,5 +47,10 @@ if __name__ == "__main__":
                 f"{dot_package_name}={dot_package_name}"
             ],
         },
-        cmdclass=CMDCLASS_OVERRIDE
+        cmdclass=CMDCLASS_OVERRIDE,
+        project_urls={
+            'Documentation': 'https://github.com/pyansys/ansys-api-geometry/#readme',
+            'Source': 'https://github.com/pyansys/ansys-api-geometry/',
+            'Tracker': 'https://github.com/pyansys/ansys-api-geometry/issues/',
+        },
     )
