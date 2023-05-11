@@ -47,7 +47,7 @@ if __name__ == "__main__":
                 f"{dot_package_name}={dot_package_name}"
             ],
         },
-        cmdclass=CMDCLASS_OVERRIDE
+        cmdclass=CMDCLASS_OVERRIDE,
         project_urls={
             'Documentation': 'https://github.com/ansys-internal/ansys-api-geometry/#readme',
             'Source': 'https://github.com/ansys-internal/ansys-api-geometry/',
