@@ -1,4 +1,4 @@
-// Â©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.geometry.v0;
 
@@ -28,22 +28,6 @@ enum SurfaceType {
   SURFACETYPE_SPHERE = 5;
   SURFACETYPE_NURBS = 6;
   SURFACETYPE_PROCEDURAL = 7;
-}
-
-//
-// The type of dimension.
-enum DimensionType {
-  DIMENSIONTYPE_UNKNOWN = 0;
-  DIMENSIONTYPE_LINEAR = 1;
-  DIMENSIONTYPE_DIAMETRIC = 2;
-  DIMENSIONTYPE_RADIAL = 3;
-  DIMENSIONTYPE_ARC = 4;
-  DIMENSIONTYPE_AREA = 5;
-  DIMENSIONTYPE_VOLUME = 6;
-  DIMENSIONTYPE_MASS = 7;
-  DIMENSIONTYPE_ANGULAR = 8;
-  DIMENSIONTYPE_COUNT = 9;
-  DIMENSIONTYPE_UNITLESS = 10;
 }
 
 //
@@ -80,20 +64,6 @@ message Face{
 message Mesh{
   string id = 1;
   string name=2;
-}
-
-//
-// A design document.
-message Design{
-  string id = 1;
-  bool is_complete=2 ;  
-  bool is_locked=3  ;   
-  bool is_modified=4;   
-  bool is_removed = 5;  
-  Part main_part=6;   
-  bool main_part_displays_file_name=7; 
-  string path = 10;
-  string name=11;
 }
 
 //
@@ -308,9 +278,6 @@ message Loop {
   repeated string edges=4;
 }
 
-message Empty {
-}
-
 enum ShareType {
   SHARETYPE_NONE=0;
   SHARETYPE_SHARE=1;
@@ -326,9 +293,6 @@ enum MidSurfaceOffsetType {
   MIDSURFACEOFFSETTYPE_CUSTOM=4;
 }
 
-message EntityIdentifier{
-  string id=1;
-}
 //
 // Object type descriptor
 enum EntityType{

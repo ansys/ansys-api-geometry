@@ -1,33 +1,34 @@
 // ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.geometry.v0.Faces;
+package ansys.api.geometry.v0.faces;
 
+import "ansys/api/dbu/v0/dbumodels.proto";
 import "ansys/api/geometry/v0/models.proto";
 
 option csharp_namespace = "Ansys.Api.Geometry.V0.Faces";
 
 service Faces{
-  rpc Get(EntityIdentifier) returns(Face);
+  rpc Get(ansys.api.dbu.v0.EntityIdentifier) returns(Face);
 
   rpc GetAll(GetAllRequest) returns(GetAllResponse);
    
   rpc GetNormal(GetNormalRequest) returns(GetNormalResponse);
 
-  rpc GetArea(EntityIdentifier) returns(GetAreaResponse);
+  rpc GetArea(ansys.api.dbu.v0.EntityIdentifier) returns(GetAreaResponse);
 
   rpc Evaluate(EvaluateRequest) returns(EvaluateResponse);
 
-  rpc GetEdges(EntityIdentifier) returns(GetEdgesResponse);
+  rpc GetEdges(ansys.api.dbu.v0.EntityIdentifier) returns(GetEdgesResponse);
 
-  rpc IsDeleted(EntityIdentifier) returns(IsDeletedResponse);
+  rpc IsDeleted(ansys.api.dbu.v0.EntityIdentifier) returns(IsDeletedResponse);
 
-  rpc GetExternalEdges(EntityIdentifier) returns(GetExternalEdgesResponse);
+  rpc GetExternalEdges(ansys.api.dbu.v0.EntityIdentifier) returns(GetExternalEdgesResponse);
 
-  rpc GetInternalEdges(EntityIdentifier) returns(GetInternalEdgesResponse);
+  rpc GetInternalEdges(ansys.api.dbu.v0.EntityIdentifier) returns(GetInternalEdgesResponse);
 
-  rpc GetLoops(EntityIdentifier) returns (GetLoopsResponse);
+  rpc GetLoops(ansys.api.dbu.v0.EntityIdentifier) returns (GetLoopsResponse);
 
-  rpc GetUpdateState(EntityIdentifier) returns (UpdateState);
+  rpc GetUpdateState(ansys.api.dbu.v0.EntityIdentifier) returns (UpdateState);
 
 }
 
