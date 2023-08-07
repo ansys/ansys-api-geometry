@@ -1,78 +1,54 @@
-// ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// ©2021, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.geometry.v0.Components;
-
+package ansys.api.geometry.v0;
+option csharp_namespace = "Ansys.Api.Geometry.V0";
 
 import "ansys/api/geometry/v0/models.proto";
 
-option csharp_namespace = "Ansys.Api.Geometry.V0.Components";
-
 service Components{
-  rpc Get(EntityIdentifier) returns(Component);
+    rpc GetComponent(ComponentIdentifier) returns(Component);
 
-  rpc GetAll(GetAllRequest) returns(GetAllResponse) ;
-  
-  rpc GetBodies(EntityIdentifier) returns (GetBodiesResponse);
+	rpc GetName(ComponentIdentifier) returns (GetComponentNameResponse);
 
-  rpc Delete(EntityIdentifier) returns(Empty);
+    rpc GetAllComponents(Empty) returns (GetAllComponentsResponse);
 
-  rpc Create(CreateRequest) returns(CreateResponse);
+    rpc GetComponentBodies(ComponentIdentifier) returns (GetComponentBodiesResponse);
 
-  rpc SetSharedTopology(SetSharedTopologyRequest) returns (Empty);
-  
-  rpc GetRootComponent(Empty) returns (GetRootComponentResponse);
+    rpc DeleteComponent(ComponentIdentifier) returns(Empty);
 
-  rpc GetName(EntityIdentifier) returns (GetComponentNameResponse);
-	
-  rpc GetUpdateState(EntityIdentifier) returns (UpdateState);
-	
-  rpc SetPlacement(SetPlacementRequest) returns (SetPlacementResponse);
+    rpc CreateComponent(CreateComponentRequest) returns(CreateComponentResponse);
+
+	rpc SetComponentSharedTopology(SetComponentSharedTopologyRequest) returns (Empty);
 }
 
-message SetPlacementRequest {
+message ComponentIdentifier{
   string id = 1;
-  Direction translation = 2;
-  Point rotation_axis_origin = 3;
-  Direction rotation_axis_direction = 4;
-  double rotation_angle = 5;
 }
 
-message SetPlacementResponse {
-  Matrix matrix = 1;
-}
-
-message GetAllRequest{
-  string parent = 1;
-}
-
-message GetAllResponse{
+message GetAllComponentsResponse{
   repeated Component components = 1;
 }
 
-message GetBodiesResponse {
-  repeated Body bodies=1;
+message GetComponentBodiesResponse {
+	repeated Body bodies=1;
 }
 
-message CreateRequest {
-  string name = 1;
-  string parent = 2;
-  string template = 3;
+message CreateComponentRequest {
+	string display_name = 1;
+	string parent = 2;
+	string template = 3;
 }
 
-message CreateResponse {
-  Component component = 1;
-  string template=2;
+message CreateComponentResponse {
+	Component component = 1;
+	string template=2;
 }
 
-message SetSharedTopologyRequest {
-  string id=1;
-  ShareType share_type=2;
-}
-
-message GetRootComponentResponse{
-  string id=1;
+message SetComponentSharedTopologyRequest {
+	string component=1;
+	ShareType shareType=2;
 }
 
 message GetComponentNameResponse {
-  string name = 1;
+	string display_name = 1;
 }

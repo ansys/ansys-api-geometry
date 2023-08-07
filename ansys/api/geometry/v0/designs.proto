@@ -1,88 +1,38 @@
-// ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
-syntax = "proto3";
-package ansys.api.geometry.v0.Designs;
-
+﻿syntax = "proto3";
+package ansys.api.geometry.v0;
+option csharp_namespace = "Ansys.Api.Geometry.V0";
 import "ansys/api/geometry/v0/models.proto";
 
-option csharp_namespace = "Ansys.Api.Geometry.V0.Designs";
 
-service Designs{
-  rpc Get(EntityIdentifier) returns(Design);
-
-  rpc GetAll(Empty) returns(GetAllResponse) ;
+service Designs {
+  rpc New(NewDesignRequest) returns(Design);
   
-  rpc GetActive(Empty) returns(Design) ;
+  rpc SaveAs(SaveAsDocumentRequest) returns(SaveAsDocumentResponse);
 
-  rpc PutActive(EntityIdentifier) returns(Empty);
-
-  rpc Open(OpenRequest) returns(EntityIdentifier);
-
-  rpc New(NewRequest) returns(Design) ;
-
-  rpc Close(EntityIdentifier) returns(Empty);
-
-  rpc Save(EntityIdentifier) returns(Empty) ;
-
-  rpc SaveAs(SaveAsRequest) returns(EntityIdentifier);
-
-  rpc Insert(InsertRequest) returns(EntityIdentifier);
-
-  rpc Export(ExportRequest) returns(ExportResponse);
-
-  rpc GetAsJson(GetAsJsonRequest) returns(GetAsJsonResponse);
-
-  rpc GetAssembly(EntityIdentifier) returns (GetAssemblyResponse);
+  rpc ExportDesign(ExportDesignRequest) returns(ExportDesignResponse);
 }
 
-message GetAllResponse{
-  repeated Design designs = 1;
-}
-
-message OpenRequest{
-  string filepath = 1;
-}
-
-message NewRequest{
+message NewDesignRequest {
   string name = 1;
 }
 
-message SaveAsRequest{
-  string filepath = 1;
+message Design {
+  string id = 1;
+  string name = 2;
 }
 
-message InsertRequest{
-  string filepath = 1;
+message SaveAsDocumentRequest{
+	string filepath = 1;
 }
 
-message ExportRequest {
-  string id =1;
-  PartExportFormat format=2;
-
+message SaveAsDocumentResponse{
+	string id = 1;
 }
 
-message ExportResponse {
-  bytes data=1;
+message ExportDesignRequest {
+	PartExportFormat format=1;
 }
 
-message GetAsJsonRequest {
-  string id=1;
-}
-
-message GetAsJsonResponse {
-  string json=1;
-}
-
-message CoordinateSystemList {
-  repeated CoordinateSystem coordinate_systems=1;
-}
-
-message GetAssemblyResponse {
-  repeated Part parts=1;
-  repeated Component transformed_parts=2;
-  repeated Component components=3;
-  repeated Body bodies=4;
-  repeated Material materials=5;
-  repeated NamedSelection named_selections=6;
-  map <string, CoordinateSystemList> component_coord_systems=7;
-  map <string, int32> component_shared_topologies=8;
+message ExportDesignResponse {
+	bytes data=1;
 }
