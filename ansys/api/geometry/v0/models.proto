@@ -1,4 +1,4 @@
-// Â©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.geometry.v0;
 
