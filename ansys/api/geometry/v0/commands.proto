@@ -1,4 +1,4 @@
-// Â©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 
 syntax = "proto3";
 
@@ -17,9 +17,9 @@ service Commands{
 
   rpc ProjectCurves(ProjectCurvesRequest) returns (ProjectCurvesResponse);
 
-  rpc ImprintProjectedCurves(ProjectCurvesRequest) returns (EntitiesCollection);
-
   rpc ImprintCurves(ImprintCurvesRequest) returns (EntitiesCollection);
+
+  rpc ImprintProjectedCurves(ProjectCurvesRequest) returns (EntitiesCollection);
 
   rpc PowerSelectFacesByAreaRange(PowerSelectFacesByAreaRangeRequest) returns (PowerSelectFacesByAreaRangeResponse);
 
