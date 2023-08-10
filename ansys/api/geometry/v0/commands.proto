@@ -1,4 +1,4 @@
-// ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// ï¿½2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 
 syntax = "proto3";
 
@@ -20,6 +20,8 @@ service Commands{
   rpc ProjectCurves(ProjectCurvesRequest) returns (ProjectCurvesResponse);
 
   rpc ImprintCurves(ImprintCurvesRequest) returns (EntitiesCollection);
+
+  rpc ImprintProjectedCurves(ProjectCurvesRequest) returns (EntitiesCollection);
 
   rpc PowerSelectFacesByAreaRange(PowerSelectFacesByAreaRangeRequest) returns (PowerSelectFacesByAreaRangeResponse);
 
@@ -240,3 +242,4 @@ message GetAssemblyResponse {
   map <string, CoordinateSystemList> component_coord_systems=7;
   map <string, int32> component_shared_topologies=8;
 }
+
