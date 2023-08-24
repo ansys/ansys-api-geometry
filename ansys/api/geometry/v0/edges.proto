@@ -19,6 +19,12 @@ service Edges{
 
   rpc GetUpdateState(EntityIdentifier) returns (UpdateState);
 
+  rpc GetStartAndEndPoints(EntityIdentifier) returns (GetStartAndEndPointsResponse);
+}
+
+message GetStartAndEndPointsResponse {
+  Point start = 1;
+  Point end = 2;
 }
 
 message GetAllRequest{
