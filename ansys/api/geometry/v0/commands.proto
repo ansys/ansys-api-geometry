@@ -1,4 +1,4 @@
-// ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+ï»¿// ï¿½2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 
 syntax = "proto3";
 
@@ -195,6 +195,7 @@ message UploadFileRequest {
   bytes data=1;
   string file_name=2;
   bool open=3;
+  map<string,bool> import_options = 4;
 }
 
 message UploadFileResponse {
