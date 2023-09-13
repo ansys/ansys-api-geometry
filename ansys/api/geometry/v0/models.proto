@@ -207,6 +207,73 @@ message ShrinkWrapOptions {
   double curvature_angle =10;
 }
 
+message SplitEdgeProblemArea {
+  int32 id = 1;    
+  repeated string edge_monikers  = 2;
+}
+
+message FixSplitEdgeOptions {
+  double max_edge_length  = 1;
+  double min_edge_angle  = 2;
+}
+
+message ExtraEdgeProblemArea {
+  int32 id = 1;
+  repeated string edge_monikers = 2;
+}
+
+message InexactEdgeProblemArea {
+  int32 id = 1;
+  repeated string edge_monikers = 2;
+}
+
+message ShortEdgeProblemArea {
+  int32 id = 1;
+  repeated string edge_monikers = 2;
+}
+
+message DuplicateFaceProblemArea {
+  int32 id = 1;
+  repeated string face_monikers = 2;
+}
+
+message MissingFaceProblemArea {
+  int32 id = 1;
+  repeated string edge_monikers = 2;
+}
+
+message SmallFaceProblemArea {
+  int32 id = 1;
+  repeated string face_monikers = 2;
+}
+
+message StitchFaceProblemArea {
+  int32 id = 1;
+  repeated string body_monikers = 2;
+}
+
+message CurveGapProblemArea {
+  int32 id = 1;
+  repeated string curve_point_monikers = 2;
+}
+
+message DuplicateCurveProblemArea {
+  int32 id = 1;
+  repeated string curve_point_monikers = 2;
+}
+
+message SmallCurveProblemArea {
+  int32 id = 1;
+  repeated string curve_point_monikers = 2;
+}
+
+message RepairToolMessage {
+  bool success = 1;
+  repeated string created_bodies_monikers = 2;
+  repeated string modified_bodies_monikers = 3;
+}
+
+
 message Material{
   string name=1;
   repeated MaterialProperty material_properties=2;
