@@ -1,4 +1,4 @@
-// ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// ï¿½2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.geometry.v0.edges;
 
@@ -20,7 +20,7 @@ service Edges{
 
   rpc GetUpdateState(ansys.api.dbu.v0.EntityIdentifier) returns (UpdateState);
 
-  rpc GetStartAndEndPoints(EntityIdentifier) returns (GetStartAndEndPointsResponse);
+  rpc GetStartAndEndPoints(ansys.api.dbu.v0.EntityIdentifier) returns (GetStartAndEndPointsResponse);
 }
 
 message GetStartAndEndPointsResponse {
