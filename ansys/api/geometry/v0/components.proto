@@ -1,30 +1,31 @@
 // ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.geometry.v0.Components;
+package ansys.api.geometry.v0.components;
 
-
+import "ansys/api/dbu/v0/dbumodels.proto";
 import "ansys/api/geometry/v0/models.proto";
+import "google/protobuf/empty.proto";
 
 option csharp_namespace = "Ansys.Api.Geometry.V0.Components";
 
 service Components{
-  rpc Get(EntityIdentifier) returns(Component);
+  rpc Get(ansys.api.dbu.v0.EntityIdentifier) returns(Component);
 
   rpc GetAll(GetAllRequest) returns(GetAllResponse) ;
   
-  rpc GetBodies(EntityIdentifier) returns (GetBodiesResponse);
+  rpc GetBodies(ansys.api.dbu.v0.EntityIdentifier) returns (GetBodiesResponse);
 
-  rpc Delete(EntityIdentifier) returns(Empty);
+  rpc Delete(ansys.api.dbu.v0.EntityIdentifier) returns(google.protobuf.Empty);
 
   rpc Create(CreateRequest) returns(CreateResponse);
 
-  rpc SetSharedTopology(SetSharedTopologyRequest) returns (Empty);
+  rpc SetSharedTopology(SetSharedTopologyRequest) returns (google.protobuf.Empty);
   
-  rpc GetRootComponent(Empty) returns (GetRootComponentResponse);
+  rpc GetRootComponent(google.protobuf.Empty) returns (GetRootComponentResponse);
 
-  rpc GetName(EntityIdentifier) returns (GetComponentNameResponse);
+  rpc GetName(ansys.api.dbu.v0.EntityIdentifier) returns (GetComponentNameResponse);
 	
-  rpc GetUpdateState(EntityIdentifier) returns (UpdateState);
+  rpc GetUpdateState(ansys.api.dbu.v0.EntityIdentifier) returns (UpdateState);
 	
   rpc SetPlacement(SetPlacementRequest) returns (SetPlacementResponse);
 }

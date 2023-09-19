@@ -1,25 +1,26 @@
-// ©2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// ï¿½2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
-package ansys.api.geometry.v0.Edges;
+package ansys.api.geometry.v0.edges;
 
+import "ansys/api/dbu/v0/dbumodels.proto";
 import "ansys/api/geometry/v0/models.proto";
 
 option csharp_namespace = "Ansys.Api.Geometry.V0.Edges";
 
 service Edges{
-  rpc Get(EntityIdentifier) returns(Edge);
+  rpc Get(ansys.api.dbu.v0.EntityIdentifier) returns(Edge);
 
   rpc GetAll(GetAllRequest) returns(GetAllResponse);
 
-  rpc GetFaces(EntityIdentifier) returns(GetFacesResponse);
+  rpc GetFaces(ansys.api.dbu.v0.EntityIdentifier) returns(GetFacesResponse);
 
-  rpc GetLength(EntityIdentifier) returns(GetLengthResponse);
+  rpc GetLength(ansys.api.dbu.v0.EntityIdentifier) returns(GetLengthResponse);
 
-  rpc IsDeleted(EntityIdentifier) returns(IsDeletedResponse);
+  rpc IsDeleted(ansys.api.dbu.v0.EntityIdentifier) returns(IsDeletedResponse);
 
-  rpc GetUpdateState(EntityIdentifier) returns (UpdateState);
+  rpc GetUpdateState(ansys.api.dbu.v0.EntityIdentifier) returns (UpdateState);
 
-  rpc GetStartAndEndPoints(EntityIdentifier) returns (GetStartAndEndPointsResponse);
+  rpc GetStartAndEndPoints(ansys.api.dbu.v0.EntityIdentifier) returns (GetStartAndEndPointsResponse);
 }
 
 message GetStartAndEndPointsResponse {
