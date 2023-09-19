@@ -1,0 +1,79 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.geometry.v0.components;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/geometry/v0/models.proto";
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "Ansys.Api.Geometry.V0.Components";
+
+service Components{
+  rpc Get(ansys.api.dbu.v0.EntityIdentifier) returns(Component);
+
+  rpc GetAll(GetAllRequest) returns(GetAllResponse) ;
+  
+  rpc GetBodies(ansys.api.dbu.v0.EntityIdentifier) returns (GetBodiesResponse);
+
+  rpc Delete(ansys.api.dbu.v0.EntityIdentifier) returns(google.protobuf.Empty);
+
+  rpc Create(CreateRequest) returns(CreateResponse);
+
+  rpc SetSharedTopology(SetSharedTopologyRequest) returns (google.protobuf.Empty);
+  
+  rpc GetRootComponent(google.protobuf.Empty) returns (GetRootComponentResponse);
+
+  rpc GetName(ansys.api.dbu.v0.EntityIdentifier) returns (GetComponentNameResponse);
+	
+  rpc GetUpdateState(ansys.api.dbu.v0.EntityIdentifier) returns (UpdateState);
+	
+  rpc SetPlacement(SetPlacementRequest) returns (SetPlacementResponse);
+}
+
+message SetPlacementRequest {
+  string id = 1;
+  Direction translation = 2;
+  Point rotation_axis_origin = 3;
+  Direction rotation_axis_direction = 4;
+  double rotation_angle = 5;
+}
+
+message SetPlacementResponse {
+  Matrix matrix = 1;
+}
+
+message GetAllRequest{
+  string parent = 1;
+}
+
+message GetAllResponse{
+  repeated Component components = 1;
+}
+
+message GetBodiesResponse {
+  repeated Body bodies=1;
+}
+
+message CreateRequest {
+  string name = 1;
+  string parent = 2;
+  string template = 3;
+}
+
+message CreateResponse {
+  Component component = 1;
+  string template=2;
+}
+
+message SetSharedTopologyRequest {
+  string id=1;
+  ShareType share_type=2;
+}
+
+message GetRootComponentResponse{
+  string id=1;
+}
+
+message GetComponentNameResponse {
+  string name = 1;
+}

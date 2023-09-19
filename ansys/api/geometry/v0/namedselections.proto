@@ -1,0 +1,38 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.geometry.v0.namedselections;
+
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/geometry/v0/models.proto";
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "Ansys.Api.Geometry.V0.NamedSelections";
+
+// Named Selections
+//
+service NamedSelections{
+  rpc Get(ansys.api.dbu.v0.EntityIdentifier) returns(NamedSelection);
+
+  rpc Create(CreateRequest) returns(NamedSelection);
+
+  rpc GetAll(google.protobuf.Empty) returns(GetAllResponse);
+
+  rpc Delete(ansys.api.dbu.v0.EntityIdentifier) returns(google.protobuf.Empty);
+
+  rpc DeleteByName(DeleteByNameRequest) returns(google.protobuf.Empty);
+}
+
+message CreateRequest{
+  string name = 1;
+  repeated string members = 2;
+  string parent = 3;
+}
+
+message GetAllResponse{
+  repeated NamedSelection named_selections = 1;
+}
+
+message DeleteByNameRequest{
+  string name = 1;
+}

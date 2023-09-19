@@ -1,0 +1,88 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.geometry.v0.preparetools;
+
+import "ansys/api/geometry/v0/models.proto";
+import "google/protobuf/wrappers.proto";
+
+option csharp_namespace = "Ansys.Api.Geometry.V0.PrepareTools";
+option go_package = "ansys/api/geometry/v0";
+
+service PrepareTools{
+
+  rpc FixInterference(FixInterferenceRequest) returns (FixInterferenceResponse);
+
+  rpc FixShortEdges(FixShortEdgesRequest) returns (FixShortEdgesResponse);
+
+  rpc ShareTopology(ShareTopologyRequest) returns (ShareTopologyResponse);
+
+  rpc UnshareTopology(UnshareTopologyRequest) returns (UnshareTopologyResponse);
+
+  rpc RemoveRounds(RemoveRoundsRequest) returns(RemoveRoundsResponse);
+
+  rpc RemoveFaces(RemoveFacesRequest) returns(RemoveFacesResponse);
+}
+
+
+message FixInterferenceRequest{
+  repeated ansys.api.geometry.v0.Body selection = 1;
+  // True if interfered body is removed from smaller body, false otherwise.
+  google.protobuf.BoolValue cut_smaller_body=2;
+}
+
+message FixInterferenceResponse{
+  bool result = 1;
+}
+
+message FixShortEdgesRequest{
+  repeated ansys.api.geometry.v0.Edge selection = 1;
+  // The maximum edge length in mm to remove shorter edges.
+  google.protobuf.DoubleValue max_edge_length=2;
+}
+
+message FixShortEdgesResponse{
+  bool result = 1;
+}
+
+message ShareTopologyRequest{
+  repeated ansys.api.geometry.v0.Body selection = 1;
+  // Gets or sets the maximum distance between items to be considered intersecting in mm. 
+  google.protobuf.DoubleValue tolerance=2;
+  // Gets or sets the option for preserving the instancing. 
+  google.protobuf.BoolValue preserve_instances=3;
+}
+
+message ShareTopologyResponse{
+  bool result = 1;
+}
+
+message UnshareTopologyRequest{
+  // Gets or sets a value indicating whether to include groups. 
+  google.protobuf.BoolValue include_groups=1;
+  // Gets or sets a value indicating whether to unshare lower topology. 
+  google.protobuf.BoolValue unshare_lower_topology =2;
+}
+
+message UnshareTopologyResponse{
+  bool result = 1;
+}
+
+message RemoveRoundsRequest{
+  // The round faces to be removed.
+  repeated ansys.api.geometry.v0.Face selection = 1;
+  // Auto-shrink fill area 
+  google.protobuf.BoolValue auto_shrink = 2;
+}
+
+message RemoveRoundsResponse{
+  bool result = 1;
+}
+
+message RemoveFacesRequest{
+  // The faces to be removed.
+  repeated ansys.api.geometry.v0.Face selection = 1;
+}
+
+message RemoveFacesResponse{
+  bool result = 1;
+}

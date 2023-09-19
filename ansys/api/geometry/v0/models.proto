@@ -1,0 +1,395 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.geometry.v0;
+
+import "google/protobuf/struct.proto";
+
+option csharp_namespace = "Ansys.Api.Geometry.V0";
+
+//
+// The type of curve.
+enum CurveType {
+  CURVETYPE_UNKNOWN = 0;
+  CURVETYPE_LINE = 1;
+  CURVETYPE_CIRCLE = 2;
+  CURVETYPE_ELLIPSE = 3;
+  CURVETYPE_NURBS = 4;
+  CURVETYPE_PROCEDURAL = 5;
+}
+
+//
+// The type of surface.
+enum SurfaceType {
+  SURFACETYPE_UNKNOWN = 0;
+  SURFACETYPE_PLANE = 1;
+  SURFACETYPE_CYLINDER = 2;
+  SURFACETYPE_CONE = 3;
+  SURFACETYPE_TORUS = 4;
+  SURFACETYPE_SPHERE = 5;
+  SURFACETYPE_NURBS = 6;
+  SURFACETYPE_PROCEDURAL = 7;
+}
+
+//
+// A design curve.
+message Curve{
+  string id = 1;
+  string owner_name = 2;
+  double length = 3;
+  repeated Point points = 4;
+}
+
+//
+// A edge.
+message Edge{
+  string id = 1;
+  CurveType curve_type = 10;
+  string owner_name = 11;
+  string export_id = 12;
+  double length = 13;
+  string owner_id = 14;
+}
+
+//
+// A face.
+message Face{
+  string id = 1;
+  SurfaceType surface_type = 10;
+  string owner_name = 11;
+  string export_id = 12;
+  double area = 13;
+}
+//
+// A mesh.
+message Mesh{
+  string id = 1;
+  string name=2;
+}
+
+//
+// A body.
+message Body{
+  string id = 1;
+  string name = 2;
+  bool can_suppress = 3;
+  bool is_deleted = 4;
+  bool is_suppressed = 5;
+  Matrix transform_to_master = 6;
+  BodyMasterNullable master = 7;
+  string master_id = 8;
+  string parent_id = 9;
+}
+
+//
+// A nullable body master.
+message BodyMasterNullable{
+  oneof kind 
+  {
+    google.protobuf.NullValue null = 1;
+    BodyMaster props = 2;
+  }
+}
+
+//
+// A body master.
+message BodyMaster {
+  string update_state = 6;
+  map< string, string > text_attributes = 7;
+  map< string, double > number_attributes = 8;
+  Material material = 9;
+  Material surface_material = 10;
+  Shape shape = 11;
+}
+
+//
+// The shape.
+message Shape {
+  bool is_surface_body = 1;
+  double surface_area = 2;
+  double volume = 3;
+  Direction bounding_box_size = 4;
+}
+
+//
+// A component.
+message Component{
+  string id = 1;
+  string name = 2;
+  Part part_occurrence = 3;
+  Matrix placement =4;
+  string master_id=5;
+  string parent_id=6;
+  Part part_master=7;
+}
+
+//
+// A part.
+message Part{
+  string id = 1;
+  string name = 2;
+}
+
+//
+// A named selection.
+message NamedSelection {
+  string id = 1;
+  string name = 2;
+}
+
+//
+// A 3D coordinate system.
+message CoordinateSystem{
+  string id=1;
+  string name=2;
+  Frame frame = 3;
+}
+
+//
+// A 3D point.
+message Point {
+  double x = 1;
+  double y = 2;
+  double z = 3;
+}
+
+//
+// A 3D direction.
+message Direction {
+  double x = 1;
+  double y = 2;
+  double z = 3;
+}
+
+
+//
+// A 3D box.
+message Box {
+  Point min = 1;
+  Point max = 2;
+}
+
+//
+// A homogeneous 3D transformation matrix.
+// The matrix is a pre-multiplication transformation. 
+// The rotation is in m00->m22 and contains no scaling in its leading diagonal.
+// The translation is m03/m33, m13/m33, m23/m33.
+// The uniform scale is 1/m33.
+message Matrix{
+  double m00 = 1;
+  double m01 = 2;
+  double m02 = 3;
+  double m03 = 4;
+  double m10 = 5;
+  double m11 = 6;
+  double m12 = 7;
+  double m13 = 8;
+  double m20 = 9;
+  double m21 = 10;
+  double m22 = 11;
+  double m23 = 12;
+  double m30 = 13;
+  double m31 = 14;
+  double m32 = 15;
+  double m33 = 16;
+}
+
+//
+// ShrinkWrapOptions is used to specify ShrinkWrap method in the Facet Tools. 
+message ShrinkWrapOptions {
+  double size =2;
+  bool keep_original_bodies =3;
+  bool preserve_features =4;
+  double angle_tolerance =5;
+  bool secondary_size_enabled =6;
+  double secondary_size = 7;
+  bool max_size_enabled =8;
+  double max_size = 9;
+  double curvature_angle =10;
+}
+
+message SplitEdgeProblemArea {
+  int32 id = 1;    
+  repeated string edge_monikers  = 2;
+}
+
+message FixSplitEdgeOptions {
+  double max_edge_length  = 1;
+  double min_edge_angle  = 2;
+}
+
+message ExtraEdgeProblemArea {
+  int32 id = 1;
+  repeated string edge_monikers = 2;
+}
+
+message InexactEdgeProblemArea {
+  int32 id = 1;
+  repeated string edge_monikers = 2;
+}
+
+message ShortEdgeProblemArea {
+  int32 id = 1;
+  repeated string edge_monikers = 2;
+}
+
+message DuplicateFaceProblemArea {
+  int32 id = 1;
+  repeated string face_monikers = 2;
+}
+
+message MissingFaceProblemArea {
+  int32 id = 1;
+  repeated string edge_monikers = 2;
+}
+
+message SmallFaceProblemArea {
+  int32 id = 1;
+  repeated string face_monikers = 2;
+}
+
+message StitchFaceProblemArea {
+  int32 id = 1;
+  repeated string body_monikers = 2;
+}
+
+message CurveGapProblemArea {
+  int32 id = 1;
+  repeated string curve_point_monikers = 2;
+}
+
+message DuplicateCurveProblemArea {
+  int32 id = 1;
+  repeated string curve_point_monikers = 2;
+}
+
+message SmallCurveProblemArea {
+  int32 id = 1;
+  repeated string curve_point_monikers = 2;
+}
+
+message RepairToolMessage {
+  bool success = 1;
+  repeated string created_bodies_monikers = 2;
+  repeated string modified_bodies_monikers = 3;
+}
+
+
+message Material{
+  string name=1;
+  repeated MaterialProperty material_properties=2;
+}
+
+message MaterialProperty {
+  string id=1;
+  string display_name=2;
+  double value=3;
+  string units=4;
+}
+
+
+message Frame {
+  Point origin = 1;
+  Direction dir_x = 2;
+  Direction dir_y = 3;
+  Direction dir_z = 4;
+}
+
+message Plane {
+  Frame frame = 1;
+}
+
+message Line {
+  Point start=1;
+  Point end=2;
+}
+
+message Circle {
+  Point center=1;
+  double radius=2;
+}
+
+message Arc {
+  Point center=1;
+  Point start=2;
+  Point end=3;
+  Direction axis=4;
+}
+
+message Ellipse {
+  Point center=1;
+  double majorradius=2;
+  double minorradius=3;
+  double angle=4;
+}
+
+message Polygon {
+  Point center=1;
+  double radius=2;
+  int32 numberofsides=3;
+  double angle=4;
+}
+
+message Geometries {
+  repeated Point points = 1;
+  repeated Line lines = 2;
+  repeated Arc arcs = 3;
+  repeated Circle circles = 4;
+  repeated Ellipse ellipses = 5;
+  repeated Polygon polygons = 6;
+}
+
+message Loop {
+  string type=1;
+  double length=2;
+  Box bounding_box=3;
+  repeated string edges=4;
+}
+
+enum ShareType {
+  SHARETYPE_NONE=0;
+  SHARETYPE_SHARE=1;
+  SHARETYPE_MERGE=2;
+  SHARETYPE_GROUPS=3;
+}
+
+enum MidSurfaceOffsetType {
+  MIDSURFACEOFFSETTYPE_MIDDLE=0;
+  MIDSURFACEOFFSETTYPE_TOP=1;
+  MIDSURFACEOFFSETTYPE_BOTTOM=2;
+  MIDSURFACEOFFSETTYPE_VARIABLE=3;
+  MIDSURFACEOFFSETTYPE_CUSTOM=4;
+}
+
+//
+// Object type descriptor
+enum EntityType{
+  PART = 0;
+  COMPONENT = 1;
+  BODY = 2;
+  NAMED_SELECTION = 3;
+}
+
+message EntitiesCollection{
+  repeated Curve curves=1;
+  repeated Edge edges=2;
+  repeated Face faces=3;
+  repeated Body bodies=4;
+}
+
+message Tessellation {
+  repeated double vertices = 1;
+  repeated int32 faces = 2;
+  int32 facecolor = 3;
+}
+
+//
+// The type of segment.
+enum SegmentType {
+  SURFACETYPE_LINE = 0;
+  SURFACETYPE_ARC = 1;
+  SURFACETYPE_CIRCLE = 2;
+}
+
+message UpdateState {
+  int32 state=1;
+}

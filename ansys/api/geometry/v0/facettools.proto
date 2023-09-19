@@ -1,0 +1,47 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.geometry.v0.facettools;
+
+import "ansys/api/geometry/v0/models.proto";
+
+option csharp_namespace = "Ansys.Api.Geometry.V0.FacetTools";
+option go_package = "ansys/api/geometry/v0";
+
+service FacetTools{
+  // Shrinkwrap bodies.
+  rpc ShrinkWrapBody(ShrinkWrapBodyRequest) returns (ShrinkWrapBodyResponse);
+
+  // Shrinkwrap meshes.
+  rpc ShrinkWrapMesh(ShrinkWrapMeshRequest) returns (ShrinkWrapMeshResponse);
+
+  // Find and fix faceted body.
+  rpc FacetAutoFix(FacetAutoFixRequest) returns (FacetAutoFixResponse);
+}
+
+
+message ShrinkWrapBodyRequest{
+  // The bodies to be shrinkwrapped
+  repeated ansys.api.geometry.v0.Body selection = 1;
+  ansys.api.geometry.v0.ShrinkWrapOptions options= 2;
+}
+
+message ShrinkWrapBodyResponse{
+  bool result = 1;
+}
+
+message ShrinkWrapMeshRequest{
+  repeated ansys.api.geometry.v0.Mesh selection = 1;
+  ansys.api.geometry.v0.ShrinkWrapOptions options= 2;
+}
+
+message ShrinkWrapMeshResponse{
+  bool result = 1;
+}
+
+message FacetAutoFixRequest{
+  repeated ansys.api.geometry.v0.Mesh selection = 1;
+}
+
+message FacetAutoFixResponse{
+  bool result = 1;
+}

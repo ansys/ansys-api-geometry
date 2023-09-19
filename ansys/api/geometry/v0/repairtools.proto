@@ -1,0 +1,329 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.geometry.v0.repairtools;
+
+import "ansys/api/geometry/v0/models.proto";
+import "google/protobuf/struct.proto";
+import "google/protobuf/wrappers.proto";
+
+option csharp_namespace = "Ansys.Api.Geometry.V0.RepairTools";
+option go_package = "ansys/api/geometry/v0";
+
+service RepairTools{
+
+  rpc FindSplitEdges(FindSplitEdgesRequest) returns (FindSplitEdgesResponse);
+
+  rpc FixSplitEdges(FixSplitEdgesRequest) returns (FixSplitEdgesResponse);
+
+  rpc FindExtraEdges(FindExtraEdgesRequest) returns (FindExtraEdgesResponse);
+
+  rpc FixExtraEdges(FixExtraEdgesRequest) returns (FixExtraEdgesResponse);
+
+  rpc FindInexactEdges(FindInexactEdgesRequest) returns (FindInexactEdgesResponse);
+
+  rpc FixInexactEdges(FixInexactEdgesRequest) returns (FixInexactEdgesResponse);
+
+  rpc FindShortEdges(FindShortEdgesRequest) returns (FindShortEdgesResponse);
+
+  rpc FixShortEdges(FixShortEdgesRequest) returns (FixShortEdgesResponse);
+
+  rpc FindStitchFaces(FindStitchFacesRequest) returns (FindStitchFacesResponse);
+
+  rpc FixStitchFaces(FixStitchFacesRequest) returns (FixStitchFacesResponse);
+  
+  rpc FindMissingFaces(FindMissingFacesRequest) returns (FindMissingFacesResponse);
+
+  rpc FixMissingFaces(FixMissingFacesRequest) returns (FixMissingFacesResponse);
+
+  rpc FindDuplicateFaces(FindDuplicateFacesRequest) returns (FindDuplicateFacesResponse);
+
+  rpc FixDuplicateFaces(FixDuplicateFacesRequest) returns (FixDuplicateFacesResponse);
+
+  rpc FindSmallFaces(FindSmallFacesRequest) returns (FindSmallFacesResponse);
+
+  rpc FixSmallFaces(FixSmallFacesRequest) returns (FixSmallFacesResponse);
+
+  rpc FindGaps(FindGapsRequest) returns (FindGapsResponse);
+
+  rpc FixGaps(FixGapsRequest) returns (FixGapsResponse);
+
+  rpc FindCurveGaps(FindCurveGapsRequest) returns (FindCurveGapsResponse);
+  
+  rpc FixCurveGaps(FixCurveGapsRequest) returns (FixCurveGapsResponse);
+
+  rpc FindDuplicateCurves(FindDuplicateCurvesRequest) returns (FindDuplicateCurvesResponse);
+
+  rpc FixDuplicateCurves(FixDuplicateCurvesRequest) returns (FixDuplicateCurvesResponse);
+
+  rpc FindAdjustMergeFaces(FindAdjustMergeFacesRequest) returns (FindAdjustMergeFacesResponse);
+
+  rpc AdjustMergeFaces(AdjustMergeFacesRequest) returns (AdjustMergeFacesResponse);
+
+  rpc FindAdjustSimplify(FindAdjustSimplifyRequest) returns (FindAdjustSimplifyResponse);
+
+  rpc AdjustSimplify(AdjustSimplifyRequest) returns (AdjustSimplifyResponse);
+}
+
+message FindSplitEdgesRequest{
+  repeated string bodies_or_faces=1;
+  google.protobuf.DoubleValue angle=2;
+  google.protobuf.DoubleValue distance = 3;
+}
+
+message FindSplitEdgesResponse{
+  repeated ansys.api.geometry.v0.SplitEdgeProblemArea result = 1;
+}
+
+message FixSplitEdgesRequest{
+  google.protobuf.Int32Value split_edge_problem_area_id=1;
+}
+
+message FixSplitEdgesResponse{
+  RepairToolMessage result = 1;
+}
+
+message FindExtraEdgesRequest{
+  repeated string selection = 1;
+}
+
+message FindExtraEdgesResponse{
+  repeated ansys.api.geometry.v0.ExtraEdgeProblemArea result = 1;
+}
+
+message FixExtraEdgesRequest{
+  google.protobuf.Int32Value extra_edge_problem_area_id=1;
+}
+
+message FixExtraEdgesResponse{
+  RepairToolMessage result = 1;
+}
+
+message FindShortEdgesRequest{
+  repeated string selection = 1;
+  google.protobuf.DoubleValue max_edge_length=2; 
+}
+
+message FindShortEdgesResponse{
+  repeated ansys.api.geometry.v0.ShortEdgeProblemArea result = 1;
+}
+
+message FixShortEdgesRequest{
+  google.protobuf.Int32Value short_edge_problem_area_id=1;
+}
+
+message FixShortEdgesResponse{
+  RepairToolMessage result = 1;
+}
+
+message FindInexactEdgesRequest{
+  repeated string selection = 1;
+}
+
+message FindInexactEdgesResponse{
+  repeated ansys.api.geometry.v0.InexactEdgeProblemArea result = 1;
+}
+
+message FixInexactEdgesRequest{
+  google.protobuf.Int32Value inexact_edge_problem_area_id=1;
+}
+
+message FixInexactEdgesResponse{
+  RepairToolMessage result = 1;
+}
+
+message FindStitchFacesRequest{
+  repeated string faces = 1;
+  google.protobuf.DoubleValue maximum_distance =2; // default: 0.0001
+  google.protobuf.BoolValue check_for_coincidence=3; // default: false
+  google.protobuf.BoolValue allow_multiple_bodies =4; // default: false
+  google.protobuf.BoolValue maintain_components=5; // default: false
+}
+
+message FindStitchFacesResponse{
+  repeated ansys.api.geometry.v0.StitchFaceProblemArea result = 1;
+}
+
+message FixStitchFacesRequest{
+  google.protobuf.Int32Value stitch_face_problem_area_id = 1;
+}
+
+message FixStitchFacesResponse{
+  RepairToolMessage result = 1;
+}
+
+enum SolidifyFixMethodType{
+  FILL = 0;
+  PATCH_BLEND = 1;
+  TRY_BOTH = 2;
+}
+
+message FindMissingFacesRequest{
+  repeated string faces = 1;
+  google.protobuf.DoubleValue angle=2;
+  google.protobuf.DoubleValue distance = 3;
+  oneof method
+  {
+    google.protobuf.NullValue null = 4;
+    SolidifyFixMethodType  data =5;
+  }  
+  google.protobuf.BoolValue allow_multi_patch =6;
+}
+
+message FindMissingFacesResponse{
+  repeated ansys.api.geometry.v0.MissingFaceProblemArea result = 1;
+}
+
+message FixMissingFacesRequest{
+  google.protobuf.Int32Value missing_face_problem_area_id = 1;
+}
+
+message FixMissingFacesResponse{
+  RepairToolMessage result = 1;
+}
+
+message  FindDuplicateFacesRequest{
+  repeated string faces = 1;
+  google.protobuf.DoubleValue max_gap = 2;
+}
+
+message FindDuplicateFacesResponse{
+  repeated ansys.api.geometry.v0.DuplicateFaceProblemArea result = 1;
+}
+
+message  FixDuplicateFacesRequest{
+  google.protobuf.Int32Value duplicate_face_problem_area_id = 1;
+}
+
+message FixDuplicateFacesResponse{
+  RepairToolMessage result = 1;
+}
+
+message FindSmallFacesRequest{
+  repeated string selection = 1;
+  google.protobuf.DoubleValue area = 2;
+  google.protobuf.DoubleValue width = 3;
+}
+
+message FindSmallFacesResponse{
+  repeated ansys.api.geometry.v0.SmallFaceProblemArea result = 1;
+}
+
+message FixSmallFacesRequest{
+  google.protobuf.Int32Value small_face_problem_area_id = 1;
+}
+
+message FixSmallFacesResponse{
+  RepairToolMessage result = 1;
+}
+
+message FindGapsRequest{
+  repeated string faces = 1;
+  google.protobuf.DoubleValue angle=2;
+  google.protobuf.DoubleValue distance = 3;
+  oneof method
+  {
+    google.protobuf.NullValue null = 4;
+    SolidifyFixMethodType  data =5;
+  }
+  google.protobuf.BoolValue allow_multi_patch = 6;
+}
+
+message FindGapsResponse{
+  repeated ansys.api.geometry.v0.SplitEdgeProblemArea result = 1;
+}
+
+message FixGapsRequest{
+  google.protobuf.Int32Value problemarea_id = 1;
+}
+
+message FixGapsResponse{
+  bool result = 1;
+}
+
+message FindCurveGapsRequest{
+  google.protobuf.DoubleValue distance = 1;
+}
+
+message FindCurveGapsResponse{
+  repeated ansys.api.geometry.v0.CurveGapProblemArea result = 1;
+}
+
+message FixCurveGapsRequest{
+  google.protobuf.Int32Value curve_gap_problem_area_id = 1;
+}
+
+message FixCurveGapsResponse{
+  bool result = 1;
+}
+
+message FindDuplicateCurvesRequest{
+  google.protobuf.DoubleValue distance = 1;
+}
+
+message FindDuplicateCurvesResponse{
+  repeated ansys.api.geometry.v0.DuplicateCurveProblemArea result = 1;
+}
+
+message FixDuplicateCurvesRequest{
+  google.protobuf.Int32Value duplicate_curve_problem_area_id = 1;
+}
+
+message FixDuplicateCurvesResponse{
+  bool result = 1;
+}
+
+message FindSmallCurvesRequest{
+  google.protobuf.DoubleValue distance = 1;
+}
+
+message FindSmallCurvesResponse{
+  repeated ansys.api.geometry.v0.DuplicateCurveProblemArea result = 1;
+}
+
+message FixSmallCurvesRequest{
+  google.protobuf.Int32Value duplicate_curve_problem_area_id = 1;
+}
+
+message FixSmallCurvesResponse{
+  bool result = 1;
+}
+
+message FindAdjustMergeFacesRequest{
+  repeated ansys.api.geometry.v0.Face selection = 1;
+  repeated ansys.api.geometry.v0.Face tangent_faces = 2;
+  google.protobuf.BoolValue allow_multi_patch = 3;
+  google.protobuf.BoolValue fail_if_can_fill = 4;
+  google.protobuf.BoolValue enforce_closed_loop_check = 5;
+}
+
+message FindAdjustMergeFacesResponse{
+  repeated ansys.api.geometry.v0.SplitEdgeProblemArea result = 1;
+}
+
+message AdjustMergeFacesRequest{
+  repeated ansys.api.geometry.v0.Face selection = 1;
+  repeated ansys.api.geometry.v0.Face tangent_faces = 2;
+  google.protobuf.BoolValue allow_multi_patch = 3;
+  google.protobuf.BoolValue fail_if_can_fill = 4;
+  google.protobuf.BoolValue enforce_closed_loop_check = 5;
+}
+
+message AdjustMergeFacesResponse{
+  bool result = 1;
+}
+
+message FindAdjustSimplifyRequest{
+  repeated ansys.api.geometry.v0.Face selection = 1;
+}
+
+message FindAdjustSimplifyResponse{
+  repeated ansys.api.geometry.v0.SplitEdgeProblemArea result = 1;
+}
+
+message AdjustSimplifyRequest{
+  repeated ansys.api.geometry.v0.Face selection = 1;
+}
+
+message AdjustSimplifyResponse{
+  bool result = 1;
+}
