@@ -1,0 +1,36 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.geometry.v0.parts;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/dbu/v0/streaming.proto";
+import "ansys/api/geometry/v0/models.proto";
+
+option csharp_namespace = "Ansys.Api.Geometry.V0.Parts";
+
+service Parts{
+  rpc Get(ansys.api.dbu.v0.EntityIdentifier) returns(Part);
+
+  rpc GetAll(GetAllRequest) returns(GetAllResponse) ;
+
+  rpc ExportLargeSize(ExportRequest) returns(stream ansys.api.dbu.v0.StreamPackage);
+
+  rpc Export(ExportRequest) returns(ExportResponse);
+}
+
+message GetAllRequest{
+  string parent = 1;
+}
+
+message GetAllResponse{
+  repeated Part parts = 1;
+}
+
+message ExportRequest{
+  string id = 1;
+  ansys.api.dbu.v0.PartExportFormat format = 2;
+}
+
+message ExportResponse {
+  bytes data=1;
+}

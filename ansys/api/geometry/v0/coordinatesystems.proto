@@ -1,0 +1,35 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.geometry.v0.coordinatesystems;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/geometry/v0/models.proto";
+
+option csharp_namespace = "Ansys.Api.Geometry.V0.CoordinateSystems";
+
+service CoordinateSystems{
+
+  rpc Get(ansys.api.dbu.v0.EntityIdentifier) returns(CoordinateSystem);
+
+  rpc GetAll(GetAllRequest) returns(GetAllResponse) ;
+
+  rpc Create(CreateRequest) returns(CoordinateSystem);
+}
+
+message GetAllRequest{
+  string parent = 1;
+}
+
+message GetAllResponse{
+  repeated CoordinateSystem coordinate_systems = 1;
+}
+
+message CreateRequest{
+  string parent = 1;
+  string name = 2;
+  Frame frame = 3;
+}
+
+message CreateResponse{
+  CoordinateSystem coordinate_system=1;
+}

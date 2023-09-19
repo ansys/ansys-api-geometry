@@ -1,0 +1,23 @@
+// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.geometry.v0.meshes;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/geometry/v0/models.proto";
+
+option csharp_namespace = "Ansys.Api.Geometry.V0.Meshes";
+
+service Meshes{
+  rpc Get(ansys.api.dbu.v0.EntityIdentifier) returns(Mesh);
+
+  rpc GetAll(GetAllRequest) returns(GetAllResponse);
+
+}
+
+message GetAllRequest{
+  string parent = 1;
+}
+
+message GetAllResponse{
+  repeated Mesh meshes = 1;
+}
