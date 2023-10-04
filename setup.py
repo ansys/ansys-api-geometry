@@ -36,8 +36,8 @@ if __name__ == "__main__":
         long_description_content_type='text/markdown',
         url=f"https://github.com/ansys/{package_name}",
         license="MIT",
-        python_requires=">=3.7",
-        install_requires=["grpcio~=1.47", "protobuf~=3.19", "ansys-api-dbu==0.2.0"],
+        python_requires=">=3.9,<4",
+        install_requires=["grpcio~=1.47", "protobuf~=4.21", "ansys-api-dbu==0.2.0"],
         packages=setuptools.find_namespace_packages(".", include=("ansys.*",)),
         package_data={
             "": ["*.proto", "*.pyi", "py.typed", "VERSION"],
