@@ -39,6 +39,25 @@ message Curve{
   repeated Point points = 4;
 }
 
+message CurveGeometry {
+  Point origin = 1;
+  double radius = 2;
+  double major_radius = 3;
+  double minor_radius = 4;
+  Direction direction = 5;
+  Direction reference = 6;
+  Direction axis = 7;
+}
+
+message TrimmedCurve {
+  CurveGeometry curve = 1;
+  Point start = 2;
+  Point end = 3;
+  double interval_start = 4;
+  double interval_end = 5;
+  double length = 6;
+}
+
 //
 // A edge.
 message Edge{
@@ -392,4 +411,57 @@ enum SegmentType {
 
 message UpdateState {
   int32 state=1;
+}
+
+message Vertex {
+  Point position = 1;
+  repeated Edge edges = 2;
+}
+message TrimmedCurveList {
+  repeated TrimmedCurve curves = 1;
+}
+
+message SpotWeld {
+  map<string, Point> weld_points = 1;
+}
+
+message Weld {
+  repeated TrimmedCurveList geometry = 1;
+  string display_name = 2;
+  double length = 3;
+  double volume = 4;
+  double mass = 5;
+  double time = 6;
+  double rod_length = 7;
+  bool is_intermittent = 8;
+  int32 sequence_id = 9;
+  double size1 = 10;
+  double size2 = 11;
+
+  // This data only exists if the weld is intermittent
+  bool is_angular = 12;
+  bool is_at_center = 13;
+  double intermittent_length = 14;
+  int32 number_of_welds = 15;
+  double pitch = 16;
+}
+
+message BeamProperties {
+  double area = 1;
+  double centroid_x = 2;
+  double centroid_y = 3;
+  double warping_constant = 4;
+  double ixx = 5;
+  double ixy = 6;
+  double iyy = 7;
+  double torsional_constant = 8;
+  double shear_center_x = 9;
+  double shear_center_y = 10;
+}
+
+message BeamCrossSectionInfo {
+  int32 section_anchor = 1;
+  double section_angle = 2;
+  Frame section_frame = 3;
+  repeated TrimmedCurveList section_profile = 4;
 }

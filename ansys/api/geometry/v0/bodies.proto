@@ -51,6 +51,30 @@ service Bodies
   rpc GetUpdateState(ansys.api.dbu.v0.EntityIdentifier) returns (UpdateState);
 
   rpc Boolean(BooleanRequest) returns (BooleanResponse);
+
+  rpc GetVertices(ansys.api.dbu.v0.EntityIdentifier) returns (GetVerticesResponse);
+
+  rpc GetBoundingBox(ansys.api.dbu.v0.EntityIdentifier) returns (GetBoundingBoxResponse);
+  
+  rpc GetSurfaceBodyThickness(ansys.api.dbu.v0.EntityIdentifier) returns (GetSurfaceBodyThicknessResponse);
+
+  rpc IsEnclosureBody(ansys.api.dbu.v0.EntityIdentifier) returns (IsEnclosureBodyResponse);
+}
+
+message IsEnclosureBodyResponse {
+  bool result = 1;
+}
+
+message GetSurfaceBodyThicknessResponse {
+  double result = 1;
+}
+
+message GetBoundingBoxResponse {
+  Box box = 1;
+}
+
+message GetVerticesResponse {
+  repeated Vertex vertices = 1;
 }
 
 message BooleanRequest {

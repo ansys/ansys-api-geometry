@@ -56,6 +56,34 @@ service Commands{
   rpc DeleteBeamProfile(ansys.api.dbu.v0.EntityIdentifier) returns (google.protobuf.Empty);
 
   rpc GetAssembly(ansys.api.dbu.v0.EntityIdentifier) returns (GetAssemblyResponse);
+
+  rpc GetBeamProfileName(ansys.api.dbu.v0.EntityIdentifier) returns (GetBeamProfileNameResponse);
+    
+  rpc GetBeamProfileParts(google.protobuf.Empty) returns (GetBeamProfilePartsResponse);
+
+  rpc GetBeamProperties(ansys.api.dbu.v0.EntityIdentifier) returns (BeamProperties);
+
+  rpc GetBeamCrossSectionInfo(ansys.api.dbu.v0.EntityIdentifier) returns (BeamCrossSectionInfo);
+
+  rpc GetAllSpotWelds(google.protobuf.Empty) returns (GetAllSpotWeldsResponse);
+
+  rpc GetAllCADWelds(google.protobuf.Empty) returns (GetAllCADWeldsResponse);
+}
+
+message GetAllSpotWeldsResponse {
+  repeated SpotWeld welds = 1;
+}
+
+message GetAllCADWeldsResponse {
+  repeated Weld welds = 1;
+}
+
+message GetBeamProfilePartsResponse {
+  repeated Part parts = 1;
+}
+
+message GetBeamProfileNameResponse{
+  string name = 1;
 }
 
 message RenameManyRequest{
@@ -204,6 +232,7 @@ message UploadFileRequest {
 
 message UploadFileResponse {
   string file_path=1;
+  ansys.api.dbu.v0.EntityIdentifier document_id=2;
 }
 
 message CreateSphereRequest {
