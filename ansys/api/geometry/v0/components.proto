@@ -28,6 +28,14 @@ service Components{
   rpc GetUpdateState(ansys.api.dbu.v0.EntityIdentifier) returns (UpdateState);
 	
   rpc SetPlacement(SetPlacementRequest) returns (SetPlacementResponse);
+
+  rpc GetBeamBodies(ansys.api.dbu.v0.EntityIdentifier) returns (GetBeamBodiesResponse);
+
+  rpc GetPart(ansys.api.dbu.v0.EntityIdentifier) returns (Part);
+}
+
+message GetBeamBodiesResponse {
+  repeated string beams = 1;
 }
 
 message SetPlacementRequest {
