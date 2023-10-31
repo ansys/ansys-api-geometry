@@ -226,6 +226,11 @@ message ShrinkWrapOptions {
   double curvature_angle =10;
 }
 
+message FixInterferenceProblemArea {
+  int32 id = 1;
+  repeated string body_monikers = 2;
+}
+
 message SplitEdgeProblemArea {
   int32 id = 1;    
   repeated string edge_monikers  = 2;

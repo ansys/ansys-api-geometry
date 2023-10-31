@@ -11,6 +11,10 @@ option go_package = "ansys/api/geometry/v0";
 
 service RepairTools{
 
+  rpc FindInterference(FindInterferenceRequest) returns (FindInterferenceResponse);
+
+  rpc FixInterference(FixInterferenceRequest) returns (FixInterferenceResponse);
+
   rpc FindSplitEdges(FindSplitEdgesRequest) returns (FindSplitEdgesResponse);
 
   rpc FixSplitEdges(FixSplitEdgesRequest) returns (FixSplitEdgesResponse);
@@ -62,6 +66,23 @@ service RepairTools{
   rpc FindAdjustSimplify(FindAdjustSimplifyRequest) returns (FindAdjustSimplifyResponse);
 
   rpc AdjustSimplify(AdjustSimplifyRequest) returns (AdjustSimplifyResponse);
+}
+
+message FindInterferenceRequest{
+  repeated string bodies=1;
+  optional google.protobuf.BoolValue cut_smaller_body=2; // default: false
+}
+
+message FindInterferenceResponse{
+  repeated ansys.api.geometry.v0.FixInterferenceProblemArea result=1;
+} 
+
+message FixInterferenceRequest{
+  google.protobuf.Int32Value interference_problem_area_id=1;
+}
+
+message FixInterferenceResponse{
+  RepairToolMessage result=1;
 }
 
 message FindSplitEdgesRequest{
