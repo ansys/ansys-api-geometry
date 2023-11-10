@@ -79,7 +79,7 @@ message GetVerticesResponse {
 
 message BooleanRequest {
   string body1 = 1;
-  string body2 = 2;
+  repeated string tool_bodies = 2;
   string method = 3;
 }
 
