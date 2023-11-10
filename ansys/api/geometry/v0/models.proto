@@ -97,6 +97,7 @@ message Body{
   BodyMasterNullable master = 7;
   string master_id = 8;
   string parent_id = 9;
+  bool is_surface = 10;
 }
 
 //
