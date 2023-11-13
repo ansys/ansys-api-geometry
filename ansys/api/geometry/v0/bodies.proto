@@ -59,6 +59,15 @@ service Bodies
   rpc GetSurfaceBodyThickness(ansys.api.dbu.v0.EntityIdentifier) returns (GetSurfaceBodyThicknessResponse);
 
   rpc IsEnclosureBody(ansys.api.dbu.v0.EntityIdentifier) returns (IsEnclosureBodyResponse);
+
+  rpc Rotate(RotateRequest) returns (google.protobuf.Empty);
+}
+
+message RotateRequest {
+  string id = 1;
+  Point axis_origin = 2;
+  Direction axis_direction = 3;
+  double angle = 4;
 }
 
 message IsEnclosureBodyResponse {

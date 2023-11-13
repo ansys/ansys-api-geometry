@@ -68,6 +68,34 @@ service Commands{
   rpc GetAllSpotWelds(google.protobuf.Empty) returns (GetAllSpotWeldsResponse);
 
   rpc GetAllCADWelds(google.protobuf.Empty) returns (GetAllCADWeldsResponse);
+
+  rpc CreateSketchLine(CreateSketchLineRequest) returns (google.protobuf.Empty);
+
+  rpc IntersectCurves(IntersectCurvesRequest) returns (IntersectCurvesResponse);
+
+  rpc RevolveCurves(RevolveCurvesRequest) returns (google.protobuf.Empty);
+}
+
+message RevolveCurvesRequest {
+  repeated TrimmedCurve curves = 1;
+  Line axis = 2;
+  double angle = 3;
+  bool symmetric = 4;
+}
+
+message IntersectCurvesRequest {
+  TrimmedCurve first = 1;
+  TrimmedCurve second = 2;
+}
+
+message IntersectCurvesResponse {
+  repeated Point points = 1;
+  bool intersect = 2;
+}
+
+message CreateSketchLineRequest{
+  Point point1 = 1;
+  Point point2 = 2;
 }
 
 message GetAllSpotWeldsResponse {
