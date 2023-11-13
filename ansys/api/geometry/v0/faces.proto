@@ -30,6 +30,29 @@ service Faces{
 
   rpc GetUpdateState(ansys.api.dbu.v0.EntityIdentifier) returns (UpdateState);
 
+  rpc GetBoxUV(ansys.api.dbu.v0.EntityIdentifier) returns (GetBoxUVResponse);
+
+  rpc GetSurface(ansys.api.dbu.v0.EntityIdentifier) returns (Surface);
+
+  rpc CreateIsoParamCurves(CreateIsoParamCurvesRequest) returns (CreateIsoParamCurvesResponse);
+}
+
+message CreateIsoParamCurvesRequest {
+  string id = 1;
+  bool u_dir_curve = 2;
+  double proportion = 3;
+}
+
+message CreateIsoParamCurvesResponse {
+  repeated ansys.api.geometry.v0.TrimmedCurve curves = 1;
+}
+
+
+message GetBoxUVResponse {
+  double start_u = 1;
+  double end_u = 2;
+  double start_v = 3;
+  double end_v = 4;
 }
 
 message GetAllRequest{

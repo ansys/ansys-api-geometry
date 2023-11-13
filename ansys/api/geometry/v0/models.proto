@@ -67,6 +67,7 @@ message Edge{
   string export_id = 12;
   double length = 13;
   string owner_id = 14;
+  bool is_reversed = 15;
 }
 
 //
@@ -77,6 +78,7 @@ message Face{
   string owner_name = 11;
   string export_id = 12;
   double area = 13;
+  bool is_reversed = 14;
 }
 //
 // A mesh.
@@ -470,4 +472,39 @@ message BeamCrossSectionInfo {
   double section_angle = 2;
   Frame section_frame = 3;
   repeated TrimmedCurveList section_profile = 4;
+}
+
+message CurveEvaluation {
+  double curvature = 1;
+  Direction derivative = 2;
+  Direction derivative2 = 3;
+  double param = 4;
+  Point point = 5;
+  Direction tangent = 6;
+}
+
+message SurfaceEvaluation {
+  Direction derivative_u = 1;
+  Direction derivative_uu = 2;
+  Direction derivative_uv = 3;
+  Direction derivative_v = 4;
+  Direction derivative_vv = 5;
+  double max_curvature = 6;
+  Direction max_curvature_direction = 7;
+  double min_curvature = 8;
+  Direction min_curvature_direction = 9;
+  Direction normal = 10;
+  double param_u = 11;
+  double param_v = 12;
+  Point point = 13;
+}
+
+message Surface {
+  Point origin = 1;
+  double radius = 2;
+  double half_angle = 3;
+  double major_radius = 4;
+  double minor_radius = 5;
+  Direction reference = 6;
+  Direction axis = 7;
 }
