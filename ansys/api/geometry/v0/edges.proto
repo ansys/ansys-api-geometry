@@ -21,6 +21,15 @@ service Edges{
   rpc GetUpdateState(ansys.api.dbu.v0.EntityIdentifier) returns (UpdateState);
 
   rpc GetStartAndEndPoints(ansys.api.dbu.v0.EntityIdentifier) returns (GetStartAndEndPointsResponse);
+
+  rpc GetInterval(ansys.api.dbu.v0.EntityIdentifier) returns (GetIntervalResponse);
+
+  rpc GetCurve(ansys.api.dbu.v0.EntityIdentifier) returns (CurveGeometry);
+}
+
+message GetIntervalResponse {
+  double start = 1;
+  double end = 2;
 }
 
 message GetStartAndEndPointsResponse {
