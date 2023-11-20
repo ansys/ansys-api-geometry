@@ -88,8 +88,9 @@ message GetVerticesResponse {
 
 message BooleanRequest {
   string body1 = 1;
-  repeated string tool_bodies = 2;
+  string body2 = 2;// DEPRECATED in v1
   string method = 3;
+  repeated string tool_bodies = 4;
 }
 
 message BooleanResponse {
