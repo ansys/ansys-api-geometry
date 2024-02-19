@@ -3,6 +3,25 @@ updates:
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     assignees:
       - "pyansys-ci-bot"
+    commit-message:
+      prefix: "MAINT"
+    groups:
+       pip-deps:
+          patterns:
+            - "*"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    assignees:
+      - "pyansys-ci-bot"
+    commit-message:
+      prefix: "MAINT"
+    groups:
+       actions-deps:
+          patterns:
+            - "*"
