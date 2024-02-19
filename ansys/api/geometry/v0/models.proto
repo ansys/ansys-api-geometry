@@ -31,6 +31,16 @@ enum SurfaceType {
 }
 
 //
+// The type of collision.
+enum CollisionType { 
+  COLLISIONTYPE_NONE=0;
+  COLLISIONTYPE_TOUCH=1;
+  COLLISIONTYPE_INTERSECT=2;
+  COLLISIONTYPE_CONTAINED=3;
+  COLLISIONTYPE_CONTAINEDTOUCH=4;
+}
+
+//
 // A design curve.
 message Curve{
   string id = 1;
@@ -508,4 +518,8 @@ message Surface {
   double minor_radius = 5;
   Direction reference = 6;
   Direction axis = 7;
+}
+
+message Gap {
+  double distance = 1;
 }

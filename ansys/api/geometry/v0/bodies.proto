@@ -61,6 +61,9 @@ service Bodies
   rpc IsEnclosureBody(ansys.api.dbu.v0.EntityIdentifier) returns (IsEnclosureBodyResponse);
 
   rpc Rotate(RotateRequest) returns (google.protobuf.Empty);
+
+  rpc GetCollision(GetCollisionRequest) returns (GetCollisionResponse);
+
 }
 
 message RotateRequest {
@@ -185,3 +188,13 @@ message CopyRequest {
   string parent=2;
   string name=3;
 }
+
+message GetCollisionRequest {
+  string body_1_id=1;
+  string body_2_id=2;
+}
+
+message GetCollisionResponse {
+  CollisionType collision=1;
+}
+
