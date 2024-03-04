@@ -36,6 +36,8 @@ service Bodies
 
   rpc CreatePlanarBody(CreatePlanarBodyRequest) returns (Body);
 
+  rpc CreateSphereBody(CreateSphereBodyRequest) returns (Body);
+
   rpc CreateExtrudedBody(CreateExtrudedBodyRequest) returns (Body);
 
   rpc GetVolume(ansys.api.dbu.v0.EntityIdentifier) returns(GetVolumeResponse);
@@ -157,6 +159,13 @@ message CreatePlanarBodyRequest {
   string parent=2;
   Plane plane=3;
   Geometries geometries=4;
+}
+
+message CreateSphereBodyRequest {
+  string name=1;
+  string parent=2;
+  Point center=3;
+  double radius=4;
 }
 
 message CreateExtrudedBodyRequest {
