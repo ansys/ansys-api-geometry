@@ -66,6 +66,26 @@ service Bodies
 
   rpc GetCollision(GetCollisionRequest) returns (GetCollisionResponse);
 
+  rpc Scale(ScaleRequest) returns (google.protobuf.Empty);
+
+  rpc Map(MapRequest) returns (google.protobuf.Empty);
+
+  rpc Mirror(MirrorRequest) returns (google.protobuf.Empty);
+}
+
+message MirrorRequest {
+  string id = 1;
+  Plane plane = 2;
+}
+
+message MapRequest {
+  string id = 1;
+  Frame frame = 2;
+}
+
+message ScaleRequest {
+  string id = 1;
+  double scale = 2;
 }
 
 message RotateRequest {
