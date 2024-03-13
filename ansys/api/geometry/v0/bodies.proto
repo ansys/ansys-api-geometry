@@ -69,6 +69,13 @@ service Bodies
   rpc Scale(ScaleRequest) returns (google.protobuf.Empty);
 
   rpc Map(MapRequest) returns (google.protobuf.Empty);
+
+  rpc Mirror(MirrorRequest) returns (google.protobuf.Empty);
+}
+
+message MirrorRequest {
+  string id = 1;
+  Plane plane = 2;
 }
 
 message MapRequest {
