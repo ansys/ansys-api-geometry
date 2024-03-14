@@ -40,6 +40,10 @@ service Bodies
 
   rpc CreateExtrudedBody(CreateExtrudedBodyRequest) returns (Body);
 
+  rpc CreateSweepingProfile(CreateSweepingProfileRequest) returns (Body);
+
+  rpc CreateSweepingChain(CreateSweepingChainRequest) returns (Body);
+
   rpc GetVolume(ansys.api.dbu.v0.EntityIdentifier) returns(GetVolumeResponse);
 
   rpc GetTessellation(ansys.api.dbu.v0.EntityIdentifier) returns(GetTessellationResponse);
@@ -172,6 +176,21 @@ message CreateExtrudedBodyFromFaceProfileRequest {
   string parent=2;
   string face=3;
   double distance=4;
+}
+
+message CreateSweepingProfileRequest{
+  string name=1;
+  string parent=2;
+  Plane plane=3;
+  Geometries geometries=4;
+  repeated TrimmedCurve path = 5;
+}
+
+message CreateSweepingChainRequest{
+  string name=1;
+  string parent=2;
+  repeated TrimmedCurve chain = 3;
+  repeated TrimmedCurve path = 4;
 }
 
 message CreatePlanarBodyRequest {
