@@ -31,6 +31,8 @@ service Bodies
   rpc CreateBodyFromFace(CreateBodyFromFaceRequest) returns (Body);
   
   rpc CreateExtrudedBodyFromFaceProfile(CreateExtrudedBodyFromFaceProfileRequest) returns (Body);
+
+  rpc CreateExtrudedBodyFromLoftProfiles(CreateExtrudedBodyFromLoftProfilesRequest) returns (Body);
   
   rpc Delete(ansys.api.dbu.v0.EntityIdentifier) returns (google.protobuf.Empty);
 
@@ -176,6 +178,14 @@ message CreateExtrudedBodyFromFaceProfileRequest {
   string parent=2;
   string face=3;
   double distance=4;
+}
+
+message CreateExtrudedBodyFromLoftProfilesRequest {
+  string name=1;
+  string parent=2;
+  repeated TrimmedCurveList profiles = 3;
+  bool periodic=4;
+  bool ruled=5;
 }
 
 message CreateSweepingProfileRequest{
