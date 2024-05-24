@@ -50,7 +50,7 @@ jobs:
       - name: Upload packages
         uses: actions/upload-artifact@v4
         with:
-          name: ansys-api-geometry-packages
+          name: ansys-api-geometry-artifacts
           path: dist/
           retention-days: 7
 
@@ -59,25 +59,19 @@ jobs:
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
     needs: [build]
     runs-on: ubuntu-latest
+    # Specifying a GitHub environment is optional, but strongly encouraged
+    environment: release
+    permissions:
+      id-token: write
+      contents: write
     steps:
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Release to the public PyPI repository
+        uses: ansys/actions/release-pypi-public@v6
         with:
-          python-version: ${{ env.MAIN_PYTHON_VERSION }}
-
-      - uses: actions/download-artifact@v4
-
-      - name: Display structure of downloaded files
-        run: ls -R
-
-      - name: Upload to Public PyPi
-        run: |
-          pip install twine
-          twine upload --skip-existing ./**/*.whl
-          twine upload --skip-existing ./**/*.tar.gz
-        env:
-          TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }} 
+          library-name: "ansys-api-geometry"
+          twine-username: "__token__"
+          twine-token: ${{ secrets.PYPI_TOKEN }}
+          use-trusted-publisher: true
 
       - name: Release
         uses: softprops/action-gh-release@v2
