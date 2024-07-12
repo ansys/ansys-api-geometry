@@ -54,6 +54,12 @@ service Bodies
 
   rpc GetName(ansys.api.dbu.v0.EntityIdentifier) returns (GetNameResponse);
 
+  rpc SetName(SetNameRequest) returns (SetNameResponse);
+
+  rpc GetFillStyle(ansys.api.dbu.v0.EntityIdentifier) returns (GetFillStyleResponse);
+
+  rpc SetFillStyle(SetFillStyleRequest) returns (SetFillStyleResponse);
+
   rpc Copy(CopyRequest) returns (Body);
 
   rpc GetUpdateState(ansys.api.dbu.v0.EntityIdentifier) returns (UpdateState);
@@ -239,6 +245,28 @@ message GetEdgesResponse {
 
 message GetNameResponse {
   string name=1;
+}
+
+message SetNameRequest {
+  string body_id=1;
+  string name=2;
+}
+
+message SetNameResponse {
+  bool result=1;
+}
+
+message SetFillStyleRequest { 
+  string body_id=1;
+  BodyFillStyle fill_style=2;
+}
+
+message GetFillStyleResponse {
+  string name=1;
+}
+
+message SetFillStyleResponse {
+  bool result=1;
 }
 
 message CopyRequest {
