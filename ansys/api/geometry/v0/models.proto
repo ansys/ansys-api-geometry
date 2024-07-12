@@ -41,6 +41,14 @@ enum CollisionType {
 }
 
 //
+// The fill style type for a body.
+enum BodyFillStyle { 
+  BODYFILLSTYLE_DEFAULT=0;
+  BODYFILLSTYLE_OPAQUE=1;
+  BODYFILLSTYLE_TRANSPARENT=2;
+}
+
+//
 // A design curve.
 message Curve{
   string id = 1;
