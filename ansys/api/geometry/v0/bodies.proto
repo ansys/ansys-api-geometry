@@ -60,6 +60,10 @@ service Bodies
 
   rpc SetFillStyle(SetFillStyleRequest) returns (SetFillStyleResponse);
 
+  rpc GetColor(ansys.api.dbu.v0.EntityIdentifier) returns (GetColorResponse);
+
+  rpc SetColor(SetColorRequest) returns (SetColorResponse);
+
   rpc Copy(CopyRequest) returns (Body);
 
   rpc GetUpdateState(ansys.api.dbu.v0.EntityIdentifier) returns (UpdateState);
@@ -266,6 +270,19 @@ message GetFillStyleResponse {
 }
 
 message SetFillStyleResponse {
+  bool result=1;
+}
+
+message GetColorResponse {
+  string color=1;
+}
+
+message SetColorRequest {
+  string body_id=1;
+  string color=2;
+}
+
+message SetColorResponse {
   bool result=1;
 }
 
