@@ -66,6 +66,7 @@ message CreateRequest {
   string name = 1;
   string parent = 2;
   string template = 3;
+  string instance_name = 4;
 }
 
 message CreateResponse {
