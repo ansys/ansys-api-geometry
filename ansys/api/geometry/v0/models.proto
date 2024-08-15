@@ -161,6 +161,7 @@ message Component{
   string parent_id=6;
   Part part_master=7;
   string display_name=8;
+  string instance_name=9;
 }
 
 //
