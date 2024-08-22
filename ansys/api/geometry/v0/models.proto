@@ -314,6 +314,11 @@ message SmallCurveProblemArea {
   repeated string curve_point_monikers = 2;
 }
 
+message AdjustSimplifyProblemArea {
+  int32 id = 1;
+  repeated string body_monikers = 2;
+}
+
 message RepairToolMessage {
   bool success = 1;
   repeated string created_bodies_monikers = 2;
