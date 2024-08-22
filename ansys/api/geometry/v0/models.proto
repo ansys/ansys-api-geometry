@@ -161,6 +161,7 @@ message Component{
   string parent_id=6;
   Part part_master=7;
   string display_name=8;
+  string instance_name=9;
 }
 
 //
@@ -311,6 +312,11 @@ message DuplicateCurveProblemArea {
 message SmallCurveProblemArea {
   int32 id = 1;
   repeated string curve_point_monikers = 2;
+}
+
+message AdjustSimplifyProblemArea {
+  int32 id = 1;
+  repeated string body_monikers = 2;
 }
 
 message RepairToolMessage {
