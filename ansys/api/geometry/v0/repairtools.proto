@@ -65,7 +65,7 @@ service RepairTools{
 
   rpc FindAdjustSimplify(FindAdjustSimplifyRequest) returns (FindAdjustSimplifyResponse);
 
-  rpc AdjustSimplify(AdjustSimplifyRequest) returns (AdjustSimplifyResponse);
+  rpc FixAdjustSimplify(FixAdjustSimplifyRequest) returns (FixAdjustSimplifyResponse);
 }
 
 message FindInterferenceRequest{
@@ -334,17 +334,17 @@ message AdjustMergeFacesResponse{
 }
 
 message FindAdjustSimplifyRequest{
-  repeated ansys.api.geometry.v0.Face selection = 1;
+  repeated string selection = 1;
 }
 
 message FindAdjustSimplifyResponse{
-  repeated ansys.api.geometry.v0.SplitEdgeProblemArea result = 1;
+  repeated ansys.api.geometry.v0.AdjustSimplifyProblemArea result = 1;
 }
 
-message AdjustSimplifyRequest{
-  repeated ansys.api.geometry.v0.Face selection = 1;
+message FixAdjustSimplifyRequest{
+  google.protobuf.Int32Value adjust_simplify_problem_area_id = 1;
 }
 
-message AdjustSimplifyResponse{
-  bool result = 1;
+message FixAdjustSimplifyResponse{
+  RepairToolMessage result = 1;
 }
