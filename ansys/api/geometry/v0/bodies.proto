@@ -87,6 +87,14 @@ service Bodies
   rpc Map(MapRequest) returns (google.protobuf.Empty);
 
   rpc Mirror(MirrorRequest) returns (google.protobuf.Empty);
+
+  rpc CreateSurfaceBody(CreateSurfaceBodyRequest) returns (Body);
+}
+
+message CreateSurfaceBodyRequest {
+  string name = 1;
+  string parent = 2;
+  TrimmedSurface trimmed_surface = 3;
 }
 
 message MirrorRequest {

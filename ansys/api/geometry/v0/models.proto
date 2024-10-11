@@ -535,6 +535,15 @@ message Surface {
   Direction axis = 7;
 }
 
+message TrimmedSurface {
+  Surface surface = 1;
+  SurfaceType type = 2;
+  double u_min = 3;
+  double u_max = 4;
+  double v_min = 5;
+  double v_max = 6;
+}
+
 message Gap {
   double distance = 1;
 }
