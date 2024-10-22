@@ -74,6 +74,20 @@ service Commands{
   rpc IntersectCurves(IntersectCurvesRequest) returns (IntersectCurvesResponse);
 
   rpc RevolveCurves(RevolveCurvesRequest) returns (google.protobuf.Empty);
+
+  rpc Chamfer(ChamferRequest) returns (ChamferResponse);
+}
+
+message ChamferRequest {
+  string id = 1;
+  double distance = 2;
+}
+
+message ChamferResponse {
+  bool success = 1;
+  repeated Face created_faces = 2;
+  repeated Edge created_edges = 3;
+  repeated Body created_surfaces = 4;
 }
 
 message RevolveCurvesRequest {
