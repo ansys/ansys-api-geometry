@@ -79,7 +79,7 @@ service Commands{
 }
 
 message ChamferRequest {
-  string id = 1;
+  repeated string ids = 1;
   double distance = 2;
 }
 
