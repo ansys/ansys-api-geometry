@@ -76,10 +76,17 @@ service Commands{
   rpc RevolveCurves(RevolveCurvesRequest) returns (google.protobuf.Empty);
 
   rpc Chamfer(ChamferRequest) returns (ChamferResponse);
+
+  rpc Fillet(FilletRequest) returns (ChamferResponse);
+}
+
+message FilletRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier ids = 1;
+  double radius = 2;
 }
 
 message ChamferRequest {
-  repeated string ids = 1;
+  repeated ansys.api.dbu.v0.EntityIdentifier ids = 1;
   double distance = 2;
 }
 
