@@ -78,6 +78,29 @@ service Commands{
   rpc Chamfer(ChamferRequest) returns (ChamferResponse);
 
   rpc Fillet(FilletRequest) returns (ChamferResponse);
+
+  rpc FaceOffset(FaceOffsetRequest) returns (CommandResponse);
+
+  rpc OffsetFacesSetRadius(OffsetFacesSetRadiusRequest) returns (CommandResponse);
+}
+message OffsetFacesSetRadiusRequest {
+  ansys.api.dbu.v0.EntityIdentifier face = 1;
+  double radius = 2;
+  bool copy = 3;
+  OffsetMode offset_mode = 4;
+  ExtrudeType extrude_type = 5;
+}
+message FaceOffsetRequest {
+  ansys.api.dbu.v0.EntityIdentifier face1 = 1;
+  ansys.api.dbu.v0.EntityIdentifier face2 = 2;
+  bool set_baselines = 3;
+  bool process_adjacent_faces = 4;
+}
+
+message CommandResponse {
+  bool success = 1;
+  repeated Body created_bodies = 2;
+  repeated Body modified_bodies = 3;
 }
 
 message FilletRequest {
