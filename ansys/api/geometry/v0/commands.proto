@@ -82,7 +82,14 @@ service Commands{
   rpc FaceOffset(FaceOffsetRequest) returns (CommandResponse);
 
   rpc OffsetFacesSetRadius(OffsetFacesSetRadiusRequest) returns (CommandResponse);
+
+  rpc FullFillet(FullFilletRequest) returns (CommandResponse);
 }
+
+message FullFilletRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier faces = 1;
+}
+
 message OffsetFacesSetRadiusRequest {
   ansys.api.dbu.v0.EntityIdentifier face = 1;
   double radius = 2;
@@ -90,6 +97,7 @@ message OffsetFacesSetRadiusRequest {
   OffsetMode offset_mode = 4;
   ExtrudeType extrude_type = 5;
 }
+
 message FaceOffsetRequest {
   ansys.api.dbu.v0.EntityIdentifier face1 = 1;
   ansys.api.dbu.v0.EntityIdentifier face2 = 2;
