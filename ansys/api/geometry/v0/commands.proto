@@ -84,6 +84,17 @@ service Commands{
   rpc OffsetFacesSetRadius(OffsetFacesSetRadiusRequest) returns (CommandResponse);
 
   rpc FullFillet(FullFilletRequest) returns (CommandResponse);
+
+  rpc ThickenFaces(ThickenFacesRequest) returns (CommandResponse);
+}
+
+message ThickenFacesRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier faces = 1;
+  Direction direction = 2;
+  double value = 3;
+  ExtrudeType extrude_type = 4;
+  bool pull_symmetric = 5;
+  bool select_direction = 6;
 }
 
 message FullFilletRequest {
