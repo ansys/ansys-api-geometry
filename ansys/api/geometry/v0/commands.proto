@@ -86,6 +86,20 @@ service Commands{
   rpc FullFillet(FullFilletRequest) returns (CommandResponse);
 
   rpc ThickenFaces(ThickenFacesRequest) returns (CommandResponse);
+
+  rpc DraftFaces(DraftFacesRequest) returns (DraftFacesResponse);
+}
+
+message DraftFacesRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier faces = 1;
+  repeated ansys.api.dbu.v0.EntityIdentifier reference_faces = 2;
+  DraftSide draft_side = 3;
+  double draft_angle = 4;
+  ExtrudeType extrude_type = 5;
+}
+
+message DraftFacesResponse {
+  repeated Face created_faces = 1;
 }
 
 message ThickenFacesRequest {

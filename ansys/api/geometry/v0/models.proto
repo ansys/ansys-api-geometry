@@ -563,3 +563,10 @@ message TrimmedSurface {
 message Gap {
   double distance = 1;
 }
+
+enum DraftSide {
+  DRAFTSIDE_NO_SPLIT = 0;
+  DRAFTSIDE_THIS = 1;
+  DRAFTSIDE_OTHER = 2;
+  DRAFTSIDE_BOTH = 3;
+}
