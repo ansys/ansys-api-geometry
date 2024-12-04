@@ -88,6 +88,57 @@ service Commands{
   rpc ThickenFaces(ThickenFacesRequest) returns (CommandResponse);
 
   rpc DraftFaces(DraftFacesRequest) returns (DraftFacesResponse);
+
+  rpc ExtrudeEdges(ExtrudeEdgesRequest) returns (CommandResponse);
+
+  rpc ExtrudeEdgesUpTo(ExtrudeEdgesUpToRequest) returns (CommandResponse);
+
+  rpc ExtrudeFaces(ExtrudeFacesRequest) returns (CommandResponse);
+
+  rpc ExtrudeFacesUpTo(ExtrudeFacesUpToRequest) returns (CommandResponse);
+}
+
+message ExtrudeEdgesRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier edges = 1;
+  ansys.api.dbu.v0.EntityIdentifier face = 2;
+  Point point = 3;
+  Direction direction = 4;
+  double distance= 5;
+  ExtrudeType extrude_type = 6;
+  bool pull_symmetric = 7;
+  bool copy = 8;
+  bool natural_extension = 9;
+}
+
+message ExtrudeEdgesUpToRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier edges = 1;
+  ansys.api.dbu.v0.EntityIdentifier up_to_selection = 2;
+  Point seed_point = 3;
+  Direction direction = 4;
+  ExtrudeType extrude_type = 5;
+}
+
+message ExtrudeFacesRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier faces = 1;
+  double distance = 2;
+  Direction direction = 3;
+  ExtrudeType extrude_type = 4;
+  bool pull_symmetric = 5;
+  OffsetMode offset_mode = 6;
+  bool copy = 7;
+  bool force_do_as_extrude = 8;
+}
+
+message ExtrudeFacesUpToRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier faces = 1;
+  ansys.api.dbu.v0.EntityIdentifier up_to_selection = 2;
+  Direction direction = 3;
+  ExtrudeType extrude_type = 4;
+  bool pull_symmetric = 5;
+  OffsetMode offset_mode = 6;
+  bool copy = 7;
+  bool force_do_as_extrude = 8;
+  Point seed_point = 9;
 }
 
 message DraftFacesRequest {
