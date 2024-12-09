@@ -96,6 +96,32 @@ service Commands{
   rpc ExtrudeFaces(ExtrudeFacesRequest) returns (CommandResponse);
 
   rpc ExtrudeFacesUpTo(ExtrudeFacesUpToRequest) returns (CommandResponse);
+
+  rpc Scale(ScaleRequest) returns (CommandResponse);
+
+  rpc ScaleNonUniform(ScaleNonUniformRequest) returns (CommandResponse);
+
+  rpc OffsetEdges(OffsetEdgesRequest) returns (CommandResponse);
+}
+
+message OffsetEdgesRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier edges = 1;
+  double value = 2;
+}
+
+message ScaleRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier objects = 1;
+  Point point = 2;
+  Direction optional_direction = 3;
+  double scale = 4;
+  bool keep_holes = 5;
+}
+
+message ScaleNonUniformRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier objects = 1;
+  Frame frame= 2;
+  Direction scale_vector = 3;
+  bool keep_holes = 4;
 }
 
 message ExtrudeEdgesRequest {
