@@ -24,6 +24,7 @@ jobs:
           fetch-depth: 0
           fetch-tags: true
           show-progress: true
+          token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
 
       # Configure Git
       - name: Configure Git
