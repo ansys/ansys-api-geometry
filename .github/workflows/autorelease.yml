@@ -12,7 +12,8 @@ on:
         - major
 
 jobs:
-  patch-release:
+  release:
+    name: Auto Release
     runs-on: ubuntu-latest
 
     steps:
