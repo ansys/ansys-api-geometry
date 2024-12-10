@@ -43,14 +43,14 @@ if [ "$BUMP_TYPE" == "major" ]; then
     # New dev VERSION file:       1.1.dev0
     NEW_RELEASE_VERSION="$((MAJOR + 1)).0.0"
     NEW_DEV_VERSION="$((MAJOR + 1)).1.dev0"
-    NEW_RELEASE_BRANCH="release/v$((MAJOR + 1)).0"
+    NEW_RELEASE_BRANCH="release/$((MAJOR + 1)).0"
 elif [ "$BUMP_TYPE" == "minor" ]; then
     # VERSION file on main:       0.2.dev0
     # New release VERSION file:   0.2.0
     # New dev VERSION file:       0.3.dev0
     NEW_RELEASE_VERSION="$MAJOR.$MINOR.0"
     NEW_DEV_VERSION="$MAJOR.$((MINOR + 1)).dev0"
-    NEW_RELEASE_BRANCH="release/v$MAJOR.$MINOR"
+    NEW_RELEASE_BRANCH="release/$MAJOR.$MINOR"
 fi
 
 # Create the release branch and bump the release version
