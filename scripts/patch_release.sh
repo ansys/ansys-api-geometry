@@ -3,20 +3,29 @@
 # Ensure the script exits if any command fails
 set -e
 
-# Check if two arguments are passed
-if [ "$#" -ne 1 ]; then
-    echo "Usage: $0 <release-branch-name>"
-    exit 1
-fi
-
-# Assign arguments to variables
-RELEASE_BRANCH=$1
-
 # Checkout main branch
 git checkout main
 
 # Pull the latest changes
 git pull
+
+# Fetch all tags
+git fetch --tags
+
+# Get the latest release tag
+LATEST_RELEASE=$(git tag --list "v*" --sort=-version:refname | head -n 1)
+
+# Parse major and minor version numbers
+if [[ "$LATEST_RELEASE" =~ ^v([0-9]+)\.([0-9]+)\.[0-9]+$ ]]; then
+  MAJOR="${BASH_REMATCH[1]}"
+  MINOR="${BASH_REMATCH[2]}"
+  RELEASE_BRANCH="release/${MAJOR}.${MINOR}"
+  echo "Latest release tag: $LATEST_RELEASE"
+  echo "Associated release branch: $RELEASE_BRANCH"
+else
+  echo "Error: Unable to parse the latest release tag."
+  exit 1
+fi
 
 # Checkout release branch
 git checkout $RELEASE_BRANCH

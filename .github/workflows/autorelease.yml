@@ -32,56 +32,18 @@ jobs:
           git config --global user.name ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
           git config --global user.email ${{ secrets.PYANSYS_CI_BOT_EMAIL }}
 
-      # Retrieve the latest release tag from GitHub
-      - name: Get Latest Release Branch
-        id: get-release
-        run: |
-          # Fetch all tags
-          git fetch --tags
-
-          # Get the latest release tag
-          LATEST_RELEASE=$(git tag --list "v*" --sort=-version:refname | head -n 1)
-
-          # Parse major and minor version numbers
-          if [[ "$LATEST_RELEASE" =~ ^v([0-9]+)\.([0-9]+)\.[0-9]+$ ]]; then
-            MAJOR="${BASH_REMATCH[1]}"
-            MINOR="${BASH_REMATCH[2]}"
-            RELEASE_BRANCH="release/${MAJOR}.${MINOR}"
-            echo "Latest release tag: $LATEST_RELEASE"
-            echo "Associated release branch: $RELEASE_BRANCH"
-          else
-            echo "Error: Unable to parse the latest release tag."
-            exit 1
-          fi
-
-          # Export the release branch name
-          echo "RELEASE_BRANCH=${RELEASE_BRANCH}" >> $GITHUB_ENV
-
       # Run the patch release script
       - name: Run Patch Release Script
-        if: ${{ github.event.inputs.release_type == 'patch' }}
+        if: ${{ inputs.release_type == 'patch' }}
         env:
           GITHUB_TOKEN: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
-          RELEASE_BRANCH: ${{ env.RELEASE_BRANCH }}
         run: |
-          ./scripts/patch_release.sh ${{ env.RELEASE_BRANCH }}
+          ./scripts/patch_release.sh
 
-      # Run the minor release script
-      - name: Run Minor Release Script
-        if: ${{ github.event.inputs.release_type == 'minor' }}
+      # Run the major/minor release script
+      - name: Run Major/Minor Release Script
+        if: ${{ inputs.release_type == 'major' || inputs.release_type == 'minor' }}
         env:
           GITHUB_TOKEN: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
         run: |
-          # TODO: Implement the minor release script
-          echo "Minor release script not implemented."
-          exit 1
-
-      # Run the major release script
-      - name: Run Major Release Script
-        if: ${{ github.event.inputs.release_type == 'major' }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
-        run: |
-          # TODO: Implement the major release script
-          echo "Major release script not implemented."
-          exit 1
+          ./scripts/major_minor_release.sh ${{ inputs.release_type }}
