@@ -1,0 +1,52 @@
+name: Auto Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      patch_release:
+        description: "Select the type of release"
+        type: choice
+        options:
+        - patch
+        - minor
+        - major
+
+jobs:
+  patch-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Retrieve the latest release tag from GitHub
+      - name: Get Latest Release Branch
+        id: get-release
+        run: |
+          # Fetch all tags
+          git fetch --tags
+
+          # Get the latest release tag
+          LATEST_RELEASE=$(git tag --list "v*" --sort=-version:refname | head -n 1)
+
+          # Parse major and minor version numbers
+          if [[ "$LATEST_RELEASE" =~ ^v([0-9]+)\.([0-9]+)\.[0-9]+$ ]]; then
+            MAJOR="${BASH_REMATCH[1]}"
+            MINOR="${BASH_REMATCH[2]}"
+            RELEASE_BRANCH="release/${MAJOR}.${MINOR}"
+          else
+            echo "Error: Unable to parse the latest release tag."
+            exit 1
+          fi
+
+          # Export the release branch name
+          echo "RELEASE_BRANCH=${RELEASE_BRANCH}" >> $GITHUB_ENV
+
+      # Run the patch release script
+      - name: Run Patch Release Script
+        if: ${{ inputs.choice }} == "patch"
+        run: |
+          ./release.sh "$RELEASE_BRANCH"
+        env:
+          RELEASE_BRANCH: ${{ env.RELEASE_BRANCH }}
