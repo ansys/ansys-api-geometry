@@ -102,6 +102,32 @@ service Commands{
   rpc ScaleNonUniform(ScaleNonUniformRequest) returns (CommandResponse);
 
   rpc OffsetEdges(OffsetEdgesRequest) returns (CommandResponse);
+
+  rpc MoveImprintEdges(MoveImprintEdgesRequest) returns (MoveImprintEdgesResponse);
+
+  rpc OffsetFaceCurves(OffsetFaceCurvesRequest) returns (OffsetFaceCurvesResponse);
+}
+
+message OffsetFaceCurvesRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier objects = 1;
+  double offset = 2;
+}
+
+message OffsetFaceCurvesResponse {
+  ansys.api.dbu.v0.RequestResult result = 1;
+  repeated Curve created_curves = 2;
+}
+
+message MoveImprintEdgesRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier edges = 1;
+  Direction direction = 2;
+  double distance = 3;
+}
+
+message MoveImprintEdgesResponse {
+  ansys.api.dbu.v0.RequestResult result = 1;
+  repeated Edge created_edges = 2;
+  repeated Face created_faces = 3;
 }
 
 message OffsetEdgesRequest {
