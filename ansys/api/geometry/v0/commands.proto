@@ -106,6 +106,37 @@ service Commands{
   rpc MoveImprintEdges(MoveImprintEdgesRequest) returns (MoveImprintEdgesResponse);
 
   rpc OffsetFaceCurves(OffsetFaceCurvesRequest) returns (OffsetFaceCurvesResponse);
+
+  rpc RevolveFaces(RevolveFacesRequest) returns (CommandResponse);
+
+  rpc RevolveFacesUpTo(RevolveFacesUpToRequest) returns (CommandResponse);
+
+  rpc RevolveFacesByHelix(RevolveFacesByHelixRequest) returns (CommandResponse);
+}
+
+message RevolveFacesRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
+  Line axis = 2;
+  double angle = 3;
+}
+
+message RevolveFacesUpToRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
+  ansys.api.dbu.v0.EntityIdentifier up_to_selection = 2;
+  Direction direction = 3;
+  Line axis = 4;
+  ExtrudeType extrude_type = 5;
+}
+
+message RevolveFacesByHelixRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
+  Direction direction = 2;
+  Line axis = 3;
+  double height = 4;
+  double pitch = 5;
+  double taper_angle = 6;
+  bool right_handed = 7;
+  bool both_sides = 8;
 }
 
 message OffsetFaceCurvesRequest {
