@@ -118,6 +118,8 @@ message RevolveFacesRequest {
   repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
   Line axis = 2;
   double angle = 3;
+  repeated ansys.api.dbu.v0.EntityIdentifier alternate_axis = 4;
+  Direction alternate_direction = 5;
 }
 
 message RevolveFacesUpToRequest {
