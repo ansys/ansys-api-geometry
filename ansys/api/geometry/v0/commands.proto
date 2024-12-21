@@ -120,6 +120,46 @@ service Commands{
   rpc RevolvePoints(RevolvePointsRequest) returns (CreatedCurvesCommandResponse);
 
   rpc RevolvePointsByHelix(RevolvePointsByHelixRequest) returns (CreatedCurvesCommandResponse);
+
+  rpc CombineIntersectBodies(CombineIntersectBodiesRequest) returns (CommandResponse);
+
+  rpc CombineMergeBodies(CombineMergeBodiesRequest) returns (CommandResponse);
+
+  rpc MergeBodies(MergeBodiesRequest) returns (CommandResponse);
+
+  rpc ProjectToSolid(ProjectToSolidRequest) returns (CommandResponse);
+
+  rpc SplitBody(SplitBodyRequest) returns (CommandResponse);
+}
+
+message CombineIntersectBodiesRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier target_selection = 1;
+  repeated ansys.api.dbu.v0.EntityIdentifier tool_selection = 2;
+}
+
+message CombineMergeBodiesRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier target_selection = 1;
+}
+
+message MergeBodiesRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier target_selection = 1;
+  bool abort_on_error = 2;
+  bool can_make_independent = 3;
+  bool create_imprints = 4;
+}
+
+message ProjectToSolidRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
+  repeated ansys.api.dbu.v0.EntityIdentifier target_faces = 2;
+  ansys.api.dbu.v0.EntityIdentifier direction_selection = 3;
+}
+
+message SplitBodyRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
+  Plane split_by_plane = 2;
+  repeated ansys.api.dbu.v0.EntityIdentifier split_by_slicer = 3;
+  repeated ansys.api.dbu.v0.EntityIdentifier split_by_faces = 4;
+  bool extend_surfaces = 5;  
 }
 
 message SweepFacesRequest {
