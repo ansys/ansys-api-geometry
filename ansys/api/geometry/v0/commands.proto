@@ -105,19 +105,97 @@ service Commands{
 
   rpc MoveImprintEdges(MoveImprintEdgesRequest) returns (MoveImprintEdgesResponse);
 
-  rpc OffsetFaceCurves(OffsetFaceCurvesRequest) returns (OffsetFaceCurvesResponse);
+  rpc OffsetFaceCurves(OffsetFaceCurvesRequest) returns (CreatedCurvesCommandResponse);
 
   rpc RevolveFaces(RevolveFacesRequest) returns (CommandResponse);
 
   rpc RevolveFacesUpTo(RevolveFacesUpToRequest) returns (CommandResponse);
 
   rpc RevolveFacesByHelix(RevolveFacesByHelixRequest) returns (CommandResponse);
+
+  rpc SweepFaces(SweepFacesRequest) returns (CommandResponse);
+
+  rpc SweepPoints(SweepPointsRequest) returns (CreatedCurvesCommandResponse);
+
+  rpc RevolvePoints(RevolvePointsRequest) returns (CreatedCurvesCommandResponse);
+
+  rpc RevolvePointsByHelix(RevolvePointsByHelixRequest) returns (CreatedCurvesCommandResponse);
+
+  rpc CombineIntersectBodies(CombineIntersectBodiesRequest) returns (CommandResponse);
+
+  rpc CombineMergeBodies(CombineMergeBodiesRequest) returns (CommandResponse);
+
+  rpc MergeBodies(MergeBodiesRequest) returns (CommandResponse);
+
+  rpc ProjectToSolid(ProjectToSolidRequest) returns (CommandResponse);
+
+  rpc SplitBody(SplitBodyRequest) returns (CommandResponse);
+}
+
+message CombineIntersectBodiesRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier target_selection = 1;
+  repeated ansys.api.dbu.v0.EntityIdentifier tool_selection = 2;
+}
+
+message CombineMergeBodiesRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier target_selection = 1;
+}
+
+message MergeBodiesRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier target_selection = 1;
+  bool abort_on_error = 2;
+  bool can_make_independent = 3;
+  bool create_imprints = 4;
+}
+
+message ProjectToSolidRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
+  repeated ansys.api.dbu.v0.EntityIdentifier target_faces = 2;
+  ansys.api.dbu.v0.EntityIdentifier direction_selection = 3;
+}
+
+message SplitBodyRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
+  Plane split_by_plane = 2;
+  repeated ansys.api.dbu.v0.EntityIdentifier split_by_slicer = 3;
+  repeated ansys.api.dbu.v0.EntityIdentifier split_by_faces = 4;
+  bool extend_surfaces = 5;  
+}
+
+message SweepFacesRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
+  repeated ansys.api.dbu.v0.EntityIdentifier trajectories = 2;
+  double optional_distance = 3;
+}
+
+message SweepPointsRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
+  repeated ansys.api.dbu.v0.EntityIdentifier trajectories = 2;
+  double distance = 3;
+}
+
+message RevolvePointsRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
+  Line axis = 2;
+  double angle = 3;
+}
+
+message RevolvePointsByHelixRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
+  Line axis = 2;
+  double height = 3;
+  double pitch = 4;
+  double taper_angle = 5;
+  bool right_handed = 6;
+  bool pull_symmetric = 7;
 }
 
 message RevolveFacesRequest {
   repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
   Line axis = 2;
   double angle = 3;
+  repeated ansys.api.dbu.v0.EntityIdentifier alternate_axis = 4;
+  Direction alternate_direction = 5;
 }
 
 message RevolveFacesUpToRequest {
@@ -144,7 +222,7 @@ message OffsetFaceCurvesRequest {
   double offset = 2;
 }
 
-message OffsetFaceCurvesResponse {
+message CreatedCurvesCommandResponse {
   ansys.api.dbu.v0.RequestResult result = 1;
   repeated Curve created_curves = 2;
 }
