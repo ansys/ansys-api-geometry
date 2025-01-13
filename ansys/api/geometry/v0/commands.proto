@@ -130,6 +130,83 @@ service Commands{
   rpc ProjectToSolid(ProjectToSolidRequest) returns (CommandResponse);
 
   rpc SplitBody(SplitBodyRequest) returns (CommandResponse);
+
+  rpc CreateLinearPattern(CreateLinearPatternRequest) returns (PatternCommandResponse);
+
+  rpc ModifyLinearPattern(ModifyLinearPatternRequest) returns (PatternCommandResponse);
+
+  rpc CreateCircularPattern(CreateCircularPatternRequest) returns (PatternCommandResponse);
+
+  rpc CreateFillPattern(CreateFillPatternRequest) returns (PatternCommandResponse);
+
+  rpc UpdateFillPattern(PatternRequest) returns (PatternCommandResponse);
+
+  rpc RemovePatterns(PatternRequest) returns (PatternCommandResponse);
+
+  rpc RemovePatternMember(PatternRequest) returns (PatternCommandResponse);
+
+  rpc SetPatternValue(SetPatternValueRequest) returns (PatternCommandResponse);
+}
+
+message CreateLinearPatternRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
+  bool two_dimensional = 2;
+  ansys.api.dbu.v0.EntityIdentifier linear_direction = 3;
+  int32 count_x = 4;
+  int32 count_y = 5;
+  double pitch_x = 6;
+  double pitch_y = 7;  
+}
+
+message ModifyLinearPatternRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
+  int32 count_x = 2;
+  int32 count_y = 3;
+  double pitch_x = 4;
+  double pitch_y = 5;
+  int32 new_seed_index = 6;
+  int32 old_seed_index = 7;
+}
+
+message CreateCircularPatternRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
+  double circular_angle = 2;
+  ansys.api.dbu.v0.EntityIdentifier circular_axis = 3;
+  int32 circular_count = 4;
+  int32 linear_count = 5;
+  double linear_pitch = 6;
+  bool two_dimensional = 7;
+  Direction radial_direction = 8;
+}
+
+message CreateFillPatternRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
+  double column_x_offset = 2;
+  double column_y_offset = 3;
+  FillPatternType fill_pattern_type= 4;
+  ansys.api.dbu.v0.EntityIdentifier linear_direction = 5;
+  double margin = 6;
+  double row_x_offset = 7;
+  double row_y_offset = 8;
+  double x_spacing = 9;
+  double y_spacing = 10;
+}
+
+message SetPatternValueRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
+  PatternModificationType modification_type = 2;
+  double value = 3;
+}
+
+message PatternRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
+}
+
+message PatternCommandResponse {
+  ansys.api.dbu.v0.RequestResult result = 1;
+  repeated Face created_faces = 2;
+  repeated Edge created_edges = 3;
+  repeated Body modified_bodies = 4;
 }
 
 message CombineIntersectBodiesRequest {
