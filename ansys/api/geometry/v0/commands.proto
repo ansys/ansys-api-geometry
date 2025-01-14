@@ -146,6 +146,12 @@ service Commands{
   rpc RemovePatternMember(PatternRequest) returns (PatternCommandResponse);
 
   rpc SetPatternValue(SetPatternValueRequest) returns (PatternCommandResponse);
+
+  rpc DetachFaces(DetachFacesRequest) returns (CommandResponse);
+}
+
+message DetachFacesRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
 }
 
 message CreateLinearPatternRequest {
