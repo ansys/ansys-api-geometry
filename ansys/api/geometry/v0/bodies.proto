@@ -90,12 +90,18 @@ service Bodies
 
   rpc CreateSurfaceBody(CreateSurfaceBodyRequest) returns (Body);
 
+  rpc SeparatePieces(SeparatePiecesRequest) returns (GetAllResponse);
+
   rpc CreateBlockBody(CreateBlockBodyRequest) returns (Body);
 }
 
 message CreateBlockBodyRequest {
   Point start_point = 1;
   Point end_point = 2;
+}
+
+message SeparatePiecesRequest {
+  ansys.api.dbu.v0.EntityIdentifier body = 1;
 }
 
 message CreateSurfaceBodyRequest {
