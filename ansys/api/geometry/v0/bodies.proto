@@ -78,6 +78,10 @@ service Bodies
 
   rpc IsEnclosureBody(ansys.api.dbu.v0.EntityIdentifier) returns (IsEnclosureBodyResponse);
 
+  rpc IsSuppressed(ansys.api.dbu.v0.EntityIdentifier) returns (IsSuppressedResponse); 
+
+  rpc SetSuppressed(SetSuppressedRequest) returns (google.protobuf.Empty); 
+
   rpc Rotate(RotateRequest) returns (google.protobuf.Empty);
 
   rpc GetCollision(GetCollisionRequest) returns (GetCollisionResponse);
@@ -134,6 +138,15 @@ message RotateRequest {
 
 message IsEnclosureBodyResponse {
   bool result = 1;
+}
+
+message IsSuppressedResponse {
+  bool result = 1;
+}
+
+message SetSuppressedRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier bodies = 1; // List of entity identifiers
+  bool is_suppressed = 2;
 }
 
 message GetSurfaceBodyThicknessResponse {

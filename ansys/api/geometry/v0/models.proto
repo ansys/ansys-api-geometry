@@ -313,12 +313,17 @@ message DuplicateCurveProblemArea {
 
 message SmallCurveProblemArea {
   int32 id = 1;
-  repeated string curve_point_monikers = 2;
+  repeated ansys.api.dbu.v0.EntityIdentifier curve_monikers = 2;
 }
 
 message AdjustSimplifyProblemArea {
   int32 id = 1;
   repeated string body_monikers = 2;
+}
+
+message GapProblemArea {
+  int32 id = 1;
+  repeated ansys.api.dbu.v0.EntityIdentifier edge_monikers = 2;
 }
 
 message RepairToolMessage {
@@ -351,6 +356,18 @@ message Frame {
 
 message Plane {
   Frame frame = 1;
+}
+
+message DatumPlane {
+  ansys.api.dbu.v0.EntityIdentifier id = 1;
+  Plane plane = 2;
+  string name = 3;
+  bool is_suppressed = 4;
+  bool is_deleted = 5;
+  bool can_suppress = 6;
+  ansys.api.dbu.v0.EntityIdentifier master_id = 7;
+  ansys.api.dbu.v0.EntityIdentifier parent_id = 8;
+  repeated Curve curves = 9;
 }
 
 message Line {

@@ -11,8 +11,26 @@ service Unsupported {
 
   // Turns the beep sound on or off
   rpc SetSoundEnabled(SoundEnabledRequest) returns(ansys.api.dbu.v0.RequestResult);
+
+  rpc GetImportIdMap(ImportIdRequest) returns (ImportIdResponse);
+  
+  rpc SetExportId(ExportIdRequest) returns (ansys.api.dbu.v0.RequestResult);
 }
 
 message SoundEnabledRequest {
   bool enabled = 1;
+}
+
+message ImportIdRequest{
+  ansys.api.dbu.v0.PersistentIdType type = 1;
+}
+
+message ImportIdResponse{
+  map<string, ansys.api.dbu.v0.EntityIdentifier> id_map = 1;
+}
+
+message ExportIdRequest{
+  ansys.api.dbu.v0.EntityIdentifier moniker = 1;
+  string id = 2;
+  ansys.api.dbu.v0.PersistentIdType type = 3;
 }
