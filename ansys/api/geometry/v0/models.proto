@@ -313,17 +313,12 @@ message DuplicateCurveProblemArea {
 
 message SmallCurveProblemArea {
   int32 id = 1;
-  repeated ansys.api.dbu.v0.EntityIdentifier curve_monikers = 2;
+  repeated string curve_point_monikers = 2;
 }
 
 message AdjustSimplifyProblemArea {
   int32 id = 1;
   repeated string body_monikers = 2;
-}
-
-message GapProblemArea {
-  int32 id = 1;
-  repeated ansys.api.dbu.v0.EntityIdentifier edge_monikers = 2;
 }
 
 message RepairToolMessage {
