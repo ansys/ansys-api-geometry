@@ -166,6 +166,16 @@ service Commands{
   rpc SplitFace(SplitFaceRequest) returns(CommandResponse);
   
   rpc SplitEdge(SplitEdgeRequest) returns (CommandResponse);
+
+  rpc CreatePlane(CreatePlaneRequest) returns (CreatePlaneResponse);
+}
+
+message CreatePlaneRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
+}
+
+message CreatePlaneResponse {
+  repeated DatumPlane planes = 1;
 }
 
 message DetachFacesRequest {
