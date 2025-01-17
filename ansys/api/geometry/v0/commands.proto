@@ -499,16 +499,10 @@ message CommandResponse {
   bool success = 1;
   repeated Body created_bodies = 2;
   repeated Body modified_bodies = 3;
-  repeated Body deleted_bodies = 4;
-  repeated Face created_faces = 5;
-  repeated Face modified_faces = 6;
-  repeated Face deleted_faces = 7;
-  repeated Edge created_edges = 8;
-  repeated Edge modified_edges = 9;
-  repeated Edge deleted_edges = 10;
-  repeated Component created_components = 11;
-  repeated Component modified_components = 12;
-  repeated Component deleted_components = 13;
+  repeated Face created_faces = 4;
+  repeated Face modified_faces = 5;
+  repeated Edge created_edges = 6;
+  repeated Edge modified_edges = 7;
 }
 
 message FilletRequest {

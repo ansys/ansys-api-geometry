@@ -54,6 +54,10 @@ service RepairTools{
 
   rpc FixGaps(FixGapsRequest) returns (FixGapsResponse);
 
+  rpc FindSmallCurves(FindSmallCurvesRequest) returns (FindSmallCurvesResponse);
+
+  rpc FixSmallCurves(FixSmallCurvesRequest) returns (FixSmallCurvesResponse);
+
   rpc FindCurveGaps(FindCurveGapsRequest) returns (FindCurveGapsResponse);
   
   rpc FixCurveGaps(FixCurveGapsRequest) returns (FixCurveGapsResponse);
@@ -243,27 +247,23 @@ message FixSmallFacesResponse{
 }
 
 message FindGapsRequest{
-  repeated string faces = 1;
+  repeated ansys.api.dbu.v0.EntityIdentifier bodies = 1;
   google.protobuf.DoubleValue angle=2;
   google.protobuf.DoubleValue distance = 3;
-  oneof method
-  {
-    google.protobuf.NullValue null = 4;
-    SolidifyFixMethodType  data =5;
-  }
-  google.protobuf.BoolValue allow_multi_patch = 6;
+  optional SolidifyFixMethodType fix_method = 4;
+  google.protobuf.BoolValue allow_multi_patch = 5;
 }
 
 message FindGapsResponse{
-  repeated ansys.api.geometry.v0.SplitEdgeProblemArea result = 1;
+  repeated ansys.api.geometry.v0.GapProblemArea result = 1;
 }
 
 message FixGapsRequest{
-  google.protobuf.Int32Value problemarea_id = 1;
+  google.protobuf.Int32Value gap_problem_area_id = 1;
 }
 
 message FixGapsResponse{
-  bool result = 1;
+  RepairToolMessage result = 1;
 }
 
 message FindCurveGapsRequest{
@@ -296,19 +296,19 @@ message FixDuplicateCurvesResponse{
 }
 
 message FindSmallCurvesRequest{
-  google.protobuf.DoubleValue distance = 1;
+  google.protobuf.DoubleValue max_curve_length = 1;
 }
 
 message FindSmallCurvesResponse{
-  repeated ansys.api.geometry.v0.DuplicateCurveProblemArea result = 1;
+  repeated ansys.api.geometry.v0.SmallCurveProblemArea result = 1;
 }
 
 message FixSmallCurvesRequest{
-  google.protobuf.Int32Value duplicate_curve_problem_area_id = 1;
+  google.protobuf.Int32Value small_curve_problem_area_id = 1;
 }
 
 message FixSmallCurvesResponse{
-  bool result = 1;
+  RepairToolMessage result = 1;
 }
 
 message FindAdjustMergeFacesRequest{
