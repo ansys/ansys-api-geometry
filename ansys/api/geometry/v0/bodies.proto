@@ -97,6 +97,14 @@ service Bodies
   rpc SeparatePieces(SeparatePiecesRequest) returns (GetAllResponse);
 
   rpc CreateBlockBody(CreateBlockBodyRequest) returns (Body);
+  
+  rpc CreateSurfaceBodyFromTrimmedCurves(CreateSurfaceBodyFromTrimmedCurvesRequest) returns (Body);
+}
+
+message CreateSurfaceBodyFromTrimmedCurvesRequest {
+  string name = 1;
+  string parent = 2;
+  repeated TrimmedCurve trimmed_curves = 3;
 }
 
 message CreateBlockBodyRequest {
