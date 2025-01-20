@@ -42,8 +42,8 @@ service Commands{
   rpc AssignMidSurfaceThickness(AssignMidSurfaceThicknessRequest) returns (google.protobuf.Empty);
 
   rpc AssignMidSurfaceOffsetType(AssignMidSurfaceOffsetTypeRequest) returns (google.protobuf.Empty);
-  
-  rpc DownloadFile(google.protobuf.Empty) returns (DownloadFileResponse);  
+
+  rpc DownloadFile(google.protobuf.Empty) returns (DownloadFileResponse);  // DEPRECATED in 25.2 version
 
   rpc UploadFile(UploadFileRequest) returns (UploadFileResponse);
 
