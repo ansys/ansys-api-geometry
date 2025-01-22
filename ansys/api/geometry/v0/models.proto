@@ -210,6 +210,7 @@ message Direction {
 message Box {
   Point min = 1;
   Point max = 2;
+  Point center = 3;
 }
 
 //
@@ -313,13 +314,19 @@ message DuplicateCurveProblemArea {
 
 message SmallCurveProblemArea {
   int32 id = 1;
-  repeated string curve_point_monikers = 2;
+  repeated ansys.api.dbu.v0.EntityIdentifier curve_monikers = 2;
 }
 
 message AdjustSimplifyProblemArea {
   int32 id = 1;
   repeated string body_monikers = 2;
 }
+
+message GapProblemArea {
+  int32 id = 1;
+  repeated ansys.api.dbu.v0.EntityIdentifier edge_monikers = 2;
+}
+
 
 message RepairToolMessage {
   bool success = 1;
@@ -578,6 +585,49 @@ message Gap {
   double distance = 1;
 }
 
+message NurbsCurve {
+  repeated ControlPoint control_points = 1;
+  NurbsData nurbs_data = 2;
+  bool is_rational = 3;
+  Parameterization parameterization = 4;
+}
+
+message NurbsData{
+  int32 degree = 1;
+  bool is_closed = 2;
+  bool is_periodic = 3;
+  repeated Knot knots = 4;
+  int32 order = 5;
+}
+
+message Knot{
+  int32 multiplicity = 1;
+  double parameter = 2;
+}
+
+message ControlPoint {
+  Point position = 1;
+  double weight = 2;
+}
+
+message Parameterization{
+  ParameterizationBounds bounds = 1;
+  ParameterizationForm form = 2;
+}
+
+message ParameterizationBounds {
+  bool infinite_start = 1;
+  double start = 2;
+  bool infinite_end = 3;
+  double end = 4;
+}
+
+enum ParameterizationForm {
+  OPEN = 0;
+  CLOSED = 1;
+  PERIODIC = 2;
+}
+
 enum DraftSide {
   DRAFTSIDE_NO_SPLIT = 0;
   DRAFTSIDE_THIS = 1;
@@ -613,4 +663,85 @@ enum PatternModificationType {
   PATTERNMODIFICATIONTYPE_SECONDARY_OVERALL_DIMENSION = 14;
   PATTERNMODIFICATIONTYPE_SECONDARY_SPACING_DIMENSION = 15;
   PATTERNMODIFICATIONTYPE_CIRCULAR_RADIUS = 16;
+}
+
+enum InspectGeometryMessageType {
+  INSPECT_GEOMETRY_UNKNOWN = 0;
+  INSPECT_GEOMETRY_INFORMATION = 1;
+  INSPECT_GEOMETRY_WARNING = 2;
+  INSPECT_GEOMETRY_ERROR = 3;
+}
+
+enum InspectGeometryLevel {
+  COMPLETE = 0;
+  VALIDATE = 1;
+  SANITY = 2;
+}
+
+enum InspectGeometryMessageId {
+  INSPECT_GEOMETRY_ID_UNKNOWN= 0;
+  NONE= 1;
+  NOERROR= 2;
+  ERROR_BODYTOPOLOGY= 3;
+  ERROR_INSIDEOUTBODY= 4;
+  ERROR_GENERALBODY= 5;
+  ERROR_FACETOPOLOGY= 6;
+  ERROR_FACELOOP= 7;
+  ERROR_FACEGEOMETRY= 8;
+  ERROR_FACEEDGEGEOMETRY= 9;
+  ERROR_EDGEGEOMETRY= 10;
+  ERROR_EDGENONMANIFOLD= 11;
+  ERROR_EDGETOPOLOGY= 12;
+  ERROR_VERTEX= 13;
+  ERROR_VERTEXNONMANIFOLD= 14;
+  ERROR_MESHSELFINTERSECTS= 15;
+  WARNING_MULTIPLESHELLS= 16;
+  ERROR_MESHISOPEN= 17;
+  ERROR_MESHISNONMANIFOLD= 18;
+  UNKNOWN_FACE_ERROR= 19;
+  UNKNOWN_EDGE_ERROR= 20;
+  INTERNAL_ERROR= 21;
+  ERROR_FACEDISPLAY= 22;
+  INFO_SLIVERFACE= 23;
+  INFO_SLIVEREDGE= 24;
+  ERROR_FACEINTERSECTION= 25;
+  ERROR_FACESELFINTERSECTINGTOPOLOGY= 26;
+  ERROR_FACEFACEINTERSECTION= 27;
+  ERROR_EDGEOFFINEXACT= 28;
+  ERROR_EDGESELFINTERSECTINGTOPOLOGY= 29;
+  ERROR_MESHINCONSISTENTORIENTATION= 30;
+  WARNING_GEOMETRYNONG1= 31;
+  WARNING_GEOMETRYSELFINTERSECTS= 32;
+  WARNING_GEOMETRYCOLLAPSED= 33;
+  WARNING_LOOPISNOTCLOSEDPROPERLY= 34;
+  WARNING_CURVEISNOTCLOSEDPROPERLY= 35;
+  WARNING_SURFACEISNOTCLOSEDPROPERLY= 36;
+  WARNING_MESHHASFOLDOVERS= 37;
+  ERROR_MESH= 38;
+  ERROR_NOGEOMETRY= 39;
+  VERTEXOVERLAP = 40;
+}
+
+message InspectGeometryOptions {
+  InspectGeometryLevel level = 1;
+  int32 max_number_of_issues = 2;
+  bool check_self_intersections = 3;
+  bool find_g1_discontinuities = 4;
+  double sliver_edge_tolerance = 5;
+  double sliver_face_tolerance = 6;
+}
+
+message InspectGeometryResultIssue
+{
+  InspectGeometryMessageType message_type = 1;
+  InspectGeometryMessageId message_id = 2;
+  ansys.api.dbu.v0.EntityIdentifier entity_id = 3;
+  string entity_type = 4;
+  string message = 5;
+  optional double scalar_value = 6;
+}
+
+message InspectGeometryResult {
+  ansys.api.dbu.v0.EntityIdentifier body_with_issues = 1;
+  repeated InspectGeometryResultIssue issues = 2;
 }
