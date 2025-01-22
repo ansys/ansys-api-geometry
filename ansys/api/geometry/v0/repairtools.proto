@@ -2,12 +2,9 @@
 syntax = "proto3";
 package ansys.api.geometry.v0.repairtools;
 
-import "ansys/api/dbu/v0/dbumodels.proto";
 import "ansys/api/geometry/v0/models.proto";
-import "google/protobuf/empty.proto";
 import "google/protobuf/struct.proto";
 import "google/protobuf/wrappers.proto";
-
 
 option csharp_namespace = "Ansys.Api.Geometry.V0.RepairTools";
 option go_package = "ansys/api/geometry/v0";
@@ -58,7 +55,7 @@ service RepairTools{
   
   rpc FixCurveGaps(FixCurveGapsRequest) returns (FixCurveGapsResponse);
 
-  rpc FindDuplicateCurves(google.protobuf.Empty) returns (FindDuplicateCurvesResponse);
+  rpc FindDuplicateCurves(FindDuplicateCurvesRequest) returns (FindDuplicateCurvesResponse);
 
   rpc FixDuplicateCurves(FixDuplicateCurvesRequest) returns (FixDuplicateCurvesResponse);
 
@@ -69,8 +66,6 @@ service RepairTools{
   rpc FindAdjustSimplify(FindAdjustSimplifyRequest) returns (FindAdjustSimplifyResponse);
 
   rpc FixAdjustSimplify(FixAdjustSimplifyRequest) returns (FixAdjustSimplifyResponse);
-
-  rpc FitCurves(FitCurvesRequest) returns (FitCurvesResponse);
 }
 
 message FindInterferenceRequest{
@@ -276,11 +271,14 @@ message FindCurveGapsResponse{
 
 message FixCurveGapsRequest{
   google.protobuf.Int32Value curve_gap_problem_area_id = 1;
-  google.protobuf.DoubleValue distance = 2;
 }
 
 message FixCurveGapsResponse{
-  RepairToolMessage result = 1;
+  bool result = 1;
+}
+
+message FindDuplicateCurvesRequest{
+  google.protobuf.DoubleValue distance = 1;
 }
 
 message FindDuplicateCurvesResponse{
@@ -292,7 +290,7 @@ message FixDuplicateCurvesRequest{
 }
 
 message FixDuplicateCurvesResponse{
-  RepairToolMessage result = 1;
+  bool result = 1;
 }
 
 message FindSmallCurvesRequest{
@@ -348,18 +346,5 @@ message FixAdjustSimplifyRequest{
 }
 
 message FixAdjustSimplifyResponse{
-  RepairToolMessage result = 1;
-}
-
-message FitCurvesRequest{
-  ansys.api.dbu.v0.EntityIdentifier selection = 1;
-  bool arcs = 2;
-  bool lines = 3;
-  bool splines = 4;
-  bool tangentize = 5;
-  double tolerance = 6;
-}
-
-message FitCurvesResponse{
   RepairToolMessage result = 1;
 }

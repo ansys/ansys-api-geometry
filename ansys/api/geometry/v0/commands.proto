@@ -10,7 +10,6 @@ import "google/protobuf/empty.proto";
 
 option csharp_namespace = "Ansys.Api.Geometry.V0.Commands";
 
-
 service Commands{
 
   rpc RenameMany(RenameManyRequest) returns (RenameManyResponse);
@@ -42,8 +41,8 @@ service Commands{
   rpc AssignMidSurfaceThickness(AssignMidSurfaceThicknessRequest) returns (google.protobuf.Empty);
 
   rpc AssignMidSurfaceOffsetType(AssignMidSurfaceOffsetTypeRequest) returns (google.protobuf.Empty);
-
-  rpc DownloadFile(google.protobuf.Empty) returns (DownloadFileResponse);  // DEPRECATED in 25.2 version
+  
+  rpc DownloadFile(google.protobuf.Empty) returns (DownloadFileResponse);  
 
   rpc UploadFile(UploadFileRequest) returns (UploadFileResponse);
 
@@ -146,62 +145,6 @@ service Commands{
   rpc RemovePatternMember(PatternRequest) returns (PatternCommandResponse);
 
   rpc SetPatternValue(SetPatternValueRequest) returns (PatternCommandResponse);
-
-  rpc DetachFaces(DetachFacesRequest) returns (CommandResponse);
-
-  rpc PullCurvePoint(PullCurvePointRequest) returns (CommandResponse);
-
-  rpc RenameObject(RenameObjectRequest) returns (CommandResponse);
-
-  rpc ReplaceFace(ReplaceFaceRequest) returns (CommandResponse);
-
-  rpc Shell(ShellRequest) returns (CommandResponse);  
-
-  rpc Move(MoveRequest) returns (CommandResponse);
-  
-  rpc MoveRotate(MoveRotateRequest) returns (CommandResponse);
-
-  rpc Mirror(MirrorRequest) returns (CommandResponse);
-
-  rpc SplitFace(SplitFaceRequest) returns(CommandResponse);
-  
-  rpc SplitEdge(SplitEdgeRequest) returns (CommandResponse);
-
-  rpc CreatePlane(CreatePlaneRequest) returns (CreatePlaneResponse);
-}
-
-message CreatePlaneRequest {
-  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
-}
-
-message CreatePlaneResponse {
-  repeated DatumPlane planes = 1;
-}
-
-message DetachFacesRequest {
-  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
-}
-
-message PullCurvePointRequest {
-  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
-  double distance = 2;
-  bool linear = 3;
-  bool reversed = 4;
-}
-
-message RenameObjectRequest {
-  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
-  string name = 2;
-}
-
-message ReplaceFaceRequest {
-  repeated ansys.api.dbu.v0.EntityIdentifier target_selection = 1;
-  repeated ansys.api.dbu.v0.EntityIdentifier replacement_selection = 2;
-}
-
-message ShellRequest {
-  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
-  double offset = 2;
 }
 
 message CreateLinearPatternRequest {
@@ -293,26 +236,6 @@ message SplitBodyRequest {
   repeated ansys.api.dbu.v0.EntityIdentifier split_by_slicer = 3;
   repeated ansys.api.dbu.v0.EntityIdentifier split_by_faces = 4;
   bool extend_surfaces = 5;  
-}
-
-enum SplitEdgeType{
-  SPLITEDGE_BY_PROPORTION=0;
-  SPLITEDGE_BY_POINT=1;
-  SPLITEDGE_BY_LENGTH=2;
-}
-
-enum SplitEdgeReference{
-  SPLITEDGE_REFERENCE_START=0;
-  SPLITEDGE_REFERENCE_END=1;
-}
-
-message SplitEdgeRequest {
-  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
-  SplitEdgeType split_type = 2;
-  repeated double proportions = 3;
-  repeated Point points = 4;
-  repeated double lengths = 5;
-  SplitEdgeReference reference = 6;
 }
 
 message SweepFacesRequest {
@@ -499,16 +422,6 @@ message CommandResponse {
   bool success = 1;
   repeated Body created_bodies = 2;
   repeated Body modified_bodies = 3;
-  repeated ansys.api.dbu.v0.EntityIdentifier deleted_bodies = 4;
-  repeated ansys.api.dbu.v0.EntityIdentifier created_faces = 5;
-  repeated ansys.api.dbu.v0.EntityIdentifier modified_faces = 6;
-  repeated ansys.api.dbu.v0.EntityIdentifier deleted_faces = 7;
-  repeated ansys.api.dbu.v0.EntityIdentifier created_edges = 8;
-  repeated ansys.api.dbu.v0.EntityIdentifier modified_edges = 9;
-  repeated ansys.api.dbu.v0.EntityIdentifier deleted_edges = 10;
-  repeated ansys.api.dbu.v0.EntityIdentifier created_components = 11;
-  repeated ansys.api.dbu.v0.EntityIdentifier modified_components = 12;
-  repeated ansys.api.dbu.v0.EntityIdentifier deleted_components = 13;
 }
 
 message FilletRequest {
@@ -751,44 +664,4 @@ message GetAssemblyResponse {
   repeated NamedSelection named_selections=6;
   map <string, CoordinateSystemList> component_coord_systems=7;
   map <string, int32> component_shared_topologies=8;
-}
-
-message MoveRequest{
-  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
-  Direction direction = 2;
-  double distance = 3;
-}
-
-message MoveRotateRequest{
-  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
-  Line axis = 2;
-  double angle = 3;
-}
-
-message MirrorRequest{
-  ansys.api.dbu.v0.EntityIdentifier mirror_plane=1;
-  repeated ansys.api.dbu.v0.EntityIdentifier selection=2;
-}
-
-enum SplitFaceType{
-  SPLITFACE_BY_PARAMETER=0;
-  SPLITFACE_BY_TWO_POINTS=1;
-  SPLITFACE_BY_CURVES=2;
-  SPLITFACE_BY_CUTTER=3;
-}
-
-enum SplitFaceParameterType{
-  SPLITFACEPARAMETER_UV=0;
-  SPLITFACEPARAMETER_PERPENDICULAR=1;
-}
-
-message SplitFaceRequest{
-  ansys.api.dbu.v0.EntityIdentifier selection=1;
-  Point split_parameter=2;
-  Point split_start=3;
-  Point split_end=4;
-  ansys.api.dbu.v0.EntityIdentifier face_cutter=5;
-  repeated TrimmedCurve split_curves=6;
-  SplitFaceType split_type=7;
-  SplitFaceParameterType parameter_type=8;
 }
