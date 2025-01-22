@@ -157,7 +157,9 @@ service Commands{
 
   rpc Shell(ShellRequest) returns (CommandResponse);  
 
-  rpc Move(MoveRequest) returns (CommandResponse);
+  rpc RemoveFaces(RemoveFacesRequest) returns (CommandResponse);  
+
+  rpc MoveTranslate(MoveTranslateRequest) returns (CommandResponse);
   
   rpc MoveRotate(MoveRotateRequest) returns (CommandResponse);
 
@@ -168,6 +170,10 @@ service Commands{
   rpc SplitEdge(SplitEdgeRequest) returns (CommandResponse);
 
   rpc CreatePlane(CreatePlaneRequest) returns (CreatePlaneResponse);
+
+  rpc EvaluateNurbsCurve(EvaluateNurbsCurveRequest) returns (CurveEvaluation);
+
+  rpc ProjectPoint(ProjectPointRequest) returns (CurveEvaluation);
 }
 
 message CreatePlaneRequest {
@@ -200,6 +206,11 @@ message ReplaceFaceRequest {
 }
 
 message ShellRequest {
+  ansys.api.dbu.v0.EntityIdentifier selection = 1;
+  double offset = 2;
+}
+
+message RemoveFacesRequest {
   repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
   double offset = 2;
 }
@@ -268,6 +279,8 @@ message PatternCommandResponse {
 message CombineIntersectBodiesRequest {
   repeated ansys.api.dbu.v0.EntityIdentifier target_selection = 1;
   repeated ansys.api.dbu.v0.EntityIdentifier tool_selection = 2;
+  optional bool keep_cutter = 3;
+  optional bool subtract_from_target = 4;
 }
 
 message CombineMergeBodiesRequest {
@@ -753,7 +766,7 @@ message GetAssemblyResponse {
   map <string, int32> component_shared_topologies=8;
 }
 
-message MoveRequest{
+message MoveTranslateRequest{
   repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
   Direction direction = 2;
   double distance = 3;
@@ -791,4 +804,24 @@ message SplitFaceRequest{
   repeated TrimmedCurve split_curves=6;
   SplitFaceType split_type=7;
   SplitFaceParameterType parameter_type=8;
+}
+
+message CreateNurbsFromControlPointsRequest{
+  NurbsData nurbs_data = 1;
+  repeated ControlPoint control_points = 2;
+}
+
+message NurbsCurveResponse {
+  ansys.api.dbu.v0.RequestResult result = 1;
+  NurbsCurve created_curve = 2;
+}
+
+message EvaluateNurbsCurveRequest {
+  NurbsCurve curve = 1; 
+  double parameter = 2;
+}
+
+message ProjectPointRequest {
+  NurbsCurve curve = 1; 
+  Point point = 2;
 }
