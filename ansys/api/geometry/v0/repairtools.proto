@@ -2,12 +2,9 @@
 syntax = "proto3";
 package ansys.api.geometry.v0.repairtools;
 
-import "ansys/api/dbu/v0/dbumodels.proto";
 import "ansys/api/geometry/v0/models.proto";
-import "google/protobuf/empty.proto";
 import "google/protobuf/struct.proto";
 import "google/protobuf/wrappers.proto";
-
 
 option csharp_namespace = "Ansys.Api.Geometry.V0.RepairTools";
 option go_package = "ansys/api/geometry/v0";
@@ -54,15 +51,11 @@ service RepairTools{
 
   rpc FixGaps(FixGapsRequest) returns (FixGapsResponse);
 
-  rpc FindSmallCurves(FindSmallCurvesRequest) returns (FindSmallCurvesResponse);
-
-  rpc FixSmallCurves(FixSmallCurvesRequest) returns (FixSmallCurvesResponse);
-
   rpc FindCurveGaps(FindCurveGapsRequest) returns (FindCurveGapsResponse);
   
   rpc FixCurveGaps(FixCurveGapsRequest) returns (FixCurveGapsResponse);
 
-  rpc FindDuplicateCurves(google.protobuf.Empty) returns (FindDuplicateCurvesResponse);
+  rpc FindDuplicateCurves(FindDuplicateCurvesRequest) returns (FindDuplicateCurvesResponse);
 
   rpc FixDuplicateCurves(FixDuplicateCurvesRequest) returns (FixDuplicateCurvesResponse);
 
@@ -73,20 +66,6 @@ service RepairTools{
   rpc FindAdjustSimplify(FindAdjustSimplifyRequest) returns (FindAdjustSimplifyResponse);
 
   rpc FixAdjustSimplify(FixAdjustSimplifyRequest) returns (FixAdjustSimplifyResponse);
-
-  rpc FitCurves(FitCurvesRequest) returns (FitCurvesResponse);
-
-  rpc InspectGeometry(InspectGeometryRequest) returns (InspectGeometryResponse);
-
-  rpc RepairGeometry(RepairGeometryRequest) returns (RepairGeometryResponse);
-  
-  rpc FindAndFixExtraEdges(FindExtraEdgesRequest) returns (RepairToolMessage);
-
-  rpc FindAndFixSplitEdges(FindSplitEdgesRequest) returns (RepairToolMessage);
-
-  rpc FindAndFixShortEdges(FindShortEdgesRequest) returns (RepairToolMessage);
-
-  rpc FindAndSimplify(FindAdjustSimplifyRequest) returns (RepairToolMessage);
 }
 
 message FindInterferenceRequest{
@@ -259,23 +238,27 @@ message FixSmallFacesResponse{
 }
 
 message FindGapsRequest{
-  repeated ansys.api.dbu.v0.EntityIdentifier bodies = 1;
+  repeated string faces = 1;
   google.protobuf.DoubleValue angle=2;
   google.protobuf.DoubleValue distance = 3;
-  optional SolidifyFixMethodType fix_method = 4;
-  google.protobuf.BoolValue allow_multi_patch = 5;
+  oneof method
+  {
+    google.protobuf.NullValue null = 4;
+    SolidifyFixMethodType  data =5;
+  }
+  google.protobuf.BoolValue allow_multi_patch = 6;
 }
 
 message FindGapsResponse{
-  repeated ansys.api.geometry.v0.GapProblemArea result = 1;
+  repeated ansys.api.geometry.v0.SplitEdgeProblemArea result = 1;
 }
 
 message FixGapsRequest{
-  google.protobuf.Int32Value gap_problem_area_id = 1;
+  google.protobuf.Int32Value problemarea_id = 1;
 }
 
 message FixGapsResponse{
-  RepairToolMessage result = 1;
+  bool result = 1;
 }
 
 message FindCurveGapsRequest{
@@ -288,11 +271,14 @@ message FindCurveGapsResponse{
 
 message FixCurveGapsRequest{
   google.protobuf.Int32Value curve_gap_problem_area_id = 1;
-  google.protobuf.DoubleValue distance = 2;
 }
 
 message FixCurveGapsResponse{
-  RepairToolMessage result = 1;
+  bool result = 1;
+}
+
+message FindDuplicateCurvesRequest{
+  google.protobuf.DoubleValue distance = 1;
 }
 
 message FindDuplicateCurvesResponse{
@@ -304,23 +290,23 @@ message FixDuplicateCurvesRequest{
 }
 
 message FixDuplicateCurvesResponse{
-  RepairToolMessage result = 1;
+  bool result = 1;
 }
 
 message FindSmallCurvesRequest{
-  google.protobuf.DoubleValue  max_curve_length = 1;
+  google.protobuf.DoubleValue distance = 1;
 }
 
 message FindSmallCurvesResponse{
-  repeated ansys.api.geometry.v0.SmallCurveProblemArea result = 1;
+  repeated ansys.api.geometry.v0.DuplicateCurveProblemArea result = 1;
 }
 
 message FixSmallCurvesRequest{
-  google.protobuf.Int32Value small_curve_problem_area_id = 1;
+  google.protobuf.Int32Value duplicate_curve_problem_area_id = 1;
 }
 
 message FixSmallCurvesResponse{
-  RepairToolMessage result = 1;
+  bool result = 1;
 }
 
 message FindAdjustMergeFacesRequest{
@@ -360,35 +346,5 @@ message FixAdjustSimplifyRequest{
 }
 
 message FixAdjustSimplifyResponse{
-  RepairToolMessage result = 1;
-}
-
-message FitCurvesRequest{
-  ansys.api.dbu.v0.EntityIdentifier selection = 1;
-  bool arcs = 2;
-  bool lines = 3;
-  bool splines = 4;
-  bool tangentize = 5;
-  double tolerance = 6;
-}
-
-message FitCurvesResponse{
-  RepairToolMessage result = 1;
-}
-
-message InspectGeometryRequest {
-  repeated ansys.api.dbu.v0.EntityIdentifier bodies = 1;
-  optional InspectGeometryOptions options = 2;
-}
-
-message InspectGeometryResponse {
-  repeated InspectGeometryResult issues_by_body = 1;
-}
-
-message RepairGeometryRequest {
-  repeated ansys.api.dbu.v0.EntityIdentifier bodies = 1;
-}
-
-message RepairGeometryResponse {
   RepairToolMessage result = 1;
 }

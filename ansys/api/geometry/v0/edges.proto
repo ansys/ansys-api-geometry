@@ -25,8 +25,6 @@ service Edges{
   rpc GetInterval(ansys.api.dbu.v0.EntityIdentifier) returns (GetIntervalResponse);
 
   rpc GetCurve(ansys.api.dbu.v0.EntityIdentifier) returns (CurveGeometry);
-
-  rpc GetBoundingBox(ansys.api.dbu.v0.EntityIdentifier) returns (Box);
 }
 
 message GetIntervalResponse {

@@ -78,10 +78,6 @@ service Bodies
 
   rpc IsEnclosureBody(ansys.api.dbu.v0.EntityIdentifier) returns (IsEnclosureBodyResponse);
 
-  rpc IsSuppressed(ansys.api.dbu.v0.EntityIdentifier) returns (IsSuppressedResponse); 
-
-  rpc SetSuppressed(SetSuppressedRequest) returns (google.protobuf.Empty); 
-
   rpc Rotate(RotateRequest) returns (google.protobuf.Empty);
 
   rpc GetCollision(GetCollisionRequest) returns (GetCollisionResponse);
@@ -95,25 +91,10 @@ service Bodies
   rpc CreateSurfaceBody(CreateSurfaceBodyRequest) returns (Body);
 
   rpc SeparatePieces(SeparatePiecesRequest) returns (GetAllResponse);
-
-  rpc CreateBlockBody(CreateBlockBodyRequest) returns (Body);
-  
-  rpc CreateSurfaceBodyFromTrimmedCurves(CreateSurfaceBodyFromTrimmedCurvesRequest) returns (Body);
-}
-
-message CreateSurfaceBodyFromTrimmedCurvesRequest {
-  string name = 1;
-  string parent = 2;
-  repeated TrimmedCurve trimmed_curves = 3;
-}
-
-message CreateBlockBodyRequest {
-  Point start_point = 1;
-  Point end_point = 2;
 }
 
 message SeparatePiecesRequest {
-  ansys.api.dbu.v0.EntityIdentifier body = 1;
+  string moniker = 1;
 }
 
 message CreateSurfaceBodyRequest {
@@ -146,15 +127,6 @@ message RotateRequest {
 
 message IsEnclosureBodyResponse {
   bool result = 1;
-}
-
-message IsSuppressedResponse {
-  bool result = 1;
-}
-
-message SetSuppressedRequest {
-  repeated ansys.api.dbu.v0.EntityIdentifier bodies = 1; // List of entity identifiers
-  bool is_suppressed = 2;
 }
 
 message GetSurfaceBodyThicknessResponse {
