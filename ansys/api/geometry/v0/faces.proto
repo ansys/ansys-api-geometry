@@ -35,8 +35,6 @@ service Faces{
   rpc GetSurface(ansys.api.dbu.v0.EntityIdentifier) returns (Surface);
 
   rpc CreateIsoParamCurves(CreateIsoParamCurvesRequest) returns (CreateIsoParamCurvesResponse);
-
-  rpc GetBoundingBox(ansys.api.dbu.v0.EntityIdentifier) returns (Box);
 }
 
 message CreateIsoParamCurvesRequest {
