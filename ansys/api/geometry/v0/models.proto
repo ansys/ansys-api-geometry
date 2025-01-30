@@ -66,6 +66,7 @@ message CurveGeometry {
   Direction direction = 5;
   Direction reference = 6;
   Direction axis = 7;
+  NurbsCurve nurbs_curve = 8;
 }
 
 message TrimmedCurve {
