@@ -607,6 +607,7 @@ message ProjectCurvesRequest {
   Geometries curves=2;
   Direction direction=3;
   bool closest_face=4;
+  Plane plane = 5;
 }
 
 message ProjectCurvesResponse {
@@ -617,6 +618,7 @@ message ImprintCurvesRequest {
   string body=1;
   Geometries curves=2;
   repeated string faces=3;
+  Plane plane = 4;
 }
 
 message PowerSelectFacesByAreaRangeRequest {
