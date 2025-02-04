@@ -736,17 +736,13 @@ message InspectGeometryResultIssue
 {
   InspectGeometryMessageType message_type = 1;
   InspectGeometryMessageId message_id = 2;
-  repeated IssueEntityAndType issue_entities_and_type = 3;
-  string message = 4;
-  optional double scalar_value = 5;
+  repeated Face faces = 3;
+  repeated Edge edges = 4;
+  string message = 5;
+  optional double scalar_value = 6;
 }
 
 message InspectGeometryResult {
-  ansys.api.dbu.v0.EntityIdentifier body = 1;
+  Body body = 1;
   repeated InspectGeometryResultIssue issues = 2;
-}
-
-message IssueEntityAndType {
-  ansys.api.dbu.v0.EntityIdentifier entity_id = 1;
-  string entity_type = 2;
 }
