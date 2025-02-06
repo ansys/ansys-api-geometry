@@ -99,6 +99,8 @@ service Bodies
   rpc CreateBlockBody(CreateBlockBodyRequest) returns (Body);
   
   rpc CreateSurfaceBodyFromTrimmedCurves(CreateSurfaceBodyFromTrimmedCurvesRequest) returns (Body);
+
+  rpc GetClosestSeparation(GetClosestSeparationRequest) returns (Separation);
 }
 
 message CreateSurfaceBodyFromTrimmedCurvesRequest {
@@ -343,3 +345,7 @@ message GetCollisionResponse {
   CollisionType collision=1;
 }
 
+message GetClosestSeparationRequest {
+  ansys.api.dbu.v0.EntityIdentifier body_1 = 1;
+  ansys.api.dbu.v0.EntityIdentifier body_2 = 2;
+}
