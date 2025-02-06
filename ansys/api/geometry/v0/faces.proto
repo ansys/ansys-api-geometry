@@ -37,6 +37,12 @@ service Faces{
   rpc CreateIsoParamCurves(CreateIsoParamCurvesRequest) returns (CreateIsoParamCurvesResponse);
 
   rpc GetBoundingBox(ansys.api.dbu.v0.EntityIdentifier) returns (Box);
+
+  rpc GetClosestSeparation(GetClosestSeparationRequest) returns (Separation);
+
+  rpc GetColor(ansys.api.dbu.v0.EntityIdentifier) returns (GetColorResponse);
+
+  rpc SetColor(SetColorRequest) returns (SetColorResponse);
 }
 
 message CreateIsoParamCurvesRequest {
@@ -48,7 +54,6 @@ message CreateIsoParamCurvesRequest {
 message CreateIsoParamCurvesResponse {
   repeated ansys.api.geometry.v0.TrimmedCurve curves = 1;
 }
-
 
 message GetBoxUVResponse {
   double start_u = 1;
@@ -109,4 +114,22 @@ message GetInternalEdgesResponse{
 
 message GetLoopsResponse {
   repeated Loop loops=1;
+}
+
+message GetClosestSeparationRequest {
+  ansys.api.dbu.v0.EntityIdentifier face_1 = 1;
+  ansys.api.dbu.v0.EntityIdentifier face_2 = 2;
+}
+
+message GetColorResponse {
+  string color = 1;
+}
+
+message SetColorRequest {
+  string face_id = 1;
+  string color = 2;
+}
+
+message SetColorResponse {
+  bool success = 1;
 }

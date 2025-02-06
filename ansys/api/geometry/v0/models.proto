@@ -746,3 +746,9 @@ message InspectGeometryResult {
   Body body = 1;
   repeated InspectGeometryResultIssue issues = 2;
 }
+
+message Separation {
+  double distance = 1;
+  Point point_a = 2;
+  Point point_b = 3;
+}
