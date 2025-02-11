@@ -2,6 +2,7 @@
 syntax = "proto3";
 package ansys.api.geometry.v0.measuretools;
 
+import "ansys/api/dbu/v0/dbumodels.proto";
 import "ansys/api/geometry/v0/models.proto";
 
 option csharp_namespace = "Ansys.Api.Geometry.V0.MeasureTools";
@@ -9,10 +10,12 @@ option go_package = "ansys/api/geometry/v0";
 
 service MeasureTools{
   rpc MinDistanceBetweenObjects(MinDistanceBetweenObjectsRequest) returns (MinDistanceBetweenObjectsResponse);
+  rpc MinDistanceBetweenSelectionObjects(MinDistanceBetweenObjectsRequest) returns (MinDistanceBetweenObjectsResponse);
 }
 
 message MinDistanceBetweenObjectsRequest{
   repeated string bodies=1;
+  repeated ansys.api.dbu.v0.EntityIdentifier selection=2;
 }
 
 message MinDistanceBetweenObjectsResponse{
