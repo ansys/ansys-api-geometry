@@ -80,13 +80,13 @@ service RepairTools{
 
   rpc RepairGeometry(RepairGeometryRequest) returns (RepairGeometryResponse);
   
-  rpc FindAndFixExtraEdges(FindExtraEdgesRequest) returns (RepairToolMessage);
+  rpc FindAndFixExtraEdges(FindExtraEdgesRequest) returns (EnhancedRepairToolMessage);
 
-  rpc FindAndFixSplitEdges(FindSplitEdgesRequest) returns (RepairToolMessage);
+  rpc FindAndFixSplitEdges(FindSplitEdgesRequest) returns (EnhancedRepairToolMessage);
 
-  rpc FindAndFixShortEdges(FindShortEdgesRequest) returns (RepairToolMessage);
+  rpc FindAndFixShortEdges(FindShortEdgesRequest) returns (EnhancedRepairToolMessage);
 
-  rpc FindAndSimplify(FindAdjustSimplifyRequest) returns (RepairToolMessage);
+  rpc FindAndSimplify(FindAdjustSimplifyRequest) returns (EnhancedRepairToolMessage);
 }
 
 message FindInterferenceRequest{
@@ -110,6 +110,7 @@ message FindSplitEdgesRequest{
   repeated string bodies_or_faces=1;
   google.protobuf.DoubleValue angle=2;
   google.protobuf.DoubleValue distance = 3;
+  bool comprehensive = 4;
 }
 
 message FindSplitEdgesResponse{
@@ -126,6 +127,7 @@ message FixSplitEdgesResponse{
 
 message FindExtraEdgesRequest{
   repeated string selection = 1;
+  bool comprehensive = 2;
 }
 
 message FindExtraEdgesResponse{
@@ -143,6 +145,7 @@ message FixExtraEdgesResponse{
 message FindShortEdgesRequest{
   repeated string selection = 1;
   google.protobuf.DoubleValue max_edge_length=2; 
+  bool comprehensive = 3;
 }
 
 message FindShortEdgesResponse{
@@ -349,6 +352,7 @@ message AdjustMergeFacesResponse{
 
 message FindAdjustSimplifyRequest{
   repeated string selection = 1;
+  bool comprehensive = 2;
 }
 
 message FindAdjustSimplifyResponse{
