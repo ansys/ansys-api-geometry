@@ -328,6 +328,10 @@ message GapProblemArea {
   repeated ansys.api.dbu.v0.EntityIdentifier edge_monikers = 2;
 }
 
+message GenericProblemArea {
+  int32 id = 1;
+  repeated ansys.api.dbu.v0.EntityIdentifier monikers = 2;
+}
 
 message RepairToolMessage {
   bool success = 1;
@@ -336,6 +340,14 @@ message RepairToolMessage {
   repeated string deleted_bodies_monikers = 4;
 }
 
+message EnhancedRepairToolMessage {
+  bool success = 1;
+  int32 found = 2;
+  int32 repaired = 3;
+  repeated string created_bodies_monikers = 4;
+  repeated string modified_bodies_monikers = 5;
+  repeated string deleted_bodies_monikers = 6;
+}
 
 message Material{
   string name=1;

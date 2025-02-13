@@ -26,6 +26,8 @@ service PrepareTools{
   rpc ExtractVolumeFromFaces(ExtractVolumeFromFacesRequest) returns(VolumeExtractionResponse);
 
   rpc ExtractVolumeFromEdgeLoops(ExtractVolumeFromEdgeLoopsRequest) returns(VolumeExtractionResponse);
+
+  rpc EnhancedShareTopology(ShareTopologyRequest) returns (EnhancedRepairToolMessage);
 }
 
 

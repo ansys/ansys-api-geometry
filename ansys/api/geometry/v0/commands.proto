@@ -137,6 +137,8 @@ service Commands{
 
   rpc CreateCircularPattern(CreateCircularPatternRequest) returns (PatternCommandResponse);
 
+  rpc ModifyCircularPattern(ModifyCircularPatternRequest) returns (PatternCommandResponse);
+
   rpc CreateFillPattern(CreateFillPatternRequest) returns (PatternCommandResponse);
 
   rpc UpdateFillPattern(PatternRequest) returns (PatternCommandResponse);
@@ -235,6 +237,14 @@ message ModifyLinearPatternRequest {
   double pitch_y = 5;
   int32 new_seed_index = 6;
   int32 old_seed_index = 7;
+}
+
+message ModifyCircularPatternRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
+  int32 circular_count = 2;
+  int32 linear_count = 3;
+  double step_angle = 4;
+  double step_linear = 5;
 }
 
 message CreateCircularPatternRequest {
