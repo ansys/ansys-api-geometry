@@ -178,6 +178,9 @@ service Commands{
   rpc ProjectPoint(ProjectPointRequest) returns (CurveEvaluation);
 
   rpc GetRoundInfo(RoundInfoRequest) returns (RoundInfoResponse);
+
+  rpc ImprintCurvesAndSync(ImprintCurvesRequest) returns (ImprintCurvesAndSyncResponse);
+
 }
 
 message CreatePlaneRequest {
@@ -631,6 +634,11 @@ message ImprintCurvesRequest {
   Geometries curves=2;
   repeated string faces=3;
   Plane plane = 4;
+}
+
+message ImprintCurvesAndSyncResponse{
+  EntitiesCollection created_entities=1;
+  repeated ansys.api.dbu.v0.EntityIdentifier deleted_faces=2;
 }
 
 message PowerSelectFacesByAreaRangeRequest {
