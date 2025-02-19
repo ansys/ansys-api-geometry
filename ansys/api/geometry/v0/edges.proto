@@ -1,4 +1,4 @@
-// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.geometry.v0.edges;
 
@@ -27,6 +27,8 @@ service Edges{
   rpc GetCurve(ansys.api.dbu.v0.EntityIdentifier) returns (CurveGeometry);
 
   rpc GetBoundingBox(ansys.api.dbu.v0.EntityIdentifier) returns (Box);
+
+  rpc Delete(DeleteRequest) returns(DeleteResponse);
 }
 
 message GetIntervalResponse {
@@ -57,4 +59,12 @@ message IsDeletedResponse{
 
 message GetLengthResponse{
   double length=1;
+}
+
+message DeleteRequest{
+  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
+}
+
+message DeleteResponse{
+  repeated ansys.api.dbu.v0.EntityIdentifier deleted_edges = 1;
 }

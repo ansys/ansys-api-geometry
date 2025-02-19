@@ -1,4 +1,4 @@
-// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.geometry.v0.curves;
 
@@ -10,7 +10,10 @@ option go_package = "ansys/api/geometry/v0";
 
 service Curves{
   rpc Get(ansys.api.dbu.v0.EntityIdentifier) returns(Curve) ;
+
   rpc GetAll(GetAllRequest) returns(GetAllResponse) ;
+
+  rpc Delete(DeleteRequest) returns(DeleteResponse);
 }
 
 message GetAllRequest{
@@ -21,4 +24,12 @@ message GetAllRequest{
 message GetAllResponse{
   // The curves on this page.
   repeated Curve curves = 1;
+}
+
+message DeleteRequest{
+  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
+}
+
+message DeleteResponse{
+  repeated ansys.api.dbu.v0.EntityIdentifier deleted_curves = 1;
 }

@@ -1,4 +1,4 @@
-// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 syntax = "proto3";
 package ansys.api.geometry.v0.coordinatesystems;
 
@@ -14,6 +14,8 @@ service CoordinateSystems{
   rpc GetAll(GetAllRequest) returns(GetAllResponse) ;
 
   rpc Create(CreateRequest) returns(CoordinateSystem);
+
+  rpc Delete(DeleteRequest) returns(DeleteResponse);
 }
 
 message GetAllRequest{
@@ -32,4 +34,12 @@ message CreateRequest{
 
 message CreateResponse{
   CoordinateSystem coordinate_system=1;
+}
+
+message DeleteRequest{
+  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
+}
+
+message DeleteResponse{
+  repeated ansys.api.dbu.v0.EntityIdentifier deleted_coordinates_systems = 1;
 }

@@ -1,4 +1,4 @@
-// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 
 syntax = "proto3";
 
@@ -178,6 +178,11 @@ service Commands{
   rpc ProjectPoint(ProjectPointRequest) returns (CurveEvaluation);
 
   rpc GetRoundInfo(RoundInfoRequest) returns (RoundInfoResponse);
+
+  rpc ImprintCurvesAndSync(ImprintCurvesRequest) returns (ImprintCurvesAndSyncResponse);
+
+
+  rpc DeleteEntities(DeleteEntitiesRequest) returns (DeleteEntitiesResponse);
 }
 
 message CreatePlaneRequest {
@@ -633,6 +638,11 @@ message ImprintCurvesRequest {
   Plane plane = 4;
 }
 
+message ImprintCurvesAndSyncResponse{
+  EntitiesCollection created_entities=1;
+  repeated ansys.api.dbu.v0.EntityIdentifier deleted_faces=2;
+}
+
 message PowerSelectFacesByAreaRangeRequest {
   string body=1;
   double area1=2;
@@ -847,4 +857,12 @@ message RoundInfoRequest {
 message RoundInfoResponse {
   bool along_u = 1;
   double radius = 2;
+}
+
+message DeleteEntitiesRequest{
+  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
+}
+
+message DeleteEntitiesResponse{
+  repeated ansys.api.dbu.v0.EntityIdentifier deleted_entities = 1;
 }
