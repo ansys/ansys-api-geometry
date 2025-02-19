@@ -1,0 +1,49 @@
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+syntax = "proto3";
+package ansys.api.geometry.v0.datumplanes;
+
+import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/geometry/v0/models.proto";
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "Ansys.Api.Geometry.V0.DatumPlanes";
+
+service DatumPlanes{
+  rpc Get(ansys.api.dbu.v0.EntityIdentifier) returns(DatumPlane);
+
+  rpc GetAll(google.protobuf.Empty) returns(GetAllResponse);
+
+  rpc IsDeleted(IsDeletedRequest) returns(IsDeletedResponse);
+
+  rpc GetUpdateState(GetUpdateStateRequest) returns (UpdateStateResponse);
+
+  rpc Delete(DeleteRequest) returns (DeleteResponse);
+}
+
+message GetAllResponse{
+  repeated DatumPlane planes = 1;
+}
+
+message IsDeletedRequest{
+  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
+}
+
+message IsDeletedResponse{
+  map<string, bool> deleted=1;
+}
+
+message GetUpdateStateRequest{
+  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
+}
+
+message UpdateStateResponse{
+  map<string, UpdateState> update_states = 1;
+}
+
+message DeleteRequest{
+  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
+}
+
+message DeleteResponse{
+  repeated ansys.api.dbu.v0.EntityIdentifier deleted_planes = 1;
+}

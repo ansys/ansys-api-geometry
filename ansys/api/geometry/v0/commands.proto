@@ -1,4 +1,4 @@
-// Copyright 2023, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
+// Copyright 2025, ANSYS Inc. Unauthorized use, distribution or duplication is prohibited.
 
 syntax = "proto3";
 
@@ -181,6 +181,8 @@ service Commands{
 
   rpc ImprintCurvesAndSync(ImprintCurvesRequest) returns (ImprintCurvesAndSyncResponse);
 
+
+  rpc DeleteEntities(DeleteEntitiesRequest) returns (DeleteEntitiesResponse);
 }
 
 message CreatePlaneRequest {
@@ -855,4 +857,12 @@ message RoundInfoRequest {
 message RoundInfoResponse {
   bool along_u = 1;
   double radius = 2;
+}
+
+message DeleteEntitiesRequest{
+  repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
+}
+
+message DeleteEntitiesResponse{
+  repeated ansys.api.dbu.v0.EntityIdentifier deleted_entities = 1;
 }
