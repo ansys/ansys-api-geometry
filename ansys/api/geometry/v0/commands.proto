@@ -636,6 +636,7 @@ message ImprintCurvesRequest {
   Geometries curves=2;
   repeated string faces=3;
   Plane plane = 4;
+  repeated TrimmedCurve trimmed_curves=5;
 }
 
 message ImprintCurvesAndSyncResponse{
