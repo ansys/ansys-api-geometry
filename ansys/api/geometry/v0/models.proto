@@ -82,6 +82,7 @@ message TrimmedCurve {
 // A edge.
 message Edge{
   string id = 1;
+  Body parent = 2;
   CurveType curve_type = 10;
   string owner_name = 11;
   string export_id = 12;
@@ -94,6 +95,7 @@ message Edge{
 // A face.
 message Face{
   string id = 1;
+  Body parent = 2;
   SurfaceType surface_type = 10;
   string owner_name = 11;
   string export_id = 12;
@@ -179,6 +181,11 @@ message NamedSelection {
   string id = 1;
   string name = 2;
   repeated ansys.api.dbu.v0.EntityIdentifier selection=3;
+  repeated Body bodies = 4;
+  repeated Face faces = 5;
+  repeated Edge edges = 6;
+  repeated ansys.api.dbu.v0.EntityIdentifier beams = 7;
+  repeated Curve design_points = 8;
 }
 
 //

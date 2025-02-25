@@ -516,6 +516,7 @@ message OffsetFacesSetRadiusRequest {
   bool copy = 3;
   OffsetMode offset_mode = 4;
   ExtrudeType extrude_type = 5;
+  repeated ansys.api.dbu.v0.EntityIdentifier faces = 6;
 }
 
 message FaceOffsetRequest {
@@ -795,6 +796,7 @@ message MoveTranslateRequest{
   repeated ansys.api.dbu.v0.EntityIdentifier selection = 1;
   Direction direction = 2;
   double distance = 3;
+  ansys.api.dbu.v0.EntityIdentifier named_selection = 4;
 }
 
 message MoveRotateRequest{
