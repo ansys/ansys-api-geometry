@@ -50,6 +50,8 @@ service Bodies
 
   rpc GetTessellation(ansys.api.dbu.v0.EntityIdentifier) returns(GetTessellationResponse);
 
+  rpc GetTessellationStream(ansys.api.dbu.v0.EntityIdentifier) returns(stream GetTessellationResponse);
+
   rpc GetEdges(ansys.api.dbu.v0.EntityIdentifier) returns (GetEdgesResponse);
 
   rpc GetName(ansys.api.dbu.v0.EntityIdentifier) returns (GetNameResponse);
