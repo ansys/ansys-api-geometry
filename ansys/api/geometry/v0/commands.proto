@@ -47,6 +47,8 @@ service Commands{
 
   rpc UploadFile(UploadFileRequest) returns (UploadFileResponse);
 
+  rpc StreamFileUpload(stream UploadFileRequest) returns (UploadFileResponse);
+
   rpc CreateSphere(CreateSphereRequest) returns (CreateSphereResponse);
 
   rpc CreateTorus(CreateTorusRequest) returns (CreateTorusResponse);
