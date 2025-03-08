@@ -749,6 +749,7 @@ message UploadFileRequest {
   string file_name=2;
   bool open=3;
   map<string,bool> import_options = 4;
+  map<string,string> import_options_strings = 5;
 }
 
 message UploadFileResponse {
