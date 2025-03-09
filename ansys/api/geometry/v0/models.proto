@@ -345,6 +345,7 @@ message RepairToolMessage {
   repeated string created_bodies_monikers = 2;
   repeated string modified_bodies_monikers = 3;
   repeated string deleted_bodies_monikers = 4;
+  TrackerCommandResponse complete_command_response = 5;// this should become the only response in protos v1
 }
 
 message EnhancedRepairToolMessage {
@@ -354,6 +355,7 @@ message EnhancedRepairToolMessage {
   repeated string created_bodies_monikers = 4;
   repeated string modified_bodies_monikers = 5;
   repeated string deleted_bodies_monikers = 6;
+  TrackerCommandResponse complete_command_response = 7; // this should become the only response in protos v1
 }
 
 message Material{
@@ -770,4 +772,31 @@ message Separation {
   double distance = 1;
   Point point_a = 2;
   Point point_b = 3;
+}
+
+message TrackerCommandResponse{
+  bool success = 1;
+  repeated Body created_bodies = 2;
+  repeated Body modified_bodies = 3;
+  repeated ansys.api.dbu.v0.EntityIdentifier deleted_bodies = 4;
+  repeated ansys.api.dbu.v0.EntityIdentifier created_faces = 5;
+  repeated ansys.api.dbu.v0.EntityIdentifier modified_faces = 6;
+  repeated ansys.api.dbu.v0.EntityIdentifier deleted_faces = 7;
+  repeated ansys.api.dbu.v0.EntityIdentifier created_edges = 8;
+  repeated ansys.api.dbu.v0.EntityIdentifier modified_edges = 9;
+  repeated ansys.api.dbu.v0.EntityIdentifier deleted_edges = 10;
+  repeated ansys.api.dbu.v0.EntityIdentifier created_components = 11;
+  repeated ansys.api.dbu.v0.EntityIdentifier modified_components = 12;
+  repeated ansys.api.dbu.v0.EntityIdentifier deleted_components = 13;
+}
+
+//
+// The automatic tracking states.
+enum AutomaticTrackingState {
+  ON = 0;
+  OFF = 1;
+}
+
+message TrackerDefinition{
+  ansys.api.dbu.v0.EntityIdentifier design_id = 1;
 }
