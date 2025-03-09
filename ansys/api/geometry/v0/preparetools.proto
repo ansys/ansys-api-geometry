@@ -3,6 +3,7 @@ syntax = "proto3";
 package ansys.api.geometry.v0.preparetools;
 
 import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/geometry/v0/commands.proto";
 import "ansys/api/geometry/v0/models.proto";
 import "google/protobuf/wrappers.proto";
 
@@ -47,6 +48,7 @@ message CreateEnclosureResponse{
   bool success = 1;
   // The bodies representing the enclosure.
   repeated Body created_bodies = 2;
+  TrackerCommandResponse command_response = 3;
 }
 
 message FixInterferenceRequest{
@@ -57,6 +59,7 @@ message FixInterferenceRequest{
 
 message FixInterferenceResponse{
   bool result = 1;
+  TrackerCommandResponse changes = 2;
 }
 
 message FixShortEdgesRequest{
@@ -67,6 +70,7 @@ message FixShortEdgesRequest{
 
 message FixShortEdgesResponse{
   bool result = 1;
+  TrackerCommandResponse changes = 2;
 }
 
 message ShareTopologyRequest{
@@ -101,6 +105,7 @@ message RemoveRoundsRequest{
 
 message RemoveRoundsResponse{
   bool result = 1;
+  TrackerCommandResponse changes = 2;
 }
 
 message RemoveFacesRequest{
@@ -110,6 +115,7 @@ message RemoveFacesRequest{
 
 message RemoveFacesResponse{
   bool result = 1;
+  TrackerCommandResponse changes = 2;
 }
 
 message ExtractVolumeFromFacesRequest{
@@ -131,4 +137,5 @@ message VolumeExtractionResponse{
   bool success = 1;
   // The bodies created from the volume extraction.
   repeated Body created_bodies = 2;
+  TrackerCommandResponse changes = 3;
 }

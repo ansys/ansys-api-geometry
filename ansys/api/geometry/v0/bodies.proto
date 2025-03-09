@@ -3,6 +3,7 @@ syntax = "proto3";
 package ansys.api.geometry.v0.bodies;
 
 import "ansys/api/dbu/v0/dbumodels.proto";
+import "ansys/api/geometry/v0/commands.proto";
 import "ansys/api/geometry/v0/models.proto";
 import "google/protobuf/empty.proto";
 
@@ -182,6 +183,7 @@ message BooleanRequest {
 
 message BooleanResponse {
   int32 empty_result = 1;
+  TrackerCommandResponse response = 2;
 }
 
 enum GetType{
