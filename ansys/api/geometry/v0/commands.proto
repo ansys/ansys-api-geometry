@@ -183,8 +183,15 @@ service Commands{
 
   rpc ImprintCurvesAndSync(ImprintCurvesRequest) returns (ImprintCurvesAndSyncResponse);
 
-
   rpc DeleteEntities(DeleteEntitiesRequest) returns (DeleteEntitiesResponse);
+
+  rpc SetAutomaticTrackingState(SetAutomaticTrackingStateRequest) returns (SetAutomaticTrackingStateResponse);
+
+  rpc GetTracker(GetTrackerRequest) returns (GetTrackerResponse);
+
+  rpc GetTrackerChanges(GetTrackerChangesRequest) returns (GetTrackerChangesResponse);
+
+  rpc DisposeTracker(DisposeTrackerRequest) returns (DisposeTrackerResponse);
 }
 
 message CreatePlaneRequest {
@@ -749,6 +756,7 @@ message UploadFileRequest {
   string file_name=2;
   bool open=3;
   map<string,bool> import_options = 4;
+  map<string,string> import_options_strings = 5;
 }
 
 message UploadFileResponse {
@@ -870,4 +878,36 @@ message DeleteEntitiesRequest{
 
 message DeleteEntitiesResponse{
   repeated ansys.api.dbu.v0.EntityIdentifier deleted_entities = 1;
+}
+
+message SetAutomaticTrackingStateRequest{
+  AutomaticTrackingState state = 1;
+}
+
+message SetAutomaticTrackingStateResponse{
+  bool success = 1;
+}
+
+message GetTrackerRequest{
+  ansys.api.dbu.v0.EntityIdentifier design_id = 1;
+}
+
+message GetTrackerResponse{
+  TrackerDefinition tracker  = 1;
+}
+
+message GetTrackerChangesRequest{
+  ansys.api.dbu.v0.EntityIdentifier design_id = 1;
+}
+
+message GetTrackerChangesResponse{
+  TrackerCommandResponse changes = 1;
+}
+
+message DisposeTrackerRequest{
+  ansys.api.dbu.v0.EntityIdentifier design_id = 1;
+}
+
+message DisposeTrackerResponse{
+  bool success = 1;
 }
