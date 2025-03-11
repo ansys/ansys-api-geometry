@@ -4,6 +4,7 @@ package ansys.api.geometry.v0;
 
 import "ansys/api/dbu/v0/dbumodels.proto";
 import "google/protobuf/struct.proto";
+import "google/protobuf/wrappers.proto";
 
 option csharp_namespace = "Ansys.Api.Geometry.V0";
 
@@ -47,6 +48,18 @@ enum BodyFillStyle {
   BODYFILLSTYLE_DEFAULT=0;
   BODYFILLSTYLE_OPAQUE=1;
   BODYFILLSTYLE_TRANSPARENT=2;
+}
+
+//
+// The beam type for a Beam
+enum BeamType {
+  BEAMTYPE_BEAM=0;
+  BEAMTYPE_SPRING=1;
+  BEAMTYPE_LINK_TRUSS=2;
+  BEAMTYPE_CABLE=3;
+  BEAMTYPE_PIPE=4;
+  BEAMTYPE_THERMALFLUID=5;
+  BEAMTYPE_UNKNOWN=6; 
 }
 
 //
@@ -358,6 +371,13 @@ message EnhancedRepairToolMessage {
   TrackerCommandResponse complete_command_response = 7; // this should become the only response in protos v1
 }
 
+message RemoveLogoResponse {
+  bool success = 1;
+  repeated string created_faces_monikers = 2;
+  repeated string modified_faces_monikers = 3;
+  repeated string deleted_faces_monikers = 4;
+}
+
 message Material{
   string name=1;
   repeated MaterialProperty material_properties=2;
@@ -557,6 +577,21 @@ message BeamCrossSectionInfo {
   double section_angle = 2;
   Frame section_frame = 3;
   repeated TrimmedCurveList section_profile = 4;
+}
+
+message Beam {
+  string name = 1;
+  bool can_suppress = 2;
+  bool is_deleted = 3;
+  bool is_reversed = 4;
+  bool is_rigid = 5;
+  Material material = 6;
+  ansys.api.dbu.v0.EntityIdentifier id = 7;
+  Part parent = 8;
+  BeamCrossSectionInfo cross_section = 9;
+  BeamProperties properties = 10;
+  TrimmedCurve shape = 11;
+  BeamType type = 12;
 }
 
 message CurveEvaluation {
@@ -772,6 +807,17 @@ message Separation {
   double distance = 1;
   Point point_a = 2;
   Point point_b = 3;
+}
+
+message LogoDefinition {
+  repeated Face faces = 1;
+}
+
+message RemoveLogoOptions {
+  google.protobuf.DoubleValue min_height = 1;
+  google.protobuf.DoubleValue max_height = 2;
+  google.protobuf.DoubleValue max_fillet_radio_as_sharp = 3;
+  google.protobuf.DoubleValue fit_error = 4;
 }
 
 message TrackerCommandResponse{
