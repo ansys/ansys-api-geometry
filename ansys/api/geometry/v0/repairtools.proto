@@ -311,7 +311,8 @@ message FixDuplicateCurvesResponse{
 }
 
 message FindSmallCurvesRequest{
-  google.protobuf.DoubleValue  max_curve_length = 1;
+  repeated ansys.api.dbu.v0.EntityIdentifier bodies = 1;
+  google.protobuf.DoubleValue  max_curve_length = 2;
 }
 
 message FindSmallCurvesResponse{

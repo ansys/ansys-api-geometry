@@ -147,13 +147,18 @@ message VolumeExtractionResponse{
 
 message FindLogosRequest{
   repeated ansys.api.dbu.v0.EntityIdentifier bodies = 1;
-  optional RemoveLogoOptions options = 2;
+  optional FindLogoOptions options = 2;
 }
 
 message FindLogosResponse{
-  repeated LogoDefinition logos = 1;
+  string id = 1;
+  repeated Face logo_faces = 2;
 }
 
 message RemoveLogoRequest{
-  LogoDefinition logo = 1;
+  repeated dbu.v0.EntityIdentifier face_ids = 1;
+}
+
+message RemoveLogoResponse {
+  bool success = 1;
 }
