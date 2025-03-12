@@ -50,7 +50,7 @@ service Bodies
 
   rpc GetTessellation(ansys.api.dbu.v0.EntityIdentifier) returns(GetTessellationResponse);
 
-  rpc GetTessellationStream(ansys.api.dbu.v0.EntityIdentifier) returns(stream GetTessellationResponse);
+  rpc GetTessellationStream(GetTessellationRequest) returns(stream GetTessellationResponse);
 
   rpc GetEdges(ansys.api.dbu.v0.EntityIdentifier) returns (GetEdgesResponse);
 
@@ -103,6 +103,8 @@ service Bodies
   rpc CreateSurfaceBodyFromTrimmedCurves(CreateSurfaceBodyFromTrimmedCurvesRequest) returns (Body);
 
   rpc GetClosestSeparation(GetClosestSeparationRequest) returns (Separation);
+  
+  rpc GetTessellationWithOptions(GetTessellationRequest) returns(GetTessellationResponse);
 }
 
 message CreateSurfaceBodyFromTrimmedCurvesRequest {
@@ -351,4 +353,9 @@ message GetCollisionResponse {
 message GetClosestSeparationRequest {
   ansys.api.dbu.v0.EntityIdentifier body_1 = 1;
   ansys.api.dbu.v0.EntityIdentifier body_2 = 2;
+}
+
+message GetTessellationRequest{
+  ansys.api.dbu.v0.EntityIdentifier id=1;
+  TessellationOptions options =2;
 }
