@@ -51,18 +51,6 @@ enum BodyFillStyle {
 }
 
 //
-// The beam type for a Beam
-enum BeamType {
-  BEAMTYPE_BEAM=0;
-  BEAMTYPE_SPRING=1;
-  BEAMTYPE_LINK_TRUSS=2;
-  BEAMTYPE_CABLE=3;
-  BEAMTYPE_PIPE=4;
-  BEAMTYPE_THERMALFLUID=5;
-  BEAMTYPE_UNKNOWN=6; 
-}
-
-//
 // A design curve.
 message Curve{
   string id = 1;
@@ -577,21 +565,6 @@ message BeamCrossSectionInfo {
   double section_angle = 2;
   Frame section_frame = 3;
   repeated TrimmedCurveList section_profile = 4;
-}
-
-message Beam {
-  string name = 1;
-  bool can_suppress = 2;
-  bool is_deleted = 3;
-  bool is_reversed = 4;
-  bool is_rigid = 5;
-  Material material = 6;
-  ansys.api.dbu.v0.EntityIdentifier id = 7;
-  Part parent = 8;
-  BeamCrossSectionInfo cross_section = 9;
-  BeamProperties properties = 10;
-  TrimmedCurve shape = 11;
-  BeamType type = 12;
 }
 
 message CurveEvaluation {

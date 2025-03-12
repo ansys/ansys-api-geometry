@@ -31,10 +31,6 @@ service Commands{
     
   rpc CreateBeamSegments(CreateBeamSegmentsRequest) returns (CreateBeamSegmentsResponse);
 
-  rpc CreateDescriptiveBeamSegment(CreateBeamSegmentRequest) returns (CreateBeamSegmentResponse);
-
-  rpc CreateDescriptiveBeamSegments(CreateBeamSegmentsRequest) returns (CreateBeamSegmentsResponse);
-
   rpc FillFaces(FillFacesRequest) returns (google.protobuf.Empty);
 
   rpc CreateDesignPoint(CreateDesignPointRequest) returns (CreateDesignPointResponse);
@@ -691,8 +687,7 @@ message CreateBeamSegmentRequest {
 }
 
 message CreateBeamSegmentResponse {
-  string id = 1;
-  Beam created_beam = 2;
+  string id=1;
 }
 
 message CreateBeamSegmentsRequest{
@@ -708,7 +703,6 @@ message CreateBeamSegmentsRequest{
 
 message CreateBeamSegmentsResponse {
   repeated string ids=1;
-  repeated Beam created_beams = 2;
 }
 
 message FillFacesRequest {
