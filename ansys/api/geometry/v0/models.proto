@@ -371,13 +371,6 @@ message EnhancedRepairToolMessage {
   TrackerCommandResponse complete_command_response = 7; // this should become the only response in protos v1
 }
 
-message RemoveLogoResponse {
-  bool success = 1;
-  repeated string created_faces_monikers = 2;
-  repeated string modified_faces_monikers = 3;
-  repeated string deleted_faces_monikers = 4;
-}
-
 message Material{
   string name=1;
   repeated MaterialProperty material_properties=2;
@@ -809,15 +802,11 @@ message Separation {
   Point point_b = 3;
 }
 
-message LogoDefinition {
-  repeated Face faces = 1;
-}
-
-message RemoveLogoOptions {
-  google.protobuf.DoubleValue min_height = 1;
-  google.protobuf.DoubleValue max_height = 2;
-  google.protobuf.DoubleValue max_fillet_radio_as_sharp = 3;
-  google.protobuf.DoubleValue fit_error = 4;
+message FindLogoOptions {
+  optional double min_height = 1;
+  optional double max_height = 2;
+  optional double max_fillet_radio_as_sharp = 3;
+  optional double fit_error = 4;
 }
 
 message TrackerCommandResponse{
@@ -845,4 +834,12 @@ enum AutomaticTrackingState {
 
 message TrackerDefinition{
   ansys.api.dbu.v0.EntityIdentifier design_id = 1;
+}
+
+message TessellationOptions{
+  double surface_deviation = 1;
+  double angle_deviation = 2;
+  double maximum_aspect_ratio = 3;
+  double maximum_edge_length = 4;
+  bool watertight = 5;
 }
