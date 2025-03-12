@@ -24,6 +24,8 @@ service Components{
   rpc GetRootComponent(google.protobuf.Empty) returns (GetRootComponentResponse);
 
   rpc GetName(ansys.api.dbu.v0.EntityIdentifier) returns (GetComponentNameResponse);
+
+  rpc SetName(SetObjectNameRequest) returns (ansys.api.dbu.v0.RequestResult);
 	
   rpc GetUpdateState(ansys.api.dbu.v0.EntityIdentifier) returns (UpdateState);
 	
