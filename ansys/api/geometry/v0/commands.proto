@@ -806,6 +806,7 @@ message GetAssemblyResponse {
   repeated NamedSelection named_selections=6;
   map <string, CoordinateSystemList> component_coord_systems=7;
   map <string, int32> component_shared_topologies=8;
+  repeated Beam beams=9;
 }
 
 message MoveTranslateRequest{
