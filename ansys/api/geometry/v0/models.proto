@@ -197,7 +197,7 @@ message NamedSelection {
   repeated Body bodies = 4;
   repeated Face faces = 5;
   repeated Edge edges = 6;
-  repeated ansys.api.dbu.v0.EntityIdentifier beams = 7;
+  repeated Beam beams = 7;
   repeated Curve design_points = 8;
 }
 
