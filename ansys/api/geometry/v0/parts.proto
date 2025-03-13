@@ -11,7 +11,9 @@ option csharp_namespace = "Ansys.Api.Geometry.V0.Parts";
 service Parts{
   rpc Get(ansys.api.dbu.v0.EntityIdentifier) returns(Part);
 
-  rpc GetAll(GetAllRequest) returns(GetAllResponse) ;
+  rpc GetAll(GetAllRequest) returns(GetAllResponse);
+
+  rpc GetBeams(GetBeamsRequest) returns(GetBeamsResponse);
 
   rpc ExportLargeSize(ExportRequest) returns(stream ansys.api.dbu.v0.StreamPackage);
 
@@ -24,6 +26,14 @@ message GetAllRequest{
 
 message GetAllResponse{
   repeated Part parts = 1;
+}
+
+message GetBeamsRequest {
+  ansys.api.dbu.v0.EntityIdentifier part = 1;
+}
+
+message GetBeamsResponse {
+  repeated Beam beams = 1;
 }
 
 message ExportRequest{
