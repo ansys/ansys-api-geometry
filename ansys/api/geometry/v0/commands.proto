@@ -392,6 +392,7 @@ message RevolveFacesRequest {
   double angle = 3;
   repeated ansys.api.dbu.v0.EntityIdentifier alternate_axis = 4;
   Direction alternate_direction = 5;
+  ExtrudeType extrude_type = 6;
 }
 
 message RevolveFacesUpToRequest {
@@ -411,6 +412,7 @@ message RevolveFacesByHelixRequest {
   double taper_angle = 6;
   bool right_handed = 7;
   bool both_sides = 8;
+  ExtrudeType extrude_type = 9;
 }
 
 message OffsetFaceCurvesRequest {
