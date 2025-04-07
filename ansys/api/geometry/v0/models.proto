@@ -114,6 +114,7 @@ message Face{
   string export_id = 12;
   double area = 13;
   bool is_reversed = 14;
+  ansys.api.dbu.v0.EntityIdentifier parent_id = 15;
 }
 //
 // A mesh.
