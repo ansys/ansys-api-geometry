@@ -105,6 +105,8 @@ service Bodies
   rpc GetClosestSeparation(GetClosestSeparationRequest) returns (Separation);
   
   rpc GetTessellationWithOptions(GetTessellationRequest) returns(GetTessellationResponse);
+
+  rpc ExportAndDownloadBody(ExportAndDownloadBodyRequest) returns (ExportAndDownloadBodyResponse);
 }
 
 message CreateSurfaceBodyFromTrimmedCurvesRequest {
@@ -358,4 +360,13 @@ message GetClosestSeparationRequest {
 message GetTessellationRequest{
   ansys.api.dbu.v0.EntityIdentifier id=1;
   TessellationOptions options =2;
+}
+
+message ExportAndDownloadBodyRequest{
+  ansys.api.dbu.v0.EntityIdentifier id=1;
+  ansys.api.dbu.v0.BodyExportFormat format = 2;
+}
+
+message ExportAndDownloadBodyResponse{
+  bytes data=1;
 }
