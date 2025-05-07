@@ -87,6 +87,8 @@ service RepairTools{
   rpc FindAndFixShortEdges(FindShortEdgesRequest) returns (EnhancedRepairToolMessage);
 
   rpc FindAndSimplify(FindAdjustSimplifyRequest) returns (EnhancedRepairToolMessage);
+
+  rpc FindAndFixStitchFaces(FindStitchFacesRequest) returns (EnhancedRepairToolMessage);
 }
 
 message FindInterferenceRequest{
@@ -178,10 +180,11 @@ message FixInexactEdgesResponse{
 
 message FindStitchFacesRequest{
   repeated string faces = 1;
-  google.protobuf.DoubleValue maximum_distance =2; // default: 0.0001
-  google.protobuf.BoolValue check_for_coincidence=3; // default: false
-  google.protobuf.BoolValue allow_multiple_bodies =4; // default: false
-  google.protobuf.BoolValue maintain_components=5; // default: false
+  google.protobuf.DoubleValue maximum_distance = 2; // default: 0.0001
+  google.protobuf.BoolValue check_for_coincidence = 3; // default: false
+  google.protobuf.BoolValue allow_multiple_bodies = 4; // default: false
+  google.protobuf.BoolValue maintain_components = 5; // default: false
+  bool comprehensive = 6;
 }
 
 message FindStitchFacesResponse{
