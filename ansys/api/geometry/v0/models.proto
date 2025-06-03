@@ -843,6 +843,7 @@ message TessellationOptions{
   double maximum_aspect_ratio = 3;
   double maximum_edge_length = 4;
   bool watertight = 5;
+  double curve_deviation = 6;
 }
 
 message SetObjectNameRequest{
