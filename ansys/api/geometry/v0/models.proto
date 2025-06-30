@@ -200,6 +200,8 @@ message NamedSelection {
   repeated Edge edges = 6;
   repeated Beam beams = 7;
   repeated Curve design_points = 8;
+  repeated Vertex vertices = 9;
+  repeated Component components = 10;
 }
 
 //
@@ -523,6 +525,7 @@ message UpdateState {
 message Vertex {
   Point position = 1;
   repeated Edge edges = 2;
+  ansys.api.dbu.v0.EntityIdentifier id = 3;
 }
 message TrimmedCurveList {
   repeated TrimmedCurve curves = 1;
@@ -843,6 +846,7 @@ message TessellationOptions{
   double maximum_aspect_ratio = 3;
   double maximum_edge_length = 4;
   bool watertight = 5;
+  double curve_deviation = 6;
 }
 
 message SetObjectNameRequest{
