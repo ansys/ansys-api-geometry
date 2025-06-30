@@ -14,6 +14,8 @@ service Edges{
 
   rpc GetFaces(ansys.api.dbu.v0.EntityIdentifier) returns(GetFacesResponse);
 
+  rpc GetVertices(GetVerticesRequest) returns(GetVerticesResponse);
+
   rpc GetLength(ansys.api.dbu.v0.EntityIdentifier) returns(GetLengthResponse);
 
   rpc IsDeleted(ansys.api.dbu.v0.EntityIdentifier) returns(IsDeletedResponse);
@@ -51,6 +53,14 @@ message GetAllResponse{
 
 message GetFacesResponse{
   repeated Face faces=1;
+}
+
+message GetVerticesRequest{
+  ansys.api.dbu.v0.EntityIdentifier edge=1;
+}
+
+message GetVerticesResponse{
+  repeated Vertex vertices=1;
 }
 
 message IsDeletedResponse{
