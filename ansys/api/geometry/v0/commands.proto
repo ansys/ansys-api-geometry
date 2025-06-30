@@ -196,6 +196,35 @@ service Commands{
   rpc GetTrackerChanges(GetTrackerChangesRequest) returns (GetTrackerChangesResponse);
 
   rpc DisposeTracker(DisposeTrackerRequest) returns (DisposeTrackerResponse);
+
+  rpc CreateAlignCondition(CreateAlignTangentOrientGearConditionRequest) returns (AlignCondition);
+
+  rpc CreateTangentCondition(CreateAlignTangentOrientGearConditionRequest) returns (TangentCondition);
+
+  rpc CreateOrientCondition(CreateAlignTangentOrientGearConditionRequest) returns (OrientCondition);
+
+  rpc CreateRigidCondition(CreateRigidConditionRequest) returns (RigidCondition);
+
+  rpc CreateAnchorCondition(CreateAnchorConditionRequest) returns (AnchorCondition);
+
+  rpc CreateGearCondition(CreateAlignTangentOrientGearConditionRequest) returns (GearCondition);
+}
+
+message CreateAnchorConditionRequest {
+  ansys.api.dbu.v0.EntityIdentifier parent = 1;
+  ansys.api.dbu.v0.EntityIdentifier component = 2;
+}
+
+message CreateRigidConditionRequest {
+  ansys.api.dbu.v0.EntityIdentifier parent = 1;
+  ansys.api.dbu.v0.EntityIdentifier component_a = 2;
+  ansys.api.dbu.v0.EntityIdentifier component_b = 3;
+}
+
+message CreateAlignTangentOrientGearConditionRequest {
+  ansys.api.dbu.v0.EntityIdentifier parent = 1;
+  ansys.api.dbu.v0.EntityIdentifier geometric_a = 2;
+  ansys.api.dbu.v0.EntityIdentifier geometric_b = 3;
 }
 
 message CreatePlaneRequest {
