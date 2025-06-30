@@ -853,3 +853,49 @@ message SetObjectNameRequest{
   ansys.api.dbu.v0.EntityIdentifier id = 1;
   string name = 2;
 }
+
+message MatingCondition {
+  string moniker = 1;
+  bool is_deleted = 2;
+  bool is_enabled = 3;
+  bool is_satisfied = 4;
+}
+
+message AlignCondition {
+  MatingCondition condition = 1;
+  double offset = 2;
+  bool is_reversed = 3;
+  bool is_valid = 4;
+}
+
+message TangentCondition {
+  MatingCondition condition = 1;
+  double offset = 2;
+  bool is_reversed = 3;
+  bool is_valid = 4;
+}
+
+message OrientCondition {
+  MatingCondition condition = 1;
+  double offset = 2;
+  bool is_reversed = 3;
+  bool is_valid = 4;
+}
+
+message RigidCondition {
+  MatingCondition condition = 1;
+  Component component_a = 2;
+  Component component_b = 3;
+}
+
+message AnchorCondition {
+  MatingCondition condition = 1;
+  Component component = 2;
+}
+
+message GearCondition {
+  MatingCondition condition = 1;
+  bool is_belt = 2;
+  bool is_reversed = 3;
+  bool is_valid = 4;
+}
