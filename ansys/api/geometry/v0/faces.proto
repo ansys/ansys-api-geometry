@@ -43,6 +43,8 @@ service Faces{
   rpc GetColor(ansys.api.dbu.v0.EntityIdentifier) returns (GetColorResponse);
 
   rpc SetColor(SetColorRequest) returns (SetColorResponse);
+
+  rpc GetVertices(GetVerticesRequest) returns (GetVerticesResponse);
 }
 
 message CreateIsoParamCurvesRequest {
@@ -132,4 +134,12 @@ message SetColorRequest {
 
 message SetColorResponse {
   bool success = 1;
+}
+
+message GetVerticesRequest {
+  ansys.api.dbu.v0.EntityIdentifier face_id = 1;
+}
+
+message GetVerticesResponse {
+  repeated Vertex vertices = 1;
 }
