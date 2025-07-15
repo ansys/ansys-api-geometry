@@ -448,6 +448,7 @@ message Geometries {
   repeated Circle circles = 4;
   repeated Ellipse ellipses = 5;
   repeated Polygon polygons = 6;
+  repeated NurbsCurve nurbs_curves = 7;
 }
 
 message Loop {
