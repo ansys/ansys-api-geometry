@@ -900,3 +900,32 @@ message GearCondition {
   bool is_reversed = 3;
   bool is_valid = 4;
 }
+
+message RayFireImpact{
+  ansys.api.dbu.v0.EntityIdentifier body = 1;
+  Point point = 2;
+}
+
+message RayFireImpacts{
+  repeated RayFireImpact impacts = 1;
+}
+
+message RayFireFaceImpact{
+  ansys.api.dbu.v0.EntityIdentifier face = 1;
+  Point point = 2;
+}
+
+message RayFireFaceImpacts{
+  repeated RayFireFaceImpact impacts = 1;
+}
+
+message RayFireUVImpact{
+  ansys.api.dbu.v0.EntityIdentifier body = 1;
+  Point point = 2;
+  optional double u = 3;
+  optional double v = 4;
+}
+
+message RayFireUVImpacts{
+  repeated RayFireUVImpact impacts = 1;
+}
