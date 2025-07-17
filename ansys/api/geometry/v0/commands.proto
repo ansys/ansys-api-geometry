@@ -208,6 +208,14 @@ service Commands{
   rpc CreateAnchorCondition(CreateAnchorConditionRequest) returns (AnchorCondition);
 
   rpc CreateGearCondition(CreateAlignTangentOrientGearConditionRequest) returns (GearCondition);
+
+  rpc RayFire(RayFireRequest) returns (RayFireResponse);
+
+  rpc RayFireOrdered(RayFireOrderedRequest) returns (RayFireOrderedResponse);
+
+  rpc RayFireFaces(RayFireFacesRequest) returns (RayFireFacesResponse);
+
+  rpc RayFireOrderedUV(RayFireOrderedUVRequest) returns (RayFireOrderedUVResponse);
 }
 
 message CreateAnchorConditionRequest {
@@ -948,4 +956,99 @@ message DisposeTrackerRequest{
 
 message DisposeTrackerResponse{
   bool success = 1;
+}
+
+message RayFireRequestData{
+  ansys.api.dbu.v0.EntityIdentifier body = 1;
+  repeated ansys.api.dbu.v0.EntityIdentifier faces = 2;
+  Direction direction = 3;
+  repeated Point points = 4;
+  double max_distance = 5;
+}
+
+message RayFireRequest{
+  repeated RayFireRequestData request_data = 1;
+}
+
+message RayFireResponseData{
+  RayFireImpacts single_ray_fire_impacts = 1;
+}
+
+message RayFireResponse{
+  repeated RayFireResponseData response_data = 1;
+}
+
+message RayFireOrderedRequestData{
+  ansys.api.dbu.v0.EntityIdentifier body = 1;
+  repeated ansys.api.dbu.v0.EntityIdentifier faces = 2;
+  Direction direction = 3;
+  double ray_radius = 4;
+  repeated Point points = 5;
+  double max_distance = 6;
+  bool tight_tolerance = 7;
+}
+
+message RayFireOrderedRequest{
+  repeated RayFireOrderedRequestData request_data = 1;
+}
+
+message RayFireOrderedResponseData{
+  repeated RayFireImpacts ordered_ray_fire_impacts = 1;
+}
+
+message RayFireOrderedResponse{
+  repeated RayFireOrderedResponseData response_data = 1;
+}
+
+message RayFireFacesRequestData{
+  ansys.api.dbu.v0.EntityIdentifier body = 1;
+  repeated ansys.api.dbu.v0.EntityIdentifier faces = 2;
+  repeated Point points = 3;
+  RayFireAddtionalOptions options = 4;
+}
+
+message RayFireFacesRequest{
+  repeated RayFireFacesRequestData request_data = 1;
+}
+
+message RayFireFacesResponseData{
+  repeated RayFireFaceImpacts faces_ray_fire_impacts=1;
+}
+
+message RayFireFacesResponse{
+  repeated RayFireFacesResponseData response_data = 1;
+}
+
+message RayFireAddtionalOptions{
+  double radius = 1;
+  Direction direction = 2;
+  double max_distance = 3;
+  double min_distance = 4;
+  bool tight_tolerance = 5;
+  bool pick_back_faces = 6;
+  int32 max_hits = 7;
+  bool request_params = 8;
+  bool request_secondary = 9;
+}
+
+message RayFireOrderedUVRequestData{
+  ansys.api.dbu.v0.EntityIdentifier body = 1;
+  repeated ansys.api.dbu.v0.EntityIdentifier faces = 2;
+  Direction direction = 3;
+  double ray_radius = 4;
+  repeated Point points = 5;
+  double max_distance = 6;
+  bool tight_tolerance = 7;
+}
+
+message RayFireOrderedUVRequest{
+  repeated RayFireOrderedUVRequestData request_data = 1;
+}
+
+message RayFireOrderedUVResponseData{
+  repeated RayFireUVImpacts ordered_ray_fire_impacts = 1;
+}
+
+message RayFireOrderedUVResponse{
+  repeated RayFireOrderedUVResponseData response_data = 1;
 }
