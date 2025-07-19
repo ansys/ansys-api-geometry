@@ -25,7 +25,7 @@ service Components{
 
   rpc GetName(ansys.api.dbu.v0.EntityIdentifier) returns (GetComponentNameResponse);
 
-  rpc SetName(SetObjectNameRequest) returns (ansys.api.dbu.v0.RequestResult);
+  rpc SetName(SetObjectsNameRequest) returns (ansys.api.dbu.v0.RequestResult);
 	
   rpc GetUpdateState(ansys.api.dbu.v0.EntityIdentifier) returns (UpdateState);
 	
