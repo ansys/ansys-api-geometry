@@ -34,6 +34,26 @@ service Components{
   rpc GetBeamBodies(ansys.api.dbu.v0.EntityIdentifier) returns (GetBeamBodiesResponse);
 
   rpc GetPart(ansys.api.dbu.v0.EntityIdentifier) returns (Part);
+
+  rpc MakeIndependent(MakeIndependentRequest) returns (MakeIndependentResponse);
+
+  rpc ImportGroups(ImportGroupsRequest) returns (ImportGroupsResponse);
+}
+
+message MakeIndependentResponse {
+
+}
+
+message ImportGroupsResponse {
+
+}
+
+message ImportGroupsRequest {
+  ansys.api.dbu.v0.EntityIdentifier id = 1;
+}
+
+message MakeIndependentRequest {
+  repeated ansys.api.dbu.v0.EntityIdentifier ids = 1;
 }
 
 message GetBeamBodiesResponse {
