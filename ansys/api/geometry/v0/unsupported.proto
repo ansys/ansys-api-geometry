@@ -17,6 +17,8 @@ service Unsupported {
   
   rpc SetExportId(ExportIdRequest) returns (ansys.api.dbu.v0.RequestResult);
 
+  rpc SetExportIds(SetExportIdsRequest) returns (ansys.api.dbu.v0.RequestResult);
+
   rpc GetFacetedBodies(GetFacetedBodiesRequest) returns(GetFacetedBodiesResponse);
   rpc GetFacetedBodiesStream(GetFacetedBodiesRequest) returns(stream GetFacetedBodiesResponse);
 }
@@ -37,6 +39,10 @@ message ExportIdRequest{
   ansys.api.dbu.v0.EntityIdentifier moniker = 1;
   string id = 2;
   ansys.api.dbu.v0.PersistentIdType type = 3;
+}
+
+message SetExportIdsRequest{
+  repeated ExportIdRequest export_data = 1;
 }
 
 message GetFacetedBodiesRequest
