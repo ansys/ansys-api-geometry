@@ -24,6 +24,8 @@ service Bodies
 
   rpc SetAssignedMaterial(SetAssignedMaterialRequest) returns(SetAssignedMaterialResponse);
 
+  rpc RemoveAssignedMaterial(RemoveAssignedMaterialRequest) returns (RemoveAssignedMaterialResponse);  
+
   rpc Translate(TranslateRequest) returns(google.protobuf.Empty);
 
   rpc GetFaces(ansys.api.dbu.v0.EntityIdentifier) returns (GetFacesResponse);
@@ -216,6 +218,14 @@ message SetAssignedMaterialRequest{
 
 message SetAssignedMaterialResponse{
   Material material=1;
+}
+
+message RemoveAssignedMaterialRequest{
+  repeated ansys.api.dbu.v0.EntityIdentifier ids=1;
+}
+
+message RemoveAssignedMaterialResponse{
+  repeated ansys.api.dbu.v0.EntityIdentifier successfully_removed=1;
 }
 
 message TranslateRequest{
