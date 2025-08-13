@@ -12,6 +12,8 @@ service Materials{
   rpc GetAllNames(google.protobuf.Empty) returns(GetAllNamesResponse);
 
   rpc AddToDocument(AddToDocumentRequest) returns (google.protobuf.Empty);
+
+  rpc RemoveFromDocument(RemoveFromDocumentRequest) returns (RemoveFromDocumentResponse);
 }
 
 message AddToDocumentRequest {
@@ -20,4 +22,12 @@ message AddToDocumentRequest {
 
 message GetAllNamesResponse{
   repeated string materials=1;
+}
+
+message RemoveFromDocumentRequest {
+  repeated Material request_data=1;
+}
+
+message RemoveFromDocumentResponse {
+  repeated string successfully_removed = 1;
 }
