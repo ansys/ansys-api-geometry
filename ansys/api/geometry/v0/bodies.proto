@@ -184,6 +184,7 @@ message BooleanRequest {
   string body2 = 2;// DEPRECATED in v1
   string method = 3;
   repeated string tool_bodies = 4;
+  optional bool keep_other = 5;
 }
 
 message BooleanResponse {
