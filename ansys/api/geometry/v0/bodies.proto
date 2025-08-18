@@ -48,6 +48,8 @@ service Bodies
 
   rpc CreateSweepingChain(CreateSweepingChainRequest) returns (Body);
 
+  rpc SweepWithGuide(SweepWithGuideRequest) returns (SweepWithGuideResponse);
+
   rpc GetVolume(ansys.api.dbu.v0.EntityIdentifier) returns(GetVolumeResponse);
 
   rpc GetTessellation(ansys.api.dbu.v0.EntityIdentifier) returns(GetTessellationResponse);
@@ -273,6 +275,24 @@ message CreateSweepingChainRequest{
   string parent=2;
   repeated TrimmedCurve chain = 3;
   repeated TrimmedCurve path = 4;
+}
+
+message SweepWithGuideRequestData {
+  string name=1;
+  ansys.api.dbu.v0.EntityIdentifier parent=2;
+  Plane plane=3;
+  Geometries geometries=4;
+  TrimmedCurve path=5;
+  TrimmedCurve guide=6;
+  bool tight_tolerance=7;
+}
+
+message SweepWithGuideRequest {
+  repeated SweepWithGuideRequestData request_data=1;
+}
+
+message SweepWithGuideResponse {
+  repeated Body bodies=1;
 }
 
 message CreatePlanarBodyRequest {
