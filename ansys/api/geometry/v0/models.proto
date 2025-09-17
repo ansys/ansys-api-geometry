@@ -813,6 +813,12 @@ message FindLogoOptions {
   optional double fit_error = 4;
 }
 
+message DetectHelixesOptions {
+  optional double min_radius = 1;
+  optional double max_radius = 2;
+  optional double fit_radius_error = 3;
+}
+
 message TrackerCommandResponse{
   bool success = 1;
   repeated Body created_bodies = 2;
