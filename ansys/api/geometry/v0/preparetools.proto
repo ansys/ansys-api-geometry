@@ -36,6 +36,8 @@ service PrepareTools{
   rpc FindAndRemoveLogos(FindLogosRequest) returns (RemoveLogoResponse);
 
   rpc RemoveLogo(RemoveLogoRequest) returns (RemoveLogoResponse);
+
+  rpc DetectHelixes(DetectHelixesRequest) returns (DetectHelixesResponse);
 }
 
 message CreateEnclosureBoxRequest{
@@ -161,4 +163,18 @@ message RemoveLogoRequest{
 
 message RemoveLogoResponse {
   bool success = 1;
+}
+
+message DetectHelixesRequest {
+  repeated dbu.v0.EntityIdentifier body_ids = 1;
+  optional DetectHelixesOptions options = 2;
+}
+
+message DetectHelixesResponseData {
+  TrimmedCurve trimmed_curve = 1;
+  repeated Edge edges = 2;
+}
+
+message DetectHelixesResponse {
+  repeated DetectHelixesResponseData helixes = 1;
 }
