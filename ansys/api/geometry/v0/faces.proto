@@ -45,6 +45,8 @@ service Faces{
   rpc SetColor(SetColorRequest) returns (SetColorResponse);
 
   rpc GetVertices(GetVerticesRequest) returns (GetVerticesResponse);
+
+  rpc OffsetFaces(OffsetFacesRequest) returns (OffsetFacesResponse);
 }
 
 message CreateIsoParamCurvesRequest {
@@ -142,4 +144,23 @@ message GetVerticesRequest {
 
 message GetVerticesResponse {
   repeated Vertex vertices = 1;
+}
+
+message OffsetFacesRequestData {
+  repeated ansys.api.dbu.v0.EntityIdentifier faces = 1;
+  double offset = 2;
+  Direction direction = 3;
+  ExtrudeType extrude_type = 4;
+}
+
+message OffsetFacesRequest {
+  repeated OffsetFacesRequestData request_data = 1;
+}
+
+message OffsetFacesResponseData {
+  repeated Face new_faces = 1;
+}
+
+message OffsetFacesResponse {
+  repeated OffsetFacesResponseData response_data = 1;
 }
