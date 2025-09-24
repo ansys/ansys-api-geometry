@@ -31,6 +31,8 @@ service Bodies
   rpc GetFaces(ansys.api.dbu.v0.EntityIdentifier) returns (GetFacesResponse);
   
   rpc CreateBodyFromFace(CreateBodyFromFaceRequest) returns (Body);
+
+  rpc CreateBodyFromLoftWithGuides(CreateBodyFromLoftWithGuidesRequest) returns (CreateBodyFromLoftWithGuidesResponse);
   
   rpc CreateExtrudedBodyFromFaceProfile(CreateExtrudedBodyFromFaceProfileRequest) returns (Body);
 
@@ -400,4 +402,19 @@ message ExportAndDownloadBodyRequest{
 
 message ExportAndDownloadBodyResponse{
   bytes data=1;
+}
+
+message CreateBodyFromLoftWithGuidesRequestData {
+  string name = 1;
+  ansys.api.dbu.v0.EntityIdentifier parent = 2;
+  repeated TrimmedCurveList profiles = 3;
+  TrimmedCurveList guides = 6;
+}
+
+message CreateBodyFromLoftWithGuidesRequest {
+  repeated CreateBodyFromLoftWithGuidesRequestData request_data = 1;
+}
+
+message CreateBodyFromLoftWithGuidesResponse {
+  repeated Body created_bodies = 1;
 }
