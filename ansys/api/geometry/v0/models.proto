@@ -624,6 +624,7 @@ message Surface {
   double minor_radius = 5;
   Direction reference = 6;
   Direction axis = 7;
+  NurbsSurface nurbs_surface = 8;
 }
 
 message TrimmedSurface {
@@ -652,6 +653,15 @@ message NurbsData{
   bool is_periodic = 3;
   repeated Knot knots = 4;
   int32 order = 5;
+}
+
+message NurbsSurface {
+  repeated ControlPoint control_points = 1;
+  NurbsData nurbs_data_u = 2;
+  NurbsData nurbs_data_v = 3;
+  bool is_rational = 4;
+  Parameterization parameterization_u = 5;
+  Parameterization parameterization_v = 6;
 }
 
 message Knot{
