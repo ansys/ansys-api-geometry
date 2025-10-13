@@ -510,6 +510,10 @@ message Tessellation {
   int32 facecolor = 3;
 }
 
+message EdgeTessellation {
+  repeated Point vertices = 1;
+}
+
 //
 // The type of segment.
 enum SegmentType {
