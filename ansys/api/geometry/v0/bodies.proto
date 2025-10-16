@@ -113,6 +113,8 @@ service Bodies
   rpc GetTessellationWithOptions(GetTessellationRequest) returns(GetTessellationResponse);
 
   rpc ExportAndDownloadBody(ExportAndDownloadBodyRequest) returns (ExportAndDownloadBodyResponse);
+
+  rpc GetFullTessellation(GetFullTessellationRequest) returns (GetFullTessellationResponse);
 }
 
 message CreateSurfaceBodyFromTrimmedCurvesRequest {
@@ -324,7 +326,8 @@ message GetVolumeResponse {
 }
 
 message GetTessellationResponse{
-  map<string, Tessellation> face_tessellation=1;
+  map<string, Tessellation> face_tessellation = 1;
+  map<string, EdgeTessellation> edge_tessellation = 2;
 }
 
 message GetEdgesResponse {
@@ -391,8 +394,10 @@ message GetClosestSeparationRequest {
 }
 
 message GetTessellationRequest{
-  ansys.api.dbu.v0.EntityIdentifier id=1;
-  TessellationOptions options =2;
+  ansys.api.dbu.v0.EntityIdentifier id = 1;
+  TessellationOptions options = 2;
+  bool include_faces = 3;
+  bool include_edges = 4;
 }
 
 message ExportAndDownloadBodyRequest{
@@ -417,4 +422,25 @@ message CreateBodyFromLoftWithGuidesRequest {
 
 message CreateBodyFromLoftWithGuidesResponse {
   repeated Body created_bodies = 1;
+}
+
+message GetFullTessellationRequestData {
+  ansys.api.dbu.v0.EntityIdentifier id = 1;
+  TessellationOptions options = 2;
+  bool include_faces = 3;
+  bool include_edges = 4;
+}
+
+message GetFullTessellationRequest {
+  repeated GetFullTessellationRequestData request_data = 1;
+}
+
+message GetFullTessellationResponseData {
+  ansys.api.dbu.v0.EntityIdentifier id = 1;
+  map<string, EdgeTessellation> edge_tessellation = 2;
+  map<string, Tessellation> face_tessellation = 3;
+}
+
+message GetFullTessellationResponse {
+  repeated GetFullTessellationResponseData response_data = 1;
 }
