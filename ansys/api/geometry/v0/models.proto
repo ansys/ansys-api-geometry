@@ -847,6 +847,9 @@ message TrackerCommandResponse{
   repeated ansys.api.dbu.v0.EntityIdentifier created_components = 11;
   repeated ansys.api.dbu.v0.EntityIdentifier modified_components = 12;
   repeated ansys.api.dbu.v0.EntityIdentifier deleted_components = 13;
+  repeated Part created_parts = 14;
+  repeated Part modified_parts = 15;
+  repeated ansys.api.dbu.v0.EntityIdentifier deleted_parts = 16;
 }
 
 //
