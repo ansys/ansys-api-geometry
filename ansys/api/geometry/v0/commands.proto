@@ -311,6 +311,7 @@ message CreateCircularPatternRequest {
   double linear_pitch = 6;
   bool two_dimensional = 7;
   Direction radial_direction = 8;
+  Line axis = 9;
 }
 
 message CreateFillPatternRequest {
