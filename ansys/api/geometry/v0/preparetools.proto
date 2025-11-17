@@ -30,6 +30,10 @@ service PrepareTools{
   rpc EnhancedShareTopology(ShareTopologyRequest) returns (EnhancedRepairToolMessage);
 
   rpc CreateEnclosureBox(CreateEnclosureBoxRequest) returns (CreateEnclosureResponse);
+
+  rpc CreateEnclosureSphere(CreateEnclosureSphereRequest) returns (CreateEnclosureResponse);
+
+  rpc CreateEnclosureCylinder(CreateEnclosureCylinderRequest) returns (CreateEnclosureResponse);
   
   rpc FindLogos(FindLogosRequest) returns (FindLogosResponse);
 
@@ -40,6 +44,13 @@ service PrepareTools{
   rpc DetectHelixes(DetectHelixesRequest) returns (DetectHelixesResponse);
 }
 
+message EnclosureOptions{
+  bool create_shared_topology = 1;
+  bool subtract_bodies = 2;
+  optional Frame frame = 3;
+  optional double cushion_proportion = 4;
+}
+
 message CreateEnclosureBoxRequest{
   repeated ansys.api.geometry.v0.Body bodies = 1;
   double x_low = 2;
@@ -48,6 +59,21 @@ message CreateEnclosureBoxRequest{
   double y_high = 5;
   double z_low = 6;
   double z_high = 7;
+  EnclosureOptions enclosure_options = 8;
+}
+
+message CreateEnclosureCylinderRequest{
+  repeated ansys.api.geometry.v0.Body bodies = 1;
+  double axial_distance_low = 2;
+  double axial_distance_high = 3;
+  double radial_distance = 4;
+  EnclosureOptions enclosure_options = 5;
+}
+
+message CreateEnclosureSphereRequest{
+  repeated ansys.api.geometry.v0.Body bodies = 1;
+  double radial_distance = 2;
+  EnclosureOptions enclosure_options = 3;
 }
 
 message CreateEnclosureResponse{
