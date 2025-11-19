@@ -848,6 +848,7 @@ message GetAssemblyResponse {
   map <string, CoordinateSystemList> component_coord_systems=7;
   map <string, int32> component_shared_topologies=8;
   repeated Beam beams=9;
+  repeated Curve design_points=10;
 }
 
 message MoveTranslateRequest{

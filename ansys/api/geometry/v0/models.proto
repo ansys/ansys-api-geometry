@@ -68,6 +68,7 @@ message Curve{
   string owner_name = 2;
   double length = 3;
   repeated Point points = 4;
+  ansys.api.dbu.v0.EntityIdentifier parent_id = 5;
 }
 
 message CurveGeometry {
