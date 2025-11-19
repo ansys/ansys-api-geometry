@@ -21,6 +21,8 @@ service NamedSelections{
   rpc Delete(ansys.api.dbu.v0.EntityIdentifier) returns(google.protobuf.Empty);
 
   rpc DeleteByName(DeleteByNameRequest) returns(google.protobuf.Empty);
+
+  rpc SetName(SetNameRequest) returns (SetNameResponse);
 }
 
 message CreateRequest{
@@ -35,4 +37,12 @@ message GetAllResponse{
 
 message DeleteByNameRequest{
   string name = 1;
+}
+
+message SetNameRequest{
+  ansys.api.dbu.v0.EntityIdentifier id = 1;
+  string new_name = 2;
+}
+
+message SetNameResponse{
 }
