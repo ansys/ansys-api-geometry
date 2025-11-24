@@ -42,6 +42,8 @@ service PrepareTools{
   rpc RemoveLogo(RemoveLogoRequest) returns (RemoveLogoResponse);
 
   rpc DetectHelixes(DetectHelixesRequest) returns (DetectHelixesResponse);
+
+  rpc DetectSweepableBodies(DetectSweepableBodiesRequest) returns (DetectSweepableBodiesResponse);
 }
 
 message EnclosureOptions{
@@ -203,4 +205,18 @@ message DetectHelixesResponseData {
 
 message DetectHelixesResponse {
   repeated DetectHelixesResponseData helixes = 1;
+}
+
+message DetectSweepableBodiesRequest {
+  repeated dbu.v0.EntityIdentifier bodies = 1;
+  bool get_source_target_faces = 2;
+}
+
+message DetectSweepableBodiesResponseData {
+  bool result = 1;
+  repeated dbu.v0.EntityIdentifier face_ids = 2;
+}
+
+message DetectSweepableBodiesResponse {
+  repeated DetectSweepableBodiesResponseData response_data = 1;
 }
