@@ -216,6 +216,28 @@ service Commands{
   rpc RayFireFaces(RayFireFacesRequest) returns (RayFireFacesResponse);
 
   rpc RayFireOrderedUV(RayFireOrderedUVRequest) returns (RayFireOrderedUVResponse);
+
+  rpc IntersectCurveAndSurface(IntersectCurveAndSurfaceRequest) returns (IntersectCurveAndSurfaceResponse);
+}
+
+message IntersectCurveAndSurfaceResponseData {
+  repeated Point points = 1;
+  bool intersect = 2;
+}
+
+message IntersectCurveAndSurfaceResponse {
+  repeated IntersectCurveAndSurfaceResponseData response_data = 1;
+  CommandResponse command_response = 2;
+}
+
+message IntersectCurveAndSurfaceRequestData {
+  CurveGeometry curve = 1;
+  Surface surface = 2;
+  SurfaceType surface_type = 3;
+}
+
+message IntersectCurveAndSurfaceRequest {
+  repeated IntersectCurveAndSurfaceRequestData request_data = 1;
 }
 
 message CreateAnchorConditionRequest {
