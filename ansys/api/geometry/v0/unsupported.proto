@@ -20,7 +20,10 @@ service Unsupported {
   rpc SetExportIds(SetExportIdsRequest) returns (ansys.api.dbu.v0.RequestResult);
 
   rpc GetFacetedBodies(GetFacetedBodiesRequest) returns(GetFacetedBodiesResponse);
+
   rpc GetFacetedBodiesStream(GetFacetedBodiesRequest) returns(stream GetFacetedBodiesResponse);
+
+  rpc CreateFacetedBodies(CreateFacetedBodiesRequest) returns (CreateFacetedBodiesResponse);
 }
 
 message SoundEnabledRequest {
@@ -52,4 +55,12 @@ message GetFacetedBodiesRequest
 
 message GetFacetedBodiesResponse{
   map<string, Tessellation> faceted_bodies=1;
+}
+
+message CreateFacetedBodiesRequest{
+  map<string, Tessellation> tessellation_data=1;
+}
+
+message CreateFacetedBodiesResponse{
+  repeated ansys.api.dbu.v0.EntityIdentifier created_bodies=1;
 }
